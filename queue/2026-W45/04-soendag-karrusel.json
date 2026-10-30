@@ -1,0 +1,77 @@
+{
+  "id": "2026-W45-soendag-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-08T19:00:00+01:00",
+  "facts": [
+    "2 minutter"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Du behøver ikke have svaret endnu."
+      ],
+      "sub": [
+        "Men du kan godt blive lidt klogere."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Mange er i tvivl om uddannelse."
+      ],
+      "sub": [
+        "De færreste siger det højt."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Tvivl er ikke et tegn på, at du er bagud."
+      ],
+      "sub": [
+        "Det er ofte et tegn på, at du tager valget [[alvorligt]]."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Men tvivl uden [[retning]] ender ofte i tilfældige valg."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Derfor har jeg lavet en gratis mini-test."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Den tager 2 minutter."
+      ],
+      "sub": [
+        "Og resultatet er gratis."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Det er ikke et facit."
+      ],
+      "sub": [
+        "Det er et [[sted at starte]]."
+      ]
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis mini-test."
+      ],
+      "sub": [
+        "Link i bio"
+      ]
+    }
+  ],
+  "caption": "Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse.\n\nMange går rundt med spørgsmålet alene.\nTvivl uden retning ender ofte i tilfældige valg, fordi det føles som det næste, man gør.\n\nTesten giver dig ikke et facit, men et sted at starte.\n\nTag den via link i bio 🔗\n\n#studievalg #uddannelsesvalg #ikigai"
+}

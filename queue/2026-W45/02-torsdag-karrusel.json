@@ -1,0 +1,77 @@
+{
+  "id": "2026-W45-torsdag-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-05T19:00:00+01:00",
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Hvad skal jeg blive?",
+        "Det er et dårligt spørgsmål."
+      ],
+      "sub": [
+        "Spørg i stedet om det her."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "En titel er et navn.",
+        "Ikke en [[hverdag]]."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Mange vælger uddannelse ud fra, hvad jobbet hedder."
+      ],
+      "sub": [
+        "Færre spørger, hvad man laver hele dagen."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Spørg i stedet:",
+        "Hvordan ser en helt almindelig [[tirsdag]] ud?"
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Er du sammen med andre det meste af dagen?"
+      ],
+      "sub": [
+        "Eller mest for dig selv?"
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Er det nyt hver uge?"
+      ],
+      "sub": [
+        "Eller de samme opgaver, som du bliver rigtig god til?"
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du kan godt lide en titel og alligevel hade [[hverdagen]]."
+      ],
+      "sub": [
+        "Det er dér, mange går galt."
+      ]
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis mini-test."
+      ],
+      "sub": [
+        "Link i bio"
+      ]
+    }
+  ],
+  "caption": "Du ved, hvad jobbet hedder. Men ved du, hvad man laver en helt almindelig tirsdag?\n\nMange vælger uddannelse ud fra titlen. Færre spørger, hvordan hverdagen ser ud.\n\nPrøv at stille dig selv spørgsmålene fra opslaget, næste gang du er i tvivl om en uddannelse.\n\nTag den gratis mini-test via link i bio 🔗\n\n#studievalg #uddannelsesvalg #karrierevalg"
+}

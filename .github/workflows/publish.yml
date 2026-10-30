@@ -1,0 +1,41 @@
+name: Instagram autopilot
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Udgiv forfaldne opslag
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_API_VERSION: v23.0
+        run: python3 pipeline/publish.py
+
+      - name: Gem status
+        if: always()
+        run: |
+          git config user.name "ikiguiden-autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git add state/published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Opdater udgivelsesstatus"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push
+          fi
