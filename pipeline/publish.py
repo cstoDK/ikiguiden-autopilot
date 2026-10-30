@@ -45,9 +45,10 @@ def log(msg):
 # ---------- Instagram API ----------
 
 class Api:
-    def __init__(self, base, version, token):
+    def __init__(self, base, version, token, ig_user_id=None):
         self.base = f"{base.rstrip('/')}/{version}"
         self.token = token
+        self.ig_user_id = ig_user_id
         self._uid = None
         self.username = None
 
@@ -92,8 +93,14 @@ class Api:
 
     def user_id(self):
         if not self._uid:
-            me = self.get("me", fields="user_id,username")
-            self._uid = str(me.get("user_id") or me.get("id") or "")
+            if self.ig_user_id:
+                # Facebook-nøgle (Unified/Business login): spørg direkte på Instagram-kontoen.
+                me = self.get(self.ig_user_id, fields="id,username")
+                self._uid = str(me.get("id") or "")
+            else:
+                # Instagram-nøgle: /me er selve Instagram-kontoen.
+                me = self.get("me", fields="user_id,username")
+                self._uid = str(me.get("user_id") or me.get("id") or "")
             self.username = me.get("username")
             if not self._uid:
                 raise ApiError("Instagram returnerede intet konto-id.")
@@ -262,7 +269,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="vis hvad der ville ske, uden at udgive")
     ap.add_argument("--now", help="ISO-tidspunkt at regne fra (til test)")
     ap.add_argument("--only", help="udgiv kun dette opslag-id")
-    ap.add_argument("--api-base", default="https://graph.instagram.com")
+    ap.add_argument("--api-base", help="standard: graph.instagram.com for Instagram-nøgler, graph.facebook.com for Facebook-nøgler")
     ap.add_argument("--api-version", default=os.environ.get("IG_API_VERSION", "v23.0"))
     ap.add_argument("--public-base", help="fast base-adresse til medier (til test)")
     ap.add_argument("--max-late-hours", type=float, default=18.0)
@@ -318,10 +325,17 @@ def main():
         log("IG_ACCESS_TOKEN er ikke sat. Autopiloten er ikke tændt endnu.")
         return 0
 
-    api = DryApi() if args.dry_run else Api(args.api_base, args.api_version, token)
+    cfg = common.read_json(common.ROOT / "config.json")
+    expected_id = str(cfg.get("instagram_user_id", "")).strip()
+    fb_token = token.startswith("EAA")
+    base = args.api_base or ("https://graph.facebook.com" if fb_token else "https://graph.instagram.com")
+    if not args.dry_run and fb_token and not expected_id:
+        log("KONTOSPÆRRE: Facebook-nøgle kræver instagram_user_id i config.json. Intet udgivet.")
+        return 1
+    api = DryApi() if args.dry_run else Api(base, args.api_version, token, expected_id if fb_token else None)
     if not args.dry_run:
         # Kontospærre: der udgives KUN på den konto, der står i config.json. Aldrig på en privat profil.
-        expected = str(common.read_json(common.ROOT / "config.json").get("instagram_username", "")).lower().lstrip("@")
+        expected = str(cfg.get("instagram_username", "")).lower().lstrip("@")
         try:
             api.user_id()
         except ApiError as e:
@@ -330,7 +344,8 @@ def main():
             log(f"Kunne ikke slå kontoen op, udgiver intet: {e}")
             return 1
         actual = str(api.username or "").lower().lstrip("@")
-        if not expected or actual != expected or actual in FORBIDDEN_ACCOUNTS:
+        id_ok = not expected_id or api.user_id() == expected_id
+        if not expected or actual != expected or actual in FORBIDDEN_ACCOUNTS or not id_ok:
             log(f"KONTOSPÆRRE: nøglen hører til @{actual or '?'}, men autopiloten må kun udgive på @{expected or '?'}. Intet udgivet.")
             return 1
     errors = 0

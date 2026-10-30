@@ -11,6 +11,8 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 GOOD_TOKEN = "TESTTOKEN"
+FB_TOKEN = "EAATESTTOKEN"
+IG_ID = "17841439605652106"
 CTYPES = {".jpg": "image/jpeg", ".mp4": "video/mp4"}
 
 
@@ -31,6 +33,7 @@ class Mock:
         self.published = set()
         self.polls = {}
         self.username = "ikigaiguiden"
+        self.uid = IG_ID
 
     @property
     def base(self):
@@ -60,7 +63,7 @@ class Mock:
                 self._send(http, {"error": {"message": msg, "code": code}})
 
             def _auth(self, params):
-                if params.get("access_token") != GOOD_TOKEN:
+                if params.get("access_token") not in (GOOD_TOKEN, FB_TOKEN):
                     self._err("Error validating access token: Session has expired", 190, 401)
                     return False
                 return True
@@ -84,10 +87,16 @@ class Mock:
                     return
                 parts = u.path.strip("/").split("/")[1:]
                 mock.calls.append({"method": "GET", "path": "/".join(parts), "params": {k: v for k, v in params.items() if k != "access_token"}})
-                if parts == ["me"]:
-                    return self._send(200, {"user_id": "1789", "username": mock.username})
-                cid = parts[0]
                 fields = params.get("fields", "")
+                if parts == ["me"]:
+                    if params.get("access_token") == FB_TOKEN:
+                        return self._send(200, {"id": "systemuser1", "name": "System User"})
+                    return self._send(200, {"user_id": mock.uid, "username": mock.username})
+                cid = parts[0]
+                if "username" in fields:
+                    if cid != mock.uid:
+                        return self._err("Ukendt objekt", 100)
+                    return self._send(200, {"id": mock.uid, "username": mock.username})
                 if "permalink" in fields:
                     return self._send(200, {"permalink": f"https://www.instagram.com/p/{cid}/"})
                 mock.polls[cid] = mock.polls.get(cid, 0) + 1

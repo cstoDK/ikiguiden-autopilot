@@ -17,6 +17,9 @@ token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
 if not token:
     print("Ingen nøgle at forny. Autopiloten er ikke tændt endnu.")
     sys.exit(0)
+if token.startswith("EAA"):
+    print("Systembruger-nøgle fra Meta Business: den udløber ikke og skal ikke fornyes.")
+    sys.exit(0)
 
 url = "https://graph.instagram.com/refresh_access_token?" + urllib.parse.urlencode(
     {"grant_type": "ig_refresh_token", "access_token": token})

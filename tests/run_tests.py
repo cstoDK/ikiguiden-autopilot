@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REPO / "pipeline"))
-from mock_graph import GOOD_TOKEN, Mock  # noqa: E402
+from mock_graph import FB_TOKEN, GOOD_TOKEN, Mock  # noqa: E402
 import lint  # noqa: E402
 
 mock = Mock()
@@ -187,7 +187,20 @@ d = fresh()
 rc, out = run(d, TUE)
 check("nægter", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/media"), out)
 
-print("\n16. Kvalitetsporten fanger dårligt indhold")
+print("\n16. Facebook-nøgle (Unified login) udgiver på den låste konto")
+d = fresh()
+rc, out = run(d, TUE, token=FB_TOKEN)
+check("udgivet", rc == 0 and state(d)["2026-W45-tirsdag-reel"]["status"] == "published", out)
+check("brugte Instagram-kontoens id, ikke /me", mock.posts("/media") and mock.posts("/media")[0]["path"].startswith("17841439605652106/"))
+check("nøglen står ikke i loggen", FB_TOKEN not in out)
+
+print("\n17. KONTOSPÆRRE: rigtigt navn, forkert konto-id")
+d = fresh()
+mock.uid = "999"
+rc, out = run(d, TUE)
+check("nægter", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/media"), out)
+
+print("\n18. Kvalitetsporten fanger dårligt indhold")
 base = copy.deepcopy(Q["02-torsdag-karrusel"])
 base["_path"] = REPO / "queue" / "2026-W45" / "x.json"
 
