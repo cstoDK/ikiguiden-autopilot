@@ -31,6 +31,7 @@ def fresh():
     d = Path(tempfile.mkdtemp(prefix="autopilot-"))
     shutil.copytree(REPO / "queue", d / "queue")
     shutil.copytree(REPO / "media", d / "media")
+    shutil.copy(REPO / "config.json", d / "config.json")
     (d / "state").mkdir()
     (d / "state" / "published.json").write_text('{"posts": {}}\n')
     mock.reset(d / "media")
@@ -118,7 +119,7 @@ rc, out = run(d, TUE, token="GAMMEL-NOEGLE-123")
 check("afslutter med fejl", rc == 1)
 check("siger klart hvad der er galt", "Adgangsnøglen" in out, out)
 check("nøglen lækker ikke til loggen", "GAMMEL-NOEGLE-123" not in out)
-check("fejlen er gemt på opslaget", state(d)["2026-W45-tirsdag-reel"].get("attempts") == 1)
+check("intet forsøgt udgivet", not mock.posts("/media"))
 
 print("\n7. PAUSE-filen stopper alt")
 d = fresh()
@@ -166,7 +167,27 @@ rc, out = run(d, TUE)
 check("udgives ikke, og forklarer hvorfor", rc == 1 and "ikke offentligt tilgængeligt" in out, out)
 check("ingen container oprettet", not mock.posts("/media"))
 
-print("\n13. Kvalitetsporten fanger dårligt indhold")
+print("\n13. KONTOSPÆRRE: nøglen hører til den private profil")
+d = fresh()
+mock.username = "christianstoltze"
+rc, out = run(d, TUE)
+check("afslutter med fejl og siger KONTOSPÆRRE", rc == 1 and "KONTOSPÆRRE" in out, out)
+check("intet oprettet eller udgivet", not mock.posts("/media") and not mock.posts("/media_publish"))
+
+print("\n14. KONTOSPÆRRE: privat profil står selv i config.json")
+d = fresh()
+(d / "config.json").write_text('{"instagram_username": "christianstoltze"}')
+mock.username = "christianstoltze"
+rc, out = run(d, TUE)
+check("nægter alligevel", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/media"), out)
+
+print("\n15. KONTOSPÆRRE: config.json mangler brugernavn")
+d = fresh()
+(d / "config.json").write_text('{}')
+rc, out = run(d, TUE)
+check("nægter", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/media"), out)
+
+print("\n16. Kvalitetsporten fanger dårligt indhold")
 base = copy.deepcopy(Q["02-torsdag-karrusel"])
 base["_path"] = REPO / "queue" / "2026-W45" / "x.json"
 

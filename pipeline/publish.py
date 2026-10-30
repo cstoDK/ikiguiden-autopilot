@@ -28,6 +28,8 @@ import common  # noqa: E402
 import lint  # noqa: E402
 
 STATE_PATH = common.ROOT / "state" / "published.json"
+# Konti der aldrig må udgives på, uanset hvad config.json siger.
+FORBIDDEN_ACCOUNTS = {"christianstoltze"}
 
 
 class ApiError(Exception):
@@ -317,6 +319,20 @@ def main():
         return 0
 
     api = DryApi() if args.dry_run else Api(args.api_base, args.api_version, token)
+    if not args.dry_run:
+        # Kontospærre: der udgives KUN på den konto, der står i config.json. Aldrig på en privat profil.
+        expected = str(common.read_json(common.ROOT / "config.json").get("instagram_username", "")).lower().lstrip("@")
+        try:
+            api.user_id()
+        except ApiError as e:
+            if e.code == 190 or e.http == 401:
+                log("FEJL: Adgangsnøglen er udløbet eller afvist. Generér en ny hos Meta og opdatér secret IG_ACCESS_TOKEN.")
+            log(f"Kunne ikke slå kontoen op, udgiver intet: {e}")
+            return 1
+        actual = str(api.username or "").lower().lstrip("@")
+        if not expected or actual != expected or actual in FORBIDDEN_ACCOUNTS:
+            log(f"KONTOSPÆRRE: nøglen hører til @{actual or '?'}, men autopiloten må kun udgive på @{expected or '?'}. Intet udgivet.")
+            return 1
     errors = 0
     for item in due:
         pid = item["id"]

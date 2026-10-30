@@ -30,6 +30,7 @@ class Mock:
         self.containers = {}
         self.published = set()
         self.polls = {}
+        self.username = "ikigaiguiden"
 
     @property
     def base(self):
@@ -84,7 +85,7 @@ class Mock:
                 parts = u.path.strip("/").split("/")[1:]
                 mock.calls.append({"method": "GET", "path": "/".join(parts), "params": {k: v for k, v in params.items() if k != "access_token"}})
                 if parts == ["me"]:
-                    return self._send(200, {"user_id": "1789", "username": "ikiguiden_test"})
+                    return self._send(200, {"user_id": "1789", "username": mock.username})
                 cid = parts[0]
                 fields = params.get("fields", "")
                 if "permalink" in fields:

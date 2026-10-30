@@ -23,6 +23,7 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 
 ## Sikkerhedsnet
 
+- **Kontospærre:** der udgives kun på @ikigaiguiden (`config.json`). Hører nøglen til en anden konto, fx den private profil @christianstoltze, udgives intet. @christianstoltze er desuden spærret i koden uanset config.
 - **Kill switch:** opret en tom fil `PAUSE` i roden, så udgives intet. Slet den for at genoptage.
 - **Kvalitetsporten:** tankestreger, usynlige tegn, opfundne tal, for mange hashtags, links i caption og for korte eller lange opslag stoppes, før noget gengives eller sendes.
 - **Ingen dubletter:** udgivelsen er idempotent. Et opslag, der allerede er udgivet eller har en container, udgives aldrig to gange.

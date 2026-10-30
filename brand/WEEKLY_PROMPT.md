@@ -42,7 +42,7 @@ Opslag af typen proof (resultater, historier, udtalelser fra brugere) og story (
 
 ## 5. Udgiv til køen
 
-Commit `queue/` og `media/` på main med beskeden `Indhold uge <nr>`, og push. Publisering sker af sig selv fra GitHub Actions på de planlagte tidspunkter. Rør ikke `state/` og opret aldrig `PAUSE`.
+Commit `queue/` og `media/` på main med beskeden `Indhold uge <nr>`, og push. Publisering sker af sig selv fra GitHub Actions på de planlagte tidspunkter. Rør aldrig `state/`, `config.json` eller `pipeline/publish.py`, og opret aldrig `PAUSE`.
 
 ## 6. Afslut kort
 
