@@ -37,6 +37,10 @@ def fresh():
     o = json.loads(q1.read_text())
     o["publish_at"] = "2026-11-03T19:00:00+01:00"
     q1.write_text(json.dumps(o, ensure_ascii=False))
+    q2 = d / "queue" / "2026-W45" / "02-torsdag-karrusel.json"
+    o = json.loads(q2.read_text())
+    o["publish_at"] = "2026-11-05T19:00:00+01:00"
+    q2.write_text(json.dumps(o, ensure_ascii=False))
     (d / "state").mkdir()
     (d / "state" / "published.json").write_text('{"posts": {}}\n')
     mock.reset(d / "media")
