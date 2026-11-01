@@ -11,16 +11,15 @@ Du kører uden en menneskelig læser. Træf rimelige valg, skriv øverst i din a
 
 Brand-filerne bruger selv tankestreger og har eksempler med dem (fx "mini-test — link i bio"). Kopiér aldrig tegnet. Gengivelsen følger `pipeline/render.py`, ikke pixelmålene i KARRUSEL.md.
 
-## 2. Lav 4 opslag til næste uge (mandag til søndag)
+## 2. Lav 14 opslag til næste uge (mandag til søndag, 2 om dagen)
 
-Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W46/`. Filnavne `01-tirsdag-reel.json` osv. Kopiér felter og format fra ugen før. Id'et er `<uge>-<dag>-<type>`.
+Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W46/`. Filnavne `01-mandag-1200-reel.json` osv. Kopiér felter og format fra ugen før. Id'et er `<uge>-<dag>-<kl>-<type>`.
 
-Faste tider (Europe/Copenhagen, med tidszone i `publish_at`): tirsdag 19:00 reel, torsdag 19:00 karrusel, fredag 17:30 reel, søndag 19:00 karrusel. Skift til +02:00 i sommertid.
+Faste tider (Europe/Copenhagen, med tidszone i `publish_at`, +01:00 om vinteren og +02:00 i sommertid): hver dag kl. 12:00 og kl. 19:00. Veksl mellem reel og karrusel, så hver dag har ét af hvert. Undgå to opslag i træk med samme emne eller samme første linje.
 
-Hver uge skal blandingen mindst indeholde:
-- et opslag af typen **teach** (konkret indsigt om valg af uddannelse eller retning),
-- et opslag af typen **opinion** (en klar holdning, der kan diskuteres),
-- et opslag af typen **offer** (leder til den gratis mini-test via link i bio).
+Hver uge skal blandingen mindst indeholde 4 opslag af typen **teach**, 3 af typen **opinion** og 3 af typen **offer** (leder til den gratis mini-test via link i bio). Resten må være korte observationer og spørgsmål til følgerne, så længe de holder sig til FACTS.md.
+
+Mangler du friske vinkler uden at opfinde fakta, så lav færre opslag frem for gentagelser. Højst 14, aldrig fyld med næsten ens indhold. Skriv i afslutningen, hvis du lavede færre.
 
 Opslag af typen proof (resultater, historier, udtalelser fra brugere) og story (personlige historier) må du aldrig lave selv. Der er ingen verificerede at bygge på.
 
