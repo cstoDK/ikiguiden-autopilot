@@ -2,76 +2,79 @@
   "id": "2026-W45-torsdag-karrusel",
   "type": "carousel",
   "publish_at": "2026-11-05T19:00:00+01:00",
+  "format": "liste",
+  "facts": [
+    "2 minutter"
+  ],
   "slides": [
     {
       "kind": "hook",
       "h": [
-        "Hvad skal jeg blive?",
-        "Det er et dårligt spørgsmål."
+        "5 ting, ingen fortæller dig, før du vælger [[uddannelse]]"
       ],
       "sub": [
-        "Spørg i stedet om det her."
+        "Gem den til dagen, hvor du skal vælge."
       ]
     },
     {
-      "kind": "text",
+      "kind": "liste",
+      "num": 1,
       "h": [
-        "En titel er et navn.",
-        "Ikke en [[hverdag]]."
-      ]
-    },
-    {
-      "kind": "text",
-      "h": [
-        "Mange vælger uddannelse ud fra, hvad jobbet hedder."
+        "Du vælger ikke for resten af livet."
       ],
       "sub": [
-        "Færre spørger, hvad man laver hele dagen."
+        "Du vælger det næste skridt. Mange skifter retning undervejs, og det er en del af vejen."
       ]
     },
     {
-      "kind": "text",
+      "kind": "liste",
+      "num": 2,
       "h": [
-        "Spørg i stedet:",
-        "Hvordan ser en helt almindelig [[tirsdag]] ud?"
-      ]
-    },
-    {
-      "kind": "text",
-      "h": [
-        "Er du sammen med andre det meste af dagen?"
+        "Lyst slår prestige."
       ],
       "sub": [
-        "Eller mest for dig selv?"
+        "Et fag, du gider, er lettere at klare dig godt i end et fag, du valgte for at imponere andre."
       ]
     },
     {
-      "kind": "text",
+      "kind": "liste",
+      "num": 3,
       "h": [
-        "Er det nyt hver uge?"
+        "Spørg dem, der går der nu."
       ],
       "sub": [
-        "Eller de samme opgaver, som du bliver rigtig god til?"
+        "Åbent hus viser uddannelsens pæneste dag. En studerende kan fortælle dig, hvordan en helt almindelig tirsdag ser ud."
       ]
     },
     {
-      "kind": "text",
+      "kind": "liste",
+      "num": 4,
       "h": [
-        "Du kan godt lide en titel og alligevel hade [[hverdagen]]."
+        "Kig på hverdagen, ikke titlen."
       ],
       "sub": [
-        "Det er dér, mange går galt."
+        "Spørg, hvad man laver en helt almindelig dag i de job, uddannelsen fører til."
       ]
     },
     {
-      "kind": "cta",
+      "kind": "liste",
+      "num": 5,
       "h": [
-        "Tag den gratis mini-test."
+        "Start med dig selv, ikke med listen."
       ],
       "sub": [
-        "Link i bio"
+        "Hvad giver dig energi, og hvad er du god til? De svar peger ofte mere præcist end en lang liste over uddannelser."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
       ]
     }
   ],
-  "caption": "Du ved, hvad jobbet hedder. Men ved du, hvad man laver en helt almindelig tirsdag?\n\nMange vælger uddannelse ud fra titlen. Færre spørger, hvordan hverdagen ser ud.\n\nPrøv at stille dig selv spørgsmålene fra opslaget, næste gang du er i tvivl om en uddannelse.\n\nTag den gratis mini-test via link i bio 🔗\n\n#studievalg #uddannelsesvalg #karrierevalg"
+  "caption": "5 ting, ingen fortæller dig, før du vælger uddannelse. Gem den til dagen, hvor du skal vælge.\n\nDet sværeste ved studievalg er ikke at finde informationen. Det er at vide, hvad du selv vil.\n\nHvilket af de fem punkter ville du ønske, du havde hørt tidligere? Skriv nummeret i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #gymnasiet"
 }

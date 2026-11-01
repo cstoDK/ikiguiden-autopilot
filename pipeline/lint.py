@@ -68,6 +68,10 @@ def check(item):
         p.append("Mere end 2 emojis i captionen.")
 
     facts = " | ".join(item.get("facts", []))
+    # Liste-karruseller: antallet af punkter er strukturelt, ikke en faktapåstand ("5 ting ...").
+    n_list = sum(1 for sl in item.get("slides", []) if sl.get("kind") == "liste")
+    if n_list:
+        facts += f" | {n_list}"
     for where, t in texts(item):
         for ch in t:
             if ch in FORBIDDEN:
@@ -87,6 +91,13 @@ def check(item):
         for i, s in enumerate(slides, 1):
             if not s.get("h"):
                 p.append(f"slide {i}: mangler overskrift.")
+            if s.get("kind", "text") not in ("hook", "text", "cta", "liste", "produkt"):
+                p.append(f"slide {i}: ukendt slide-type '{s.get('kind')}'.")
+        nums = [s.get("num") for s in slides if s.get("kind") == "liste"]
+        if nums and nums != list(range(1, len(nums) + 1)):
+            p.append(f"Liste-slides skal nummereres 1 til {len(nums)} i rækkefølge, fandt {nums}.")
+        if nums and slides[-1].get("kind") not in ("produkt", "cta"):
+            p.append("En liste-karrusel skal slutte med en produkt- eller cta-slide.")
     if kind == "reel":
         cards = item.get("cards", [])
         if not 5 <= len(cards) <= 16:

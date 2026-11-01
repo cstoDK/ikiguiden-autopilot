@@ -23,6 +23,16 @@ Mangler du friske vinkler uden at opfinde fakta, så lav færre opslag frem for 
 
 Opslag af typen proof (resultater, historier, udtalelser fra brugere) og story (personlige historier) må du aldrig lave selv. Der er ingen verificerede at bygge på.
 
+### Karruseller: brug liste-formatet
+
+Mindst halvdelen af ugens karruseller skal være liste-karruseller (se `queue/2026-W45/02-torsdag-karrusel.json` som skabelon):
+- Slide 1 `hook`: et liste-løfte, fx "5 ting, ingen fortæller dig, før du vælger uddannelse". Tallet skal være lig antallet af punkter.
+- Slides `liste` med `num` 1, 2, 3 ...: én kort påstand som overskrift og en til to sætninger under.
+- Sidste slide `produkt`: viser testen på en telefon. Overskrift "Tag den gratis [[mini-test]]." og under "2 minutter. Ingen login. Link i bio." med "2 minutter" i `facts`.
+- Første linje i captionen gentager liste-løftet. Slut med et spørgsmål, folk kan svare på med et nummer.
+
+Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i nichen (også engelske om studievalg, karriere og "college"). Tekst og billeder fra andre må aldrig kopieres.
+
 ## 3. Regler der ikke kan forhandles
 
 - Ingen tankestreger, ingen krøllede citationstegn, intet "…"-tegn.

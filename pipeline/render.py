@@ -18,7 +18,7 @@ from pathlib import Path
 import common
 
 BG, INK, BROWN, GREEN = "#F5F0EA", "#1A1A1A", "#8B5E3C", "#4A7C59"
-CAROUSEL_SIZES = {"hook": (108, 54), "text": (84, 54), "cta": (96, 58)}
+CAROUSEL_SIZES = {"hook": (108, 54), "text": (84, 54), "cta": (96, 58), "liste": (84, 52), "produkt": (80, 44)}
 
 
 def fmt(text):
@@ -53,19 +53,40 @@ html,body{{margin:0;padding:0;background:{BG}}}
 """
 
 
+# Produktslide: en telefon med testens første spørgsmål, ordret fra ikigaiguide.dk.
+PHONE = f"""<div class="phone"><div class="screen">
+<div class="pcat">Det du elsker</div>
+<div class="pq">Hvilke aktiviteter får dig til at glemme tid og sted?</div>
+<div class="chips"><span>Skrive</span><span>Undervise</span><span>Analysere</span><span>Tale med mennesker</span><span>Skabe noget</span><span>Lære nyt</span></div>
+<div class="pbtn">Næste</div></div></div>"""
+PHONE_CSS = f"""
+.phone{{margin:44px 0 0;width:520px;height:640px;border:14px solid {INK};border-bottom:none;border-radius:64px 64px 0 0;background:#FFFDF9;overflow:hidden;align-self:flex-start}}
+.screen{{padding:58px 44px}}
+.pcat{{font-size:22px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:{GREEN}}}
+.pq{{font-family:'Playfair Display',serif;font-weight:800;font-size:40px;line-height:1.18;margin:18px 0 30px}}
+.chips span{{display:inline-block;font-size:22px;padding:10px 18px;margin:0 10px 12px 0;border:2px solid #D9CFC3;border-radius:999px}}
+.pbtn{{margin-top:22px;background:{INK};color:#fff;font-weight:600;font-size:24px;text-align:center;padding:18px;border-radius:14px}}
+"""
+
+
 def carousel_html(slide, n, total, fonts):
-    hs, ss = CAROUSEL_SIZES[slide.get("kind", "text")]
+    kind = slide.get("kind", "text")
+    hs, ss = CAROUSEL_SIZES[kind]
     heads = "".join(f'<div class="h">{fmt(t)}</div>' for t in slide["h"])
     subs = "".join(f'<div class="s">{fmt(t)}</div>' for t in slide.get("sub", []))
-    cta = " cta" if slide.get("kind") == "cta" else ""
-    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}
+    cta = " cta" if kind == "cta" else ""
+    num = f'<div class="num">{int(slide["num"])}</div>' if kind == "liste" and slide.get("num") else ""
+    phone = PHONE if kind == "produkt" else ""
+    top = "150px" if kind == "produkt" else "170px"
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}{PHONE_CSS}
+.num{{font-family:'Playfair Display',serif;font-weight:800;font-size:220px;line-height:1;color:{GREEN};margin:0 0 20px}}
 .slide{{width:1080px;height:1440px}}
-.content{{position:absolute;left:96px;right:96px;top:170px;bottom:210px;display:flex;flex-direction:column;justify-content:center}}
+.content{{position:absolute;left:96px;right:96px;top:{top};bottom:210px;display:flex;flex-direction:column;justify-content:center}}
 .h{{font-size:{hs}px}} .s{{font-size:{ss}px}}
 .foot{{position:absolute;left:96px;right:96px;bottom:84px;display:flex;justify-content:space-between;align-items:baseline;font-size:28px;color:{BROWN};font-weight:600;letter-spacing:1.5px}}
 .foot .n{{font-weight:400;color:{INK};opacity:.55;letter-spacing:1px}}
 </style></head><body><div class="slide{cta}"><div class="bar"></div>
-<div class="content">{heads}{subs}</div>
+<div class="content">{num}{heads}{subs}{phone}</div>
 <div class="foot"><span>Ikiguiden</span><span class="n">{n}/{total}</span></div></div></body></html>"""
 
 
