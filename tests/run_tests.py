@@ -104,9 +104,10 @@ check("torsdag udgivet", st["2026-W45-torsdag-karrusel"]["status"] == "published
 creates = mock.posts("/media")
 kids = [c for c in creates if c["params"].get("is_carousel_item") == "true"]
 parent = [c for c in creates if c["params"].get("media_type") == "CAROUSEL"]
-check("8 børne-containere med billede-url", len(kids) == 8 and all(k["params"]["image_url"].endswith(".jpg") for k in kids))
+NK = len(Q["02-torsdag-karrusel"]["slides"])
+check("én børne-container pr. slide med billede-url", len(kids) == NK and all(k["params"]["image_url"].endswith(".jpg") for k in kids))
 check("hver slide har alt-tekst", all(k["params"].get("alt_text") for k in kids))
-check("én karrusel-container med 8 børn og caption", len(parent) == 1 and len(parent[0]["params"]["children"].split(",")) == 8
+check("én karrusel-container med alle børn og caption", len(parent) == 1 and len(parent[0]["params"]["children"].split(",")) == NK
       and parent[0]["params"]["caption"] == Q["02-torsdag-karrusel"]["caption"])
 check("fredag og søndag er ikke rørt", "2026-W45-fredag-reel" not in st and "2026-W45-soendag-karrusel" not in st)
 
@@ -116,7 +117,7 @@ mock.bad_alt = True
 rc, out = run(d, THU)
 check("udgives alligevel", rc == 0 and state(d)["2026-W45-torsdag-karrusel"]["status"] == "published", out)
 kids = [c for c in mock.posts("/media") if c["params"].get("is_carousel_item") == "true" and "alt_text" not in c["params"]]
-check("børnene blev oprettet uden alt_text", len(kids) == 8)
+check("børnene blev oprettet uden alt_text", len(kids) == NK)
 
 print("\n6. Udløbet adgangsnøgle")
 d = fresh()
