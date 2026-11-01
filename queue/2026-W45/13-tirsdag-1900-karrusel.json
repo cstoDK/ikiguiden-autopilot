@@ -1,0 +1,66 @@
+{
+  "id": "2026-W45-tirsdag-1900-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-03T19:00:00+01:00",
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Det sikre valg er ikke altid det [[trygge]] valg."
+      ],
+      "sub": [
+        "Her er forskellen."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Sikkert betyder: det lyder fornuftigt."
+      ],
+      "sub": [
+        "Alle kan se, hvorfor du valgte det."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Trygt betyder: du kan holde det ud."
+      ],
+      "sub": [
+        "Også på dage, hvor ingen klapper."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "De to er ikke altid det [[samme]]."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Mange vælger det, der kan forklares ved middagsbordet."
+      ],
+      "sub": [
+        "Færre spørger, om de kan lide at være i det."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Spørg dig selv:",
+        "Hvad ville jeg vælge, hvis ingen skulle høre om det?"
+      ]
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis mini-test."
+      ],
+      "sub": [
+        "Link i bio"
+      ]
+    }
+  ],
+  "caption": "Det sikre valg og det trygge valg er ikke altid det samme.\n\nSikkert lyder fornuftigt og kan forklares for alle. Trygt er det, du kan holde ud, også når ingen klapper.\n\nSpørg dig selv, hvad du ville vælge, hvis ingen skulle høre om det.\n\nTag den gratis mini-test via link i bio 🔗\n\n#studievalg #uddannelsesvalg #retning"
+}

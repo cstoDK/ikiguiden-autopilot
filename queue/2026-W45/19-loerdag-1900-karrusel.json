@@ -1,0 +1,70 @@
+{
+  "id": "2026-W45-loerdag-1900-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-07T19:00:00+01:00",
+  "format": "liste",
+  "facts": [
+    "2 minutter"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "4 ting, du kan [[prøve af]], før du vælger uddannelse"
+      ],
+      "sub": [
+        "Uden at skulle bestemme dig først."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 1,
+      "h": [
+        "Spørg, om du må komme med til en time."
+      ],
+      "sub": [
+        "Det værste, de kan sige, er nej. Og et ja viser dig mere end en pjece."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 2,
+      "h": [
+        "Læs fagbeskrivelserne, ikke kun navnet."
+      ],
+      "sub": [
+        "Der står, hvad du faktisk skal læse, skrive og aflevere."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 3,
+      "h": [
+        "Lav en lille opgave i faget."
+      ],
+      "sub": [
+        "En aften med noget, der ligner uddannelsens opgaver, siger mere end en brochure."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 4,
+      "h": [
+        "Tal med én, der arbejder med det."
+      ],
+      "sub": [
+        "Spørg, hvad dagen består af, og hvad de ville ønske, de havde vidst."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
+      ]
+    }
+  ],
+  "caption": "4 ting, du kan prøve af, før du vælger uddannelse.\n\nDet er nemmere at vælge, når du har mærket på det, end når du kun har læst om det.\n\nHvilken af de fire tager du først? Skriv nummeret i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #gymnasiet"
+}

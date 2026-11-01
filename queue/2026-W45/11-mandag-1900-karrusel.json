@@ -1,0 +1,60 @@
+{
+  "id": "2026-W45-mandag-1900-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-02T19:00:00+01:00",
+  "format": "liste",
+  "facts": [
+    "2 minutter"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "3 spørgsmål, du skal stille dig selv, før du [[søger ind]]"
+      ],
+      "sub": [
+        "Svar ærligt. Ingen andre læser med."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 1,
+      "h": [
+        "Vælger jeg det, fordi jeg vil, eller fordi det lyder godt?"
+      ],
+      "sub": [
+        "Kan du kun forklare valget med, hvad andre siger om det, så stop op et øjeblik."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 2,
+      "h": [
+        "Hvad vil jeg lave, også når det er kedeligt?"
+      ],
+      "sub": [
+        "Alle uddannelser har kedelige dele. Spørg, om du kan holde dem ud for det, du får igen."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 3,
+      "h": [
+        "Hvad gør jeg, hvis det ikke passer?"
+      ],
+      "sub": [
+        "Det er ikke at fejle at skifte. Men det er godt at vide, hvad skiftet kræver, før du starter."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
+      ]
+    }
+  ],
+  "caption": "3 spørgsmål, du skal kunne svare på, før du søger ind på en uddannelse.\n\nMange tænker på, hvad uddannelsen hedder. Færre tænker på, hvad de skal bruge den til, når det bliver svært.\n\nHvilket af de tre er sværest for dig? Skriv nummeret i kommentarerne.\n\nStart med den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #gymnasiet"
+}

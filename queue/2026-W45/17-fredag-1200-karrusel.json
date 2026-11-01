@@ -1,0 +1,60 @@
+{
+  "id": "2026-W45-fredag-1200-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-06T12:00:00+01:00",
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Der er to slags [[tvivl]]."
+      ],
+      "sub": [
+        "Og de løses ikke på samme måde."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Den første: Jeg ved ikke, hvad jeg vil."
+      ],
+      "sub": [
+        "Her mangler du viden om dig selv. Prøv ting af, og læg mærke til, hvad der giver [[energi]]."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Den anden: Jeg tror, jeg ved det. Men jeg tør ikke."
+      ],
+      "sub": [
+        "Her mangler du ikke svar. Du mangler [[mod]] eller en, der bakker dig op."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Blander du de to sammen, løser du det forkerte."
+      ],
+      "sub": [
+        "Mere research hjælper ikke, hvis problemet er modet."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Spørg dig selv:",
+        "Hvad er jeg egentlig i [[tvivl]] om?"
+      ]
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis mini-test."
+      ],
+      "sub": [
+        "Link i bio"
+      ]
+    }
+  ],
+  "caption": "Der er to slags tvivl om uddannelse. Og de skal ikke løses på samme måde.\n\nDen ene: du ved ikke, hvad du vil. Den anden: du tror, du ved det, men tør ikke.\n\nDet første kræver, at du prøver ting af. Det andet kræver mod eller en, der bakker dig op.\n\nHvilken slags tvivl har du? Skriv det i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #tvivl"
+}

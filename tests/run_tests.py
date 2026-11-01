@@ -27,6 +27,10 @@ def check(name, cond, detail=""):
     print(("  ok   " if cond else "  FEJL ") + name + (f"   <- {detail}" if detail and not cond else ""))
 
 
+FIXTURES = {"01-tirsdag-reel.json", "02-torsdag-karrusel.json", "02a-onsdag-1200-karrusel.json",
+            "03-fredag-reel.json", "04-soendag-karrusel.json"}
+
+
 def fresh():
     d = Path(tempfile.mkdtemp(prefix="autopilot-"))
     shutil.copytree(REPO / "queue", d / "queue")
@@ -41,6 +45,10 @@ def fresh():
     o = json.loads(q2.read_text())
     o["publish_at"] = "2026-11-05T19:00:00+01:00"
     q2.write_text(json.dumps(o, ensure_ascii=False))
+    # Testene bruger kun de fem oprindelige opslag, uanset hvor mange der senere er lagt i den rigtige kø.
+    for extra in (d / "queue" / "2026-W45").glob("*.json"):
+        if extra.name not in FIXTURES:
+            extra.unlink()
     (d / "state").mkdir()
     (d / "state" / "published.json").write_text('{"posts": {}}\n')
     mock.reset(d / "media")
