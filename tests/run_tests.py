@@ -200,6 +200,14 @@ mock.uid = "999"
 rc, out = run(d, TUE)
 check("nægter", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/media"), out)
 
+print("\n17b. --check-account: tjekker konto uden at udgive")
+d = fresh()
+rc, out = run(d, TUE, extra=["--check-account"])
+check("siger KONTO OK og udgiver intet", rc == 0 and "KONTO OK" in out and "@ikigaiguiden" in out and not mock.posts("/media"), out)
+mock.username = "christianstoltze"
+rc, out = run(d, TUE, extra=["--check-account"])
+check("afvises på privat profil", rc == 1 and "KONTOSPÆRRE" in out, out)
+
 print("\n18. Kvalitetsporten fanger dårligt indhold")
 base = copy.deepcopy(Q["02-torsdag-karrusel"])
 base["_path"] = REPO / "queue" / "2026-W45" / "x.json"

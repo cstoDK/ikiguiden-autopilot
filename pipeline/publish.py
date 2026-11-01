@@ -268,6 +268,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="vis hvad der ville ske, uden at udgive")
     ap.add_argument("--now", help="ISO-tidspunkt at regne fra (til test)")
+    ap.add_argument("--check-account", action="store_true", help="kun kontrol af nøgle og konto, udgiver intet")
     ap.add_argument("--only", help="udgiv kun dette opslag-id")
     ap.add_argument("--api-base", help="standard: graph.instagram.com for Instagram-nøgler, graph.facebook.com for Facebook-nøgler")
     ap.add_argument("--api-version", default=os.environ.get("IG_API_VERSION", "v23.0"))
@@ -317,7 +318,7 @@ def main():
     if (common.ROOT / "PAUSE").exists():
         log("PAUSE-filen findes: der udgives ingenting.")
         return 0
-    if not due:
+    if not due and not args.check_account:
         log("Intet at udgive lige nu.")
         return 0
     token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
@@ -348,6 +349,9 @@ def main():
         if not expected or actual != expected or actual in FORBIDDEN_ACCOUNTS or not id_ok:
             log(f"KONTOSPÆRRE: nøglen hører til @{actual or '?'}, men autopiloten må kun udgive på @{expected or '?'}. Intet udgivet.")
             return 1
+    if args.check_account:
+        log(f"KONTO OK: nøglen hører til @{api.username} (id {api.user_id()}). Der er udgivet intet.")
+        return 0
     errors = 0
     for item in due:
         pid = item["id"]
