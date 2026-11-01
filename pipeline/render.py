@@ -122,14 +122,28 @@ def render_reel(page, item, out):
         listing.write_text("\n".join(lines) + "\n", encoding="utf-8")
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
-             "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
+             "-f", "lavfi", "-i", f"aevalsrc={music_expr([common.card_seconds(c) for c in cards])}|{music_expr([common.card_seconds(c) for c in cards])}:s=44100:d={sum(common.card_seconds(c) for c in cards) + 0.5:.2f}",
              "-vf", "fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-             "-c:a", "aac", "-b:a", "64k", "-shortest", "-movflags", "+faststart", str(out / "reel.mp4")],
+             "-af", "volume=0.5,alimiter=limit=0.85", "-c:a", "aac", "-b:a", "128k", "-shortest", "-movflags", "+faststart", str(out / "reel.mp4")],
             check=True,
         )
         page.set_viewport_size({"width": 1080, "height": 1920})
         page.goto(f"file://{frames[0]}")
         page.screenshot(path=str(out / "cover.jpg"), type="jpeg", quality=92)
+
+
+def music_expr(durations):
+    """Eget, rettighedsfrit lydbed: varm akkord, langsom svævning og et blødt klik hver gang kortet skifter."""
+    total = sum(durations)
+    notes = [(110.0, 0.20), (164.81, 0.14), (220.0, 0.12), (261.63, 0.09), (329.63, 0.06)]
+    pad = "+".join(f"{a}*sin(2*PI*{f}*t)" for f, a in notes)
+    swell = f"(0.75+0.25*sin(2*PI*0.11*t))*min(1,t/1.5)*min(1,({total}-t)/1.5)"
+    ticks, t0 = [], 0.0
+    for d in durations[:-1]:
+        t0 += d
+        ticks.append(f"0.35*exp(-30*max(0,t-{t0:.2f}))*sin(2*PI*880*t)*gte(t,{t0:.2f})")
+    expr = f"0.55*({pad})*{swell}" + ("+" + "+".join(ticks) if ticks else "")
+    return expr.replace(",", "\\,")
 
 
 def item_hash(item):
