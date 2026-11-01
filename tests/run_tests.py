@@ -32,6 +32,11 @@ def fresh():
     shutil.copytree(REPO / "queue", d / "queue")
     shutil.copytree(REPO / "media", d / "media")
     shutil.copy(REPO / "config.json", d / "config.json")
+    # Testene regner med den oprindelige plan, uanset om et opslag er flyttet i den rigtige kø.
+    q1 = d / "queue" / "2026-W45" / "01-tirsdag-reel.json"
+    o = json.loads(q1.read_text())
+    o["publish_at"] = "2026-11-03T19:00:00+01:00"
+    q1.write_text(json.dumps(o, ensure_ascii=False))
     (d / "state").mkdir()
     (d / "state" / "published.json").write_text('{"posts": {}}\n')
     mock.reset(d / "media")
