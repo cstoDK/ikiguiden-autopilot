@@ -16,6 +16,7 @@ import tempfile
 from pathlib import Path
 
 import common
+import music
 
 BG, INK, BROWN, GREEN = "#F5F0EA", "#1A1A1A", "#8B5E3C", "#4A7C59"
 CAROUSEL_SIZES = {"hook": (108, 54), "text": (84, 54), "cta": (96, 58), "liste": (84, 52), "produkt": (80, 44)}
@@ -143,9 +144,9 @@ def render_reel(page, item, out):
         listing.write_text("\n".join(lines) + "\n", encoding="utf-8")
         subprocess.run(
             ["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
-             "-f", "lavfi", "-i", f"aevalsrc={music_expr([common.card_seconds(c) for c in cards])}|{music_expr([common.card_seconds(c) for c in cards])}:s=44100:d={sum(common.card_seconds(c) for c in cards) + 0.5:.2f}",
+             "-i", str(music.beat(sum(common.card_seconds(c) for c in cards), item["id"], Path(tmp) / "beat.wav")),
              "-vf", "fps=30,format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
-             "-af", "volume=0.5,alimiter=limit=0.85", "-c:a", "aac", "-b:a", "128k", "-shortest", "-movflags", "+faststart", str(out / "reel.mp4")],
+             "-af", "volume=0.8,alimiter=limit=0.9", "-c:a", "aac", "-b:a", "128k", "-shortest", "-movflags", "+faststart", str(out / "reel.mp4")],
             check=True,
         )
         page.set_viewport_size({"width": 1080, "height": 1920})
