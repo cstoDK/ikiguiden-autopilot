@@ -168,7 +168,7 @@ def music_expr(durations):
 
 
 def item_hash(item):
-    payload = {k: item.get(k) for k in ("type", "slides", "cards")}
+    payload = {k: item.get(k) for k in ("type", "format", "slides", "cards")}
     return hashlib.sha1(json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
@@ -182,6 +182,87 @@ def render_item(page, item, force=False):
     for f in out.iterdir():
         if f.is_file():
             f.unlink()
-    (render_carousel if item["type"] == "carousel" else render_reel)(page, item, out)
+    if item["type"] == "carousel" and item.get("format") == "linje":
+        render_panorama(page, item, out)
+    else:
+        (render_carousel if item["type"] == "carousel" else render_reel)(page, item, out)
     stamp.write_text(h)
     return True
+
+
+# ---------------- Sammenhængende "følg linjen"-karrusel ----------------
+# Én bred tegning (1080 x antal slides) med en linje, der løber hen over alle slides.
+# Linjen er lige i reklamen, filtret i virkeligheden og retter sig ud mod testen.
+import math  # noqa: E402
+
+LINE_Y = 1060
+
+
+def _segment(style, x0, w=1080):
+    pts = []
+    if style == "lige":
+        pts = [(x0 + x, LINE_Y) for x in range(0, w + 1, 20)]
+    elif style in ("løkker", "kaos"):
+        k = 2 if style == "løkker" else 3
+        a = w / (2 * math.pi * k)
+        b = 150 if style == "løkker" else 120
+        n = 400
+        for i in range(n + 1):
+            t = 2 * math.pi * k * i / n
+            drift = 0 if style == "løkker" else 70 * math.sin(t / k * 1.5)
+            pts.append((x0 + a * t - b * math.sin(t), LINE_Y + b * (math.cos(t) - 1) + drift * math.sin(t / 2) ** 2))
+    elif style == "bølge":
+        for x in range(0, w + 1, 8):
+            amp = 110 * (1 - x / w) ** 1.4
+            pts.append((x0 + x, LINE_Y - amp * math.sin(x / w * 2 * math.pi * 2.5)))
+    elif style == "mål":
+        pts = [(x0 + x, LINE_Y) for x in range(0, w - 180 + 1, 20)]
+    return pts
+
+
+def panorama_html(item, fonts):
+    slides = item["slides"]
+    n = len(slides)
+    pts = []
+    for i, s in enumerate(slides):
+        seg = _segment(s.get("linje", "lige"), i * 1080)
+        if i == 0:
+            seg = [p for p in seg if p[0] >= 150]
+        pts += seg
+    d = "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts)
+    ex, ey = pts[-1]
+    blocks = []
+    for i, s in enumerate(slides):
+        kind = s.get("kind", "text")
+        hs, ss = {"hook": (104, 50), "cta": (92, 50)}.get(kind, (84, 50))
+        heads = "".join(f'<div class="h" style="font-size:{hs}px">{fmt(t)}</div>' for t in s["h"])
+        subs = "".join(f'<div class="s" style="font-size:{ss}px">{fmt(t)}</div>' for t in s.get("sub", []))
+        cls = " cta" if kind == "cta" else ""
+        blocks.append(f'<div class="blk{cls}" style="left:{i*1080+96}px">{heads}{subs}</div>'
+                      f'<div class="foot" style="left:{i*1080+96}px"><span>Ikiguiden</span><span class="n">{i+1}/{n}</span></div>')
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}
+body{{width:{n*1080}px;height:1440px;position:relative;overflow:hidden;background:{BG}}}
+.bar{{position:absolute;top:0;left:0;width:{n*1080}px;height:14px;background:{BROWN}}}
+.blk{{position:absolute;top:170px;width:888px;height:600px;display:flex;flex-direction:column;justify-content:flex-start;color:{INK};font-family:'Inter',sans-serif}}
+.blk.cta .h{{color:{BROWN}}}
+.foot{{position:absolute;bottom:84px;width:888px;display:flex;justify-content:space-between;font-size:28px;color:{BROWN};font-weight:600;letter-spacing:1.5px;font-family:'Inter',sans-serif}}
+.foot .n{{font-weight:400;color:{INK};opacity:.55}}
+.dig{{position:absolute;left:96px;top:{LINE_Y+40}px;font-family:'Inter';font-weight:600;font-size:30px;color:{GREEN};letter-spacing:1px}}
+</style></head><body><div class="bar"></div>
+<svg width="{n*1080}" height="1440" style="position:absolute;left:0;top:0">
+<path d="{d}" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="150" cy="{LINE_Y}" r="26" fill="{GREEN}"/>
+<path d="M{ex-10},{ey-44} L{ex+46},{ey} L{ex-10},{ey+44} Z" fill="{GREEN}"/>
+</svg><div class="dig">DIG</div>{''.join(blocks)}</body></html>"""
+
+
+def render_panorama(page, item, out):
+    from PIL import Image
+    n = len(item["slides"])
+    page.set_viewport_size({"width": 1080 * n, "height": 1440})
+    with tempfile.TemporaryDirectory() as tmp:
+        full = Path(tmp) / "pano.png"
+        shot(page, panorama_html(item, font_css()), tmp, "pano", full, kind="png")
+        im = Image.open(full).convert("RGB")
+        for i in range(n):
+            im.crop((i * 1080, 0, (i + 1) * 1080, 1440)).save(out / f"slide-{i+1:02d}.jpg", quality=92)

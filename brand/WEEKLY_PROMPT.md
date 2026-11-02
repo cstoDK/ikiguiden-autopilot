@@ -56,3 +56,7 @@ Commit `queue/` og `media/` på main med beskeden `Indhold uge <nr>`, og push. P
 ## 6. Afslut kort
 
 Højst 6 linjer på dansk: hvilke emner og formater du valgte, hvad der ikke blev lavet og hvorfor, og om noget skal afgøres af et menneske. Ingen opremsning af trin.
+
+## Tillæg: sammenhængende "følg linjen"-karrusel
+
+Mindst 2 af ugens karruseller skal have `"format": "linje"`. Her løber én linje ubrudt hen over alle slides, så man skal swipe for at følge den. Hver slide har feltet `linje` med en af værdierne `lige`, `løkker`, `kaos`, `bølge` og `mål`. Første slide er `lige`, sidste er `mål` (pil mod CTA), og imellem bruges linjen som billede på pointen, fx lige vs. filtret, eller tvivl der retter sig ud. Teksten skal være kort, fordi linjen fylder nederste halvdel: højst 2 korte linjer overskrift plus én kort undertekst pr. slide, 5 til 7 slides. Se `queue/2026-W45/13-tirsdag-1900-karrusel.json` som eksempel. Find gerne på nye historier, linjen kan fortælle, i stedet for at gentage eksemplet.

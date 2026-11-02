@@ -5,62 +5,55 @@
   "slides": [
     {
       "kind": "hook",
+      "linje": "lige",
       "h": [
-        "Det sikre valg er ikke altid det [[trygge]] valg."
+        "Sådan ser et uddannelsesvalg ud i [[reklamen]]."
       ],
       "sub": [
-        "Her er forskellen."
+        "Swipe og se resten."
       ]
     },
     {
       "kind": "text",
+      "linje": "løkker",
       "h": [
-        "Sikkert betyder: det lyder fornuftigt."
+        "Og sådan ser det ud i virkeligheden."
+      ]
+    },
+    {
+      "kind": "text",
+      "linje": "kaos",
+      "h": [
+        "Omveje. Tvivl. Et fag, der ikke passede."
       ],
       "sub": [
-        "Alle kan se, hvorfor du valgte det."
+        "Det er ikke at fejle. Det er sådan, de fleste veje ser ud."
       ]
     },
     {
       "kind": "text",
+      "linje": "bølge",
       "h": [
-        "Trygt betyder: du kan holde det ud."
+        "Det hjælper at vide, hvad der giver dig [[energi]]."
       ],
       "sub": [
-        "Også på dage, hvor ingen klapper."
-      ]
-    },
-    {
-      "kind": "text",
-      "h": [
-        "De to er ikke altid det [[samme]]."
-      ]
-    },
-    {
-      "kind": "text",
-      "h": [
-        "Mange vælger det, der kan forklares ved middagsbordet."
-      ],
-      "sub": [
-        "Færre spørger, om de kan lide at være i det."
-      ]
-    },
-    {
-      "kind": "text",
-      "h": [
-        "Spørg dig selv:",
-        "Hvad ville jeg vælge, hvis ingen skulle høre om det?"
+        "Så retter linjen sig lidt ud."
       ]
     },
     {
       "kind": "cta",
+      "linje": "mål",
       "h": [
         "Tag den gratis mini-test."
       ],
       "sub": [
-        "Link i bio"
+        "2 minutter. Ingen login. Link i bio."
       ]
     }
   ],
-  "caption": "Det sikre valg og det trygge valg er ikke altid det samme.\n\nSikkert lyder fornuftigt og kan forklares for alle. Trygt er det, du kan holde ud, også når ingen klapper.\n\nSpørg dig selv, hvad du ville vælge, hvis ingen skulle høre om det.\n\nTag den gratis mini-test via link i bio 🔗\n\n#studievalg #uddannelsesvalg #retning"
+  "caption": "Et uddannelsesvalg ser lige ud i brochuren. I virkeligheden er der omveje.\n\nDet er ikke et tegn på, at du gør noget forkert. Det er sådan, de fleste veje ser ud. Men det hjælper at vide, hvad der giver dig energi, før du vælger.\n\nHvor på linjen er du lige nu? Skriv det i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #gymnasiet",
+  "format": "linje",
+  "facts": [
+    "2 minutter"
+  ]
 }
