@@ -199,12 +199,53 @@ def validate(item):
     return probs
 
 
-def create_container(api, uid, item, args):
+# Rolige, instrumentale stemninger, der passer til en tekst-reel. Kan overstyres pr. opslag med "music_search".
+MUSIC_SEARCHES = ["lofi chill", "chill piano", "soft acoustic", "lofi beats", "calm instrumental", "study beats"]
+
+
+def reel_seconds(item):
+    if item.get("slides"):
+        return sum(common.slide_seconds(s) for s in item["slides"]) + common.SWIPE_SECONDS * (len(item["slides"]) - 1)
+    return sum(common.card_seconds(c) for c in item.get("cards", []))
+
+
+def pick_track(api, uid, item):
+    """Finder et nummer i Instagrams eget musikbibliotek. Fejler det, returneres None, og reelen beholder sin egen beat."""
+    if item.get("music") is False:
+        return None
+    h = int(hashlib.sha1(item["id"].encode()).hexdigest()[:8], 16)
+    query = item.get("music_search") or MUSIC_SEARCHES[h % len(MUSIC_SEARCHES)]
+    try:
+        res = api.get("ig_audio", audio_type="music", ig_user_id=uid, search_query=query)
+    except ApiError as e:
+        log(f"  musik: søgning fejlede ({e}); beholder egen beat")
+        return None
+    need = reel_seconds(item) * 1000 + 2000
+    tracks = [t for t in (res.get("audio") or []) if t.get("audio_id") and (t.get("duration_in_ms") or 0) >= need]
+    if not tracks:
+        log(f"  musik: intet egnet nummer for '{query}'; beholder egen beat")
+        return None
+    t = tracks[h % min(len(tracks), 5)]
+    return {"audio_id": str(t["audio_id"]), "title": t.get("title"), "artist": t.get("display_artist"), "search": query}
+
+
+def create_container(api, uid, item, args, st=None):
     rel_dir = f"{item['_path'].parent.name}/{item['id']}"
     if item["type"] == "reel":
         url = resolve_url(f"{rel_dir}/reel.mp4", "video", args)
-        r = api.post(f"{uid}/media", media_type="REELS", video_url=url, caption=item["caption"],
-                     share_to_feed="true")
+        base = dict(media_type="REELS", video_url=url, caption=item["caption"], share_to_feed="true")
+        track = pick_track(api, uid, item)
+        if track:
+            cfg = json.dumps({"audio_id": track["audio_id"], "audio_volume": 100, "video_volume": 0})
+            try:
+                r = api.post(f"{uid}/media", audio_configuration=cfg, **base)
+                log(f"  musik: {track['title']} ({track['artist']})")
+                if st is not None:
+                    st["music"] = track
+                return r["id"]
+            except ApiError as e:
+                log(f"  musik: Instagram afviste nummeret ({e}); udgiver med egen beat")
+        r = api.post(f"{uid}/media", **base)
         return r["id"]
     children = []
     for i, slide in enumerate(item["slides"], 1):
@@ -240,7 +281,7 @@ def publish_item(api, item, state, args, save):
         else:
             log(f"  genoptager container {cid}")
     if not cid:
-        cid = create_container(api, uid, item, args)
+        cid = create_container(api, uid, item, args, st)
         st.update(status="container", creation_id=cid)
         save()
     wait_ready(api, cid, args.timeout, args.poll)
@@ -249,6 +290,12 @@ def publish_item(api, item, state, args, save):
         permalink = api.get(media_id, fields="permalink").get("permalink")
     except ApiError:
         permalink = None
+    if st.get("music"):
+        try:
+            st["music"]["media_audio_type"] = api.get(media_id, fields="media_audio_type").get("media_audio_type")
+            log(f"  lydtype på det udgivne opslag: {st['music']['media_audio_type']}")
+        except ApiError:
+            pass
     st.update(status="published", media_id=media_id, permalink=permalink,
               at=datetime.now(timezone.utc).isoformat(timespec="seconds"))
     st.pop("creation_id", None)
