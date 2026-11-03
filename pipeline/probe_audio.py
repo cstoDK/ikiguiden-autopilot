@@ -42,19 +42,19 @@ def show(label, res):
 
 
 audio_id = None
-for v in ("v26.0", "v25.0", "v24.0", "v23.0"):
-    for params in ({"audio_type": "music"}, {"audio_type": "music", "ig_user_id": IG},
-                   {"audio_type": "music", "q": "lofi"}, {"audio_type": "original_sound"}):
-        st, res = call("GET", "ig_audio", params, v)
-        show(f"GET {v} ig_audio {params}", [st, res])
-        items = res.get("data") if isinstance(res, dict) else None
-        if st == 200 and items:
-            audio_id = audio_id or items[0].get("id") or items[0].get("audio_id")
-    if audio_id:
-        version = v
-        break
-else:
-    version = "v23.0"
+version = "v26.0"
+for params in ({"audio_type": "music", "ig_user_id": IG, "q": "lofi"},
+               {"audio_type": "music", "ig_user_id": IG, "search_query": "lofi chill"},
+               {"audio_type": "music", "ig_user_id": IG}):
+    st, res = call("GET", "ig_audio", params, version)
+    items = (res.get("audio") or res.get("data") or []) if isinstance(res, dict) else []
+    print(f"GET ig_audio {params}: status {st}, {len(items)} numre, nøgler {list(res)[:5] if isinstance(res, dict) else ''}")
+    for it in items[:6]:
+        print("   ", it.get("audio_id"), "|", it.get("title"), "|", it.get("display_artist"), "|", it.get("duration_in_ms"))
+    if isinstance(res, dict) and res.get("error"):
+        show("   fejl", res)
+    if items and not audio_id:
+        audio_id = items[0].get("audio_id")
 
 print("FUNDET audio_id:", audio_id, "version:", version)
 if not audio_id:
