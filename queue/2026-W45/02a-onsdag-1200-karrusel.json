@@ -1,6 +1,6 @@
 {
   "id": "2026-W45-onsdag-1200-karrusel",
-  "type": "carousel",
+  "type": "reel",
   "publish_at": "2026-11-04T12:00:00+01:00",
   "slides": [
     {
@@ -18,7 +18,8 @@
       "h": [
         "En titel er et navn.",
         "Ikke en [[hverdag]]."
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "text",
@@ -34,7 +35,8 @@
       "h": [
         "Spørg i stedet:",
         "Hvordan ser en helt almindelig [[tirsdag]] ud?"
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "text",

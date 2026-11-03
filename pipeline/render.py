@@ -183,7 +183,9 @@ def render_item(page, item, force=False):
     for f in out.iterdir():
         if f.is_file():
             f.unlink()
-    if item["type"] == "carousel" and item.get("format") == "linje":
+    if item["type"] == "reel" and item.get("slides"):
+        render_swipe_reel(page, item, out)
+    elif item["type"] == "carousel" and item.get("format") == "linje":
         render_panorama(page, item, out)
     else:
         (render_carousel if item["type"] == "carousel" else render_reel)(page, item, out)
@@ -267,3 +269,69 @@ def render_panorama(page, item, out):
         im = Image.open(full).convert("RGB")
         for i in range(n):
             im.crop((i * 1080, 0, (i + 1) * 1080, 1440)).save(out / f"slide-{i+1:02d}.jpg", quality=92)
+
+
+# ---------------- Swipe-reel: en karrusel som video, med beat ----------------
+# Slides glider til siden som et swipe. Instagram viser reels for mange flere end
+# karruseller, og en reel kan have lyd, hvad en automatisk udgivet karrusel ikke kan.
+def render_swipe_reel(page, item, out):
+    from PIL import Image
+    slides = item["slides"]
+    n = len(slides)
+    with tempfile.TemporaryDirectory() as tmp:
+        if item.get("format") == "linje":
+            page.set_viewport_size({"width": 1080 * n, "height": 1440})
+            full = Path(tmp) / "pano.png"
+            shot(page, panorama_html(item, font_css()), tmp, "pano", full, kind="png")
+            strip = Image.open(full).convert("RGB")
+        else:
+            fonts = font_css()
+            page.set_viewport_size({"width": 1080, "height": 1440})
+            strip = Image.new("RGB", (1080 * n, 1440))
+            for i, s in enumerate(slides, 1):
+                fp = Path(tmp) / f"s{i}.png"
+                shot(page, carousel_html(s, i, n, fonts), tmp, f"s{i}", fp, kind="png")
+                strip.paste(Image.open(fp).convert("RGB"), ((i - 1) * 1080, 0))
+        holds = [common.slide_seconds(s) for s in slides]
+        sw = common.SWIPE_SECONDS
+        total = sum(holds) + sw * (n - 1)
+        fps = 30
+        bg = Image.new("RGB", (1080, 1920), BG)
+        bar = Image.new("RGB", (1080, 14), BROWN)
+        # Tidslinje: (start, slut, fra-slide) for hvert swipe.
+        events, t = [], 0.0
+        for i in range(n - 1):
+            t += holds[i]
+            events.append((t, t + sw, i))
+            t += sw
+
+        def offset_at(t):
+            pos = 0.0
+            for a, b, i in events:
+                if t >= b:
+                    pos = i + 1
+                elif t >= a:
+                    u = (t - a) / sw
+                    u = 1 - (1 - u) ** 3  # bremser blødt op som et rigtigt swipe
+                    return (i + u) * 1080
+            return pos * 1080
+
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1080x1920",
+               "-r", str(fps), "-i", "-",
+               "-i", str(music.beat(total, item["id"], Path(tmp) / "beat.wav")),
+               "-vf", "format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+               "-af", "volume=0.8,alimiter=limit=0.9", "-c:a", "aac", "-b:a", "128k", "-shortest",
+               "-movflags", "+faststart", str(out / "reel.mp4")]
+        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+        first = None
+        for f in range(int(total * fps)):
+            x = int(round(offset_at(f / fps)))
+            frame = bg.copy()
+            frame.paste(strip.crop((x, 0, x + 1080, 1440)), (0, 240))
+            if first is None:
+                first = frame
+            proc.stdin.write(frame.tobytes())
+        proc.stdin.close()
+        if proc.wait() != 0:
+            raise RuntimeError("ffmpeg fejlede under swipe-reel")
+        first.save(out / "cover.jpg", quality=92)

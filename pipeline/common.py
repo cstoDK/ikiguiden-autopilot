@@ -62,3 +62,12 @@ def ensure_fonts():
             check=True,
         )
     return base
+
+
+def slide_seconds(slide):
+    """Hvor længe en slide står stille i en swipe-reel, før den glider videre."""
+    words = len(strip_marks(" ".join(slide.get("h", []) + slide.get("sub", []))).split())
+    return round(min(5.5, max(2.6, 0.9 + 0.33 * words)), 2)
+
+
+SWIPE_SECONDS = 0.55

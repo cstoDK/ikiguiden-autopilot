@@ -1,6 +1,6 @@
 {
   "id": "2026-W45-fredag-1200-karrusel",
-  "type": "carousel",
+  "type": "reel",
   "publish_at": "2026-11-06T12:00:00+01:00",
   "slides": [
     {
@@ -44,7 +44,8 @@
       "h": [
         "Spørg dig selv:",
         "Hvad er jeg egentlig i [[tvivl]] om?"
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "cta",

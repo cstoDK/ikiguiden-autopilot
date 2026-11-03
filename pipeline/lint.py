@@ -84,7 +84,7 @@ def check(item):
             if n.strip(".,") not in facts:
                 p.append(f"{where}: tallet '{n}' er ikke dækket af 'facts'. Opfundne tal må ikke ud.")
 
-    if kind == "carousel":
+    if kind == "carousel" or (kind == "reel" and item.get("slides")):
         slides = item.get("slides", [])
         if not 5 <= len(slides) <= 10:
             p.append(f"Karrusel har {len(slides)} slides. Skal være 5 til 10.")
@@ -98,7 +98,11 @@ def check(item):
             p.append(f"Liste-slides skal nummereres 1 til {len(nums)} i rækkefølge, fandt {nums}.")
         if nums and slides[-1].get("kind") not in ("produkt", "cta"):
             p.append("En liste-karrusel skal slutte med en produkt- eller cta-slide.")
-    if kind == "reel":
+    if kind == "reel" and item.get("slides"):
+        total = sum(common.slide_seconds(s) for s in item["slides"]) + common.SWIPE_SECONDS * (len(item["slides"]) - 1)
+        if not 15 <= total <= 60:
+            p.append(f"Swipe-reel varer ca. {total:.0f} sekunder. Skal være 15 til 60.")
+    elif kind == "reel":
         cards = item.get("cards", [])
         if not 5 <= len(cards) <= 16:
             p.append(f"Reel har {len(cards)} kort. Skal være 5 til 16.")

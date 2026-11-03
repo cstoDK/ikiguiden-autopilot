@@ -1,6 +1,6 @@
 {
   "id": "2026-W45-tirsdag-1900-karrusel",
-  "type": "carousel",
+  "type": "reel",
   "publish_at": "2026-11-03T19:00:00+01:00",
   "slides": [
     {
@@ -10,7 +10,7 @@
         "Sådan ser et uddannelsesvalg ud i [[reklamen]]."
       ],
       "sub": [
-        "Swipe og se resten."
+        "Se resten."
       ]
     },
     {
@@ -18,7 +18,8 @@
       "linje": "løkker",
       "h": [
         "Og sådan ser det ud i virkeligheden."
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "text",

@@ -60,3 +60,11 @@ Højst 6 linjer på dansk: hvilke emner og formater du valgte, hvad der ikke ble
 ## Tillæg: sammenhængende "følg linjen"-karrusel
 
 Mindst 2 af ugens karruseller skal have `"format": "linje"`. Her løber én linje ubrudt hen over alle slides, så man skal swipe for at følge den. Hver slide har feltet `linje` med en af værdierne `lige`, `løkker`, `kaos`, `bølge` og `mål`. Første slide er `lige`, sidste er `mål` (pil mod CTA), og imellem bruges linjen som billede på pointen, fx lige vs. filtret, eller tvivl der retter sig ud. Teksten skal være kort, fordi linjen fylder nederste halvdel: højst 2 korte linjer overskrift plus én kort undertekst pr. slide, 5 til 7 slides. Se `queue/2026-W45/13-tirsdag-1900-karrusel.json` som eksempel. Find gerne på nye historier, linjen kan fortælle, i stedet for at gentage eksemplet.
+
+## VIGTIGST, gælder over alt ovenfor: kun reels
+
+Målt på profilen: reels får omkring 150 visninger, karruseller omkring 10. Lav derfor ALLE 14 opslag som `"type": "reel"`. Ingen `"type": "carousel"`.
+
+- Cirka halvdelen er tekstkort-reels (`cards`), som hidtil.
+- Den anden halvdel er swipe-reels: `"type": "reel"` med `slides` i stedet for `cards`. De bygges som en karrusel (hook, liste, linje, produkt, cta), men udgives som video, hvor slides glider til siden, med beat på. Liste-format og `"format": "linje"` virker begge her, og reglerne for dem ovenfor gælder stadig (mindst 2 linje og mindst 2 liste om ugen). Skriv ikke "swipe" i teksten, for videoen kører af sig selv.
+- Swipe-reels skal vare 15 til 60 sekunder. Kvalitetsporten regner det ud fra mængden af tekst.

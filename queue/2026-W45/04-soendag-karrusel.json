@@ -1,6 +1,6 @@
 {
   "id": "2026-W45-soendag-karrusel",
-  "type": "carousel",
+  "type": "reel",
   "publish_at": "2026-11-08T19:00:00+01:00",
   "facts": [
     "2 minutter"
@@ -37,13 +37,15 @@
       "kind": "text",
       "h": [
         "Men tvivl uden [[retning]] ender ofte i tilfældige valg."
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "text",
       "h": [
         "Derfor har jeg lavet en gratis mini-test."
-      ]
+      ],
+      "sub": []
     },
     {
       "kind": "text",
