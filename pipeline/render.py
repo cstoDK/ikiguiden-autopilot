@@ -19,6 +19,38 @@ import common
 import music
 
 BG, INK, BROWN, GREEN = "#F5F0EA", "#1A1A1A", "#8B5E3C", "#4A7C59"
+# Temaer giver variation i feedet. "lys" er det oprindelige udseende. "foto" lægger teksten
+# over et af Christians egne billeder i brand/baggrunde/ (feltet "bg" i opslaget).
+THEMES = {
+    "lys": {"bg": BG, "ink": INK, "acc": BROWN, "hi": GREEN},
+    "mørk": {"bg": "#1A1A1A", "ink": "#F5F0EA", "acc": "#C9A27E", "hi": "#8CC49F"},
+    "grøn": {"bg": "#4A7C59", "ink": "#FFFFFF", "acc": "#F0E8E0", "hi": "#F3D9B1"},
+    "brun": {"bg": "#8B5E3C", "ink": "#FFFFFF", "acc": "#F5F0EA", "hi": "#F3D9B1"},
+    "foto": {"bg": "#1A1A1A", "ink": "#FFFFFF", "acc": "#F3D9B1", "hi": "#A8D5B5"},
+}
+
+
+def theme_of(item):
+    t = dict(THEMES[item.get("tema", "lys")])
+    if item.get("tema") == "foto":
+        t["photo"] = str((common.ROOT / item["bg"]).resolve())
+    return t
+
+
+def theme_css(t, transparent=False):
+    css = f":root{{--bg:{t['bg']};--ink:{t['ink']};--acc:{t['acc']};--hi:{t['hi']}}}"
+    if transparent:
+        css += "html,body,.slide{background:transparent !important}"
+    return css
+
+
+def photo_frame(t, size):
+    """Christians eget billede, beskåret til formatet og dæmpet, så hvid tekst kan læses."""
+    from PIL import Image, ImageEnhance, ImageOps
+    im = ImageOps.fit(Image.open(t["photo"]).convert("RGB"), size)
+    return ImageEnhance.Brightness(im).enhance(0.45)
+
+
 CAROUSEL_SIZES = {"hook": (108, 54), "text": (84, 54), "cta": (96, 58), "liste": (84, 52), "produkt": (80, 44)}
 
 
@@ -41,16 +73,16 @@ def font_css():
 
 
 BASE_CSS = f"""
-html,body{{margin:0;padding:0;background:{BG}}}
-.slide{{position:relative;overflow:hidden;background:{BG};color:{INK};font-family:'Inter',sans-serif}}
-.bar{{position:absolute;top:0;left:0;right:0;height:14px;background:{BROWN}}}
+html,body{{margin:0;padding:0;background:var(--bg)}}
+.slide{{position:relative;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif}}
+.bar{{position:absolute;top:0;left:0;right:0;height:14px;background:var(--acc)}}
 .h,.s{{text-wrap:balance}}
 .h{{font-family:'Playfair Display',serif;font-weight:800;line-height:1.16;margin:0 0 18px;letter-spacing:-0.4px}}
 .s{{line-height:1.38;margin:30px 0 0;font-weight:400}}
 .s + .s{{margin-top:14px}}
 .nw{{white-space:nowrap}}
-.g{{color:{GREEN}}}
-.cta .h{{color:{BROWN}}}
+.g{{color:var(--hi)}}
+.cta .h{{color:var(--acc)}}
 """
 
 
@@ -61,8 +93,8 @@ PHONE = f"""<div class="phone"><div class="screen">
 <div class="chips"><span>Skrive</span><span>Undervise</span><span>Analysere</span><span>Tale med mennesker</span><span>Skabe noget</span><span>Lære nyt</span></div>
 <div class="pbtn">Næste</div></div></div>"""
 PHONE_CSS = f"""
-.phone{{margin:44px 0 0;width:520px;height:640px;border:14px solid {INK};border-bottom:none;border-radius:64px 64px 0 0;background:#FFFDF9;overflow:hidden;align-self:flex-start}}
-.screen{{padding:58px 44px}}
+.phone{{margin:44px 0 0;width:520px;height:640px;border:14px solid var(--ink);border-bottom:none;border-radius:64px 64px 0 0;background:#FFFDF9;overflow:hidden;align-self:flex-start}}
+.screen{{padding:58px 44px;color:{INK}}}
 .pcat{{font-size:22px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:{GREEN}}}
 .pq{{font-family:'Playfair Display',serif;font-weight:800;font-size:40px;line-height:1.18;margin:18px 0 30px}}
 .chips span{{display:inline-block;font-size:22px;padding:10px 18px;margin:0 10px 12px 0;border:2px solid #D9CFC3;border-radius:999px}}
@@ -70,7 +102,8 @@ PHONE_CSS = f"""
 """
 
 
-def carousel_html(slide, n, total, fonts):
+def carousel_html(slide, n, total, fonts, theme=None, transparent=False):
+    theme = theme or THEMES["lys"]
     kind = slide.get("kind", "text")
     hs, ss = CAROUSEL_SIZES[kind]
     heads = "".join(f'<div class="h">{fmt(t)}</div>' for t in slide["h"])
@@ -79,33 +112,36 @@ def carousel_html(slide, n, total, fonts):
     num = f'<div class="num">{int(slide["num"])}</div>' if kind == "liste" and slide.get("num") else ""
     phone = PHONE if kind == "produkt" else ""
     top = "150px" if kind == "produkt" else "170px"
-    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}{PHONE_CSS}
-.num{{font-family:'Playfair Display',serif;font-weight:800;font-size:220px;line-height:1;color:{GREEN};margin:0 0 20px}}
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{theme_css(theme, transparent)}{BASE_CSS}{PHONE_CSS}
+.num{{font-family:'Playfair Display',serif;font-weight:800;font-size:220px;line-height:1;color:var(--hi);margin:0 0 20px}}
 .slide{{width:1080px;height:1440px}}
 .content{{position:absolute;left:96px;right:96px;top:{top};bottom:210px;display:flex;flex-direction:column;justify-content:center}}
 .h{{font-size:{hs}px}} .s{{font-size:{ss}px}}
-.foot{{position:absolute;left:96px;right:96px;bottom:84px;display:flex;justify-content:space-between;align-items:baseline;font-size:28px;color:{BROWN};font-weight:600;letter-spacing:1.5px}}
-.foot .n{{font-weight:400;color:{INK};opacity:.55;letter-spacing:1px}}
+.foot{{position:absolute;left:96px;right:96px;bottom:84px;display:flex;justify-content:space-between;align-items:baseline;font-size:28px;color:var(--acc);font-weight:600;letter-spacing:1.5px}}
+.foot .n{{font-weight:400;color:var(--ink);opacity:.55;letter-spacing:1px}}
 </style></head><body><div class="slide{cta}"><div class="bar"></div>
 <div class="content">{num}{heads}{subs}{phone}</div>
 <div class="foot"><span>Ikiguiden</span><span class="n">{n}/{total}</span></div></div></body></html>"""
 
 
-def reel_html(text, fonts):
+def reel_html(text, fonts, theme=None):
+    theme = theme or THEMES["lys"]
+    photo = (f".slide{{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('file://{theme['photo']}') center/cover}}"
+             if theme.get("photo") else "")
     plain = common.strip_marks(text)
     size = 116 if len(plain) <= 32 else 100 if len(plain) <= 62 else 88
     cta = " cta" if re.search(r"link i bio", plain, re.I) else ""
-    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}
-.slide{{width:1080px;height:1920px}}
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{theme_css(theme)}{BASE_CSS}
+.slide{{width:1080px;height:1920px}}{photo}
 .content{{position:absolute;left:96px;top:260px;width:754px;height:1120px;display:flex;flex-direction:column;justify-content:center}}
 .h{{font-size:{size}px;margin:0}}
-.tag{{position:absolute;left:96px;top:1340px;font-size:28px;font-weight:600;letter-spacing:1.5px;color:{BROWN}}}
+.tag{{position:absolute;left:96px;top:1340px;font-size:28px;font-weight:600;letter-spacing:1.5px;color:var(--acc)}}
 </style></head><body><div class="slide{cta}"><div class="bar"></div>
 <div class="content"><div class="h">{fmt(text)}</div></div>
 <div class="tag">Ikiguiden</div></div></body></html>"""
 
 
-def shot(page, html_text, workdir, name, path, kind="jpeg"):
+def shot(page, html_text, workdir, name, path, kind="jpeg", transparent=False):
     hp = Path(workdir) / f"{name}.html"
     hp.write_text(html_text, encoding="utf-8")
     page.goto(f"file://{hp}")
@@ -114,7 +150,7 @@ def shot(page, html_text, workdir, name, path, kind="jpeg"):
     if kind == "jpeg":
         page.screenshot(path=str(path), type="jpeg", quality=92)
     else:
-        page.screenshot(path=str(path), type="png")
+        page.screenshot(path=str(path), type="png", omit_background=transparent)
 
 
 def render_carousel(page, item, out):
@@ -123,7 +159,7 @@ def render_carousel(page, item, out):
     page.set_viewport_size({"width": 1080, "height": 1440})
     with tempfile.TemporaryDirectory() as tmp:
         for i, s in enumerate(slides, 1):
-            shot(page, carousel_html(s, i, len(slides), fonts), tmp, f"s{i}", out / f"slide-{i:02d}.jpg")
+            shot(page, carousel_html(s, i, len(slides), fonts, theme_of(item)), tmp, f"s{i}", out / f"slide-{i:02d}.jpg")
 
 
 def render_reel(page, item, out):
@@ -134,7 +170,7 @@ def render_reel(page, item, out):
         frames = []
         for i, c in enumerate(cards, 1):
             fp = Path(tmp) / f"f{i:02d}.png"
-            shot(page, reel_html(c, fonts), tmp, f"c{i}", fp, kind="png")
+            shot(page, reel_html(c, fonts, theme_of(item)), tmp, f"c{i}", fp, kind="png")
             frames.append(fp)
         listing = Path(tmp) / "list.txt"
         lines = []
@@ -170,6 +206,10 @@ def music_expr(durations):
 
 def item_hash(item):
     payload = {k: item.get(k) for k in ("type", "format", "slides", "cards")}
+    # Tema og baggrund tæller kun med, når de er sat, så ældre opslag ikke gengives forfra.
+    for k in ("tema", "bg"):
+        if item.get(k):
+            payload[k] = item[k]
     return hashlib.sha1(json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
@@ -223,7 +263,8 @@ def _segment(style, x0, w=1080):
     return pts
 
 
-def panorama_html(item, fonts):
+def panorama_html(item, fonts, transparent=False):
+    theme = theme_of(item)
     slides = item["slides"]
     n = len(slides)
     pts = []
@@ -243,19 +284,19 @@ def panorama_html(item, fonts):
         cls = " cta" if kind == "cta" else ""
         blocks.append(f'<div class="blk{cls}" style="left:{i*1080+96}px">{heads}{subs}</div>'
                       f'<div class="foot" style="left:{i*1080+96}px"><span>Ikiguiden</span><span class="n">{i+1}/{n}</span></div>')
-    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{BASE_CSS}
-body{{width:{n*1080}px;height:1440px;position:relative;overflow:hidden;background:{BG}}}
-.bar{{position:absolute;top:0;left:0;width:{n*1080}px;height:14px;background:{BROWN}}}
-.blk{{position:absolute;top:170px;width:888px;height:600px;display:flex;flex-direction:column;justify-content:flex-start;color:{INK};font-family:'Inter',sans-serif}}
-.blk.cta .h{{color:{BROWN}}}
-.foot{{position:absolute;bottom:84px;width:888px;display:flex;justify-content:space-between;font-size:28px;color:{BROWN};font-weight:600;letter-spacing:1.5px;font-family:'Inter',sans-serif}}
-.foot .n{{font-weight:400;color:{INK};opacity:.55}}
-.dig{{position:absolute;left:96px;top:{LINE_Y+40}px;font-family:'Inter';font-weight:600;font-size:30px;color:{GREEN};letter-spacing:1px}}
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}{theme_css(theme, transparent)}{BASE_CSS}
+body{{width:{n*1080}px;height:1440px;position:relative;overflow:hidden;background:var(--bg)}}
+.bar{{position:absolute;top:0;left:0;width:{n*1080}px;height:14px;background:var(--acc)}}
+.blk{{position:absolute;top:170px;width:888px;height:600px;display:flex;flex-direction:column;justify-content:flex-start;color:var(--ink);font-family:'Inter',sans-serif}}
+.blk.cta .h{{color:var(--acc)}}
+.foot{{position:absolute;bottom:84px;width:888px;display:flex;justify-content:space-between;font-size:28px;color:var(--acc);font-weight:600;letter-spacing:1.5px;font-family:'Inter',sans-serif}}
+.foot .n{{font-weight:400;color:var(--ink);opacity:.55}}
+.dig{{position:absolute;left:96px;top:{LINE_Y+40}px;font-family:'Inter';font-weight:600;font-size:30px;color:var(--hi);letter-spacing:1px}}
 </style></head><body><div class="bar"></div>
 <svg width="{n*1080}" height="1440" style="position:absolute;left:0;top:0">
-<path d="{d}" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="150" cy="{LINE_Y}" r="26" fill="{GREEN}"/>
-<path d="M{ex-10},{ey-44} L{ex+46},{ey} L{ex-10},{ey+44} Z" fill="{GREEN}"/>
+<path d="{d}" fill="none" style="stroke:var(--ink)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="150" cy="{LINE_Y}" r="26" style="fill:var(--hi)"/>
+<path d="M{ex-10},{ey-44} L{ex+46},{ey} L{ex-10},{ey+44} Z" style="fill:var(--hi)"/>
 </svg><div class="dig">DIG</div>{''.join(blocks)}</body></html>"""
 
 
@@ -278,26 +319,28 @@ def render_swipe_reel(page, item, out):
     from PIL import Image
     slides = item["slides"]
     n = len(slides)
+    theme = theme_of(item)
+    photo = bool(theme.get("photo"))
     with tempfile.TemporaryDirectory() as tmp:
         if item.get("format") == "linje":
             page.set_viewport_size({"width": 1080 * n, "height": 1440})
             full = Path(tmp) / "pano.png"
-            shot(page, panorama_html(item, font_css()), tmp, "pano", full, kind="png")
-            strip = Image.open(full).convert("RGB")
+            shot(page, panorama_html(item, font_css(), photo), tmp, "pano", full, kind="png", transparent=photo)
+            strip = Image.open(full).convert("RGBA")
         else:
             fonts = font_css()
             page.set_viewport_size({"width": 1080, "height": 1440})
-            strip = Image.new("RGB", (1080 * n, 1440))
+            strip = Image.new("RGBA", (1080 * n, 1440))
             for i, s in enumerate(slides, 1):
                 fp = Path(tmp) / f"s{i}.png"
-                shot(page, carousel_html(s, i, n, fonts), tmp, f"s{i}", fp, kind="png")
-                strip.paste(Image.open(fp).convert("RGB"), ((i - 1) * 1080, 0))
+                shot(page, carousel_html(s, i, n, fonts, theme, photo), tmp, f"s{i}", fp, kind="png", transparent=photo)
+                strip.paste(Image.open(fp).convert("RGBA"), ((i - 1) * 1080, 0))
         holds = [common.slide_seconds(s) for s in slides]
         sw = common.SWIPE_SECONDS
         total = sum(holds) + sw * (n - 1)
         fps = 30
-        bg = Image.new("RGB", (1080, 1920), BG)
-        bar = Image.new("RGB", (1080, 14), BROWN)
+        # Ved foto står billedet stille i hele rammen, og kun teksten glider.
+        bg = photo_frame(theme, (1080, 1920)) if photo else Image.new("RGB", (1080, 1920), theme["bg"])
         # Tidslinje: (start, slut, fra-slide) for hvert swipe.
         events, t = [], 0.0
         for i in range(n - 1):
@@ -327,7 +370,8 @@ def render_swipe_reel(page, item, out):
         for f in range(int(total * fps)):
             x = int(round(offset_at(f / fps)))
             frame = bg.copy()
-            frame.paste(strip.crop((x, 0, x + 1080, 1440)), (0, 240))
+            tile = strip.crop((x, 0, x + 1080, 1440))
+            frame.paste(tile, (0, 240), tile)
             if first is None:
                 first = frame
             proc.stdin.write(frame.tobytes())

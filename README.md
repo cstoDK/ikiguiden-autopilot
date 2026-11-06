@@ -3,10 +3,11 @@
 Indhold til Instagram-profilen Ikiguiden bliver skrevet, tegnet og udgivet uden manuelt arbejde.
 
 ```
-Mandag    ugens generering skriver 4 opslag i queue/  (brand/WEEKLY_PROMPT.md)
+Fredag    ugens generering skriver 7 opslag (1 om dagen kl. 19) i queue/  (brand/WEEKLY_PROMPT.md)
           kvalitetsporten (pipeline/lint.py) afviser alt, der ikke lever op til reglerne
           pipeline/build.py gengiver karruseller (JPEG) og reels (MP4)
 Hver 30 min.  GitHub Actions kører pipeline/publish.py og udgiver det, der er forfaldent
+Hver morgen   pipeline/insights.py henter visninger m.m. til results/OVERSIGT.md (læser kun)
 Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 ```
 
@@ -18,6 +19,9 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 | `media/<uge>/<id>/` | Gengivne billeder og video (committes, så Instagram kan hente dem) |
 | `state/published.json` | Hvad der er udgivet, sprunget over eller spærret |
 | `brand/` | Stil, eksempler, fakta, ugens opgave |
+| `brand/baggrunde/` | Egne billeder til tema `foto` |
+| `results/` | Tal fra Instagram, hentet hver morgen |
+| `reserve/` | Færdige opslag, der ikke er brugt endnu |
 | `pipeline/` | lint, render, build, publish, refresh_token |
 | `tests/` | Mock af Instagram og 49 tjek |
 

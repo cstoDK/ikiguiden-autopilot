@@ -245,6 +245,21 @@ check("skjult tegn afvises", any("skjult" in p for p in with_(caption="Hej​ ve
 check("for få slides afvises", any("slides" in p for p in with_(slides=base["slides"][:3])))
 check("godkendt tal i facts accepteres", not any("2" in p and "facts" in p for p in lint.check({**Q["04-soendag-karrusel"], "_path": base["_path"]})))
 
+print("\n19. Tema og tal fra Instagram")
+check("ukendt tema afvises", any("tema" in p for p in with_(tema="neon")))
+check("foto uden billede afvises", any("foto" in p for p in with_(tema="foto", bg="brand/baggrunde/findes-ikke.jpg")))
+check("mørkt tema accepteres", not lint.check({**Q["04-soendag-karrusel"], "_path": base["_path"], "tema": "mørk"}))
+import insights  # noqa: E402
+rows = [{"kilde": "manuel", "views": 150, "første_linje": "a"},
+        {"kilde": "autopilot", "format": "tekstkort", "tema": "lys", "views": 20, "første_linje": "b | c"},
+        {"kilde": "autopilot", "format": "liste", "tema": "mørk", "views": 40, "første_linje": "d \u2014 e"}]
+md = insights.summarize(rows, [], "2026-11-06T19:00+00:00")
+check("oversigt har medianer og ingen tankestreger", "| Alle manuelle opslag | 150 | 1 |" in md and "| Alle autopilot-opslag | 30 | 2 |" in md
+      and "\u2014" not in md and "\u2013" not in md, md)
+env = {k: v for k, v in os.environ.items() if k != "IG_ACCESS_TOKEN"}
+pr = subprocess.run([sys.executable, str(REPO / "pipeline" / "insights.py")], env=env, capture_output=True, text=True)
+check("uden nøgle hentes intet og intet fejler", pr.returncode == 0 and "ikke sat" in pr.stdout, pr.stdout + pr.stderr)
+
 mock.close()
 failed = [n for n, ok in results if not ok]
 print(f"\n{len(results) - len(failed)} af {len(results)} tjek bestået" + (f"; FEJLEDE: {failed}" if failed else ""))

@@ -67,6 +67,17 @@ def check(item):
     if len(EMOJI.findall(cap)) > 2:
         p.append("Mere end 2 emojis i captionen.")
 
+    tema = item.get("tema", "lys")
+    if tema not in common.THEME_NAMES:
+        p.append(f"Ukendt tema '{tema}' (skal være et af {', '.join(common.THEME_NAMES)}).")
+    if tema == "foto":
+        bg = str(item.get("bg", ""))
+        f = common.ROOT / bg
+        if not bg.startswith(common.PHOTO_DIR + "/") or f.suffix.lower() not in (".jpg", ".jpeg", ".png") or not f.is_file():
+            p.append(f"Tema 'foto' kræver feltet 'bg' med et billede i {common.PHOTO_DIR}/, fandt '{bg}'.")
+    elif item.get("bg"):
+        p.append("Feltet 'bg' bruges kun sammen med tema 'foto'.")
+
     facts = " | ".join(item.get("facts", []))
     # Liste-karruseller: antallet af punkter er strukturelt, ikke en faktapåstand ("5 ting ...").
     n_list = sum(1 for sl in item.get("slides", []) if sl.get("kind") == "liste")

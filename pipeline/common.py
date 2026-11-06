@@ -71,3 +71,8 @@ def slide_seconds(slide):
 
 
 SWIPE_SECONDS = 0.55
+
+
+# Temaer, som render.py kan tegne. "foto" kræver feltet "bg" med et billede i brand/baggrunde/.
+THEME_NAMES = ("lys", "mørk", "grøn", "brun", "foto")
+PHOTO_DIR = "brand/baggrunde"

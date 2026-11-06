@@ -1,0 +1,61 @@
+{
+  "id": "2026-W46-loerdag-1900-reel",
+  "type": "reel",
+  "publish_at": "2026-11-14T19:00:00+01:00",
+  "tema": "brun",
+  "format": "liste",
+  "facts": [
+    "2 minutter"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "3 ting, der siger mere om dig end dine [[karakterer]]"
+      ],
+      "sub": [
+        "Karakterer måler skolen. Ikke hele dig."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 1,
+      "h": [
+        "Det, du gør, uden at nogen beder dig om det."
+      ],
+      "sub": [
+        "Det, du vælger i din fritid, viser, hvad der trækker i dig."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 2,
+      "h": [
+        "Det, du bliver ved med at spørge om."
+      ],
+      "sub": [
+        "Din nysgerrighed peger tit et sted hen, før du selv ved det."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 3,
+      "h": [
+        "Det, du savner, når det er væk."
+      ],
+      "sub": [
+        "Læg mærke til, hvad du mangler i en ferie. Det er sjældent tilfældigt."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
+      ]
+    }
+  ],
+  "caption": "3 ting, der siger mere om dig end dine karakterer.\n\nKarakterer viser, hvordan du klarer dig i skolen. De siger mindre om, hvad der giver dig energi, og hvad du bliver ved med at vende tilbage til.\n\nHvilket punkt kender du dig selv bedst i? Skriv nummeret i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #karakterer #uddannelsesvalg"
+}

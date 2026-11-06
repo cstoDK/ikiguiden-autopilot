@@ -1,0 +1,37 @@
+name: Hent tal fra Instagram (udgiver intet)
+
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-insights
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  insights:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Hent tal
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_API_VERSION: v23.0
+        run: python3 pipeline/insights.py
+      - name: Gem tal
+        run: |
+          git config user.name "ikiguiden-autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git add results/
+          if ! git diff --cached --quiet; then
+            git commit -m "Opdater tal fra Instagram"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push
+          fi
