@@ -1,0 +1,73 @@
+{
+  "id": "2026-W46-torsdag-1200-reel",
+  "type": "reel",
+  "publish_at": "2026-11-12T12:00:00+01:00",
+  "facts": [
+    "2 minutter",
+    "29 kr"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Hvad sker der, når du tager [[mini-testen]]?"
+      ],
+      "sub": [
+        "Helt kort."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du svarer på spørgsmål om dig selv."
+      ],
+      "sub": [
+        "Fx: Hvilke aktiviteter får dig til at glemme tid og sted?"
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Det tager 2 minutter."
+      ],
+      "sub": [
+        "Og du skal ikke logge ind."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du får et gratis udsnit af din analyse med det samme."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Vil du have mere, kan du få hele analysen."
+      ],
+      "sub": [
+        "Valgfri engangsbetaling på 29 kr. Intet abonnement. Som PDF på mail."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Det er en [[refleksionstest]]."
+      ],
+      "sub": [
+        "Ikke et facit om, hvem du er."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
+      ]
+    }
+  ],
+  "caption": "Hvad sker der egentlig, når du tager mini-testen? Her er det helt kort.\n\nDu svarer på spørgsmål om dig selv i 2 minutter, uden login. Bagefter får du et gratis udsnit af din analyse med det samme.\n\nVil du have hele analysen, er den en valgfri engangsbetaling på 29 kr. Intet abonnement, og den kommer som PDF på mail.\n\nDet er en refleksionstest, ikke et facit.\n\nTag testen via link i bio 🔗\n\n#studievalg #uddannelsesvalg #ikigai"
+}

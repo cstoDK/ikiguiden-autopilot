@@ -1,0 +1,60 @@
+{
+  "id": "2026-W46-onsdag-1900-reel",
+  "type": "reel",
+  "publish_at": "2026-11-11T19:00:00+01:00",
+  "format": "liste",
+  "facts": [
+    "2 minutter"
+  ],
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "3 ting at gøre, når du har [[for mange]] muligheder"
+      ],
+      "sub": [
+        "Tvivl kan også være for meget, ikke for lidt."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 1,
+      "h": [
+        "Stryg først."
+      ],
+      "sub": [
+        "Start med det, du ved, du ikke vil. Det er lettere end at vælge, og listen bliver kortere."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 2,
+      "h": [
+        "Se efter mønstre."
+      ],
+      "sub": [
+        "Mange af dine muligheder ligner måske hinanden. Tit er det den samme interesse med forskellige navne."
+      ]
+    },
+    {
+      "kind": "liste",
+      "num": 3,
+      "h": [
+        "Gå i dybden med få."
+      ],
+      "sub": [
+        "Undersøg to eller tre ordentligt i stedet for at skimme tyve."
+      ]
+    },
+    {
+      "kind": "produkt",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "2 minutter. Ingen login. Link i bio."
+      ]
+    }
+  ],
+  "caption": "3 ting at gøre, når du har for mange muligheder at vælge imellem.\n\nIkke al tvivl handler om ikke at vide noget. Nogle gange kan du se dig selv mange steder, og så står du stille af den grund.\n\nHvilket punkt mangler du at gøre? Skriv nummeret i kommentarerne.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #gymnasiet"
+}
