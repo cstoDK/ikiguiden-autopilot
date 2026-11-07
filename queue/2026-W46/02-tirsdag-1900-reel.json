@@ -2,7 +2,8 @@
   "id": "2026-W46-tirsdag-1900-reel",
   "type": "reel",
   "publish_at": "2026-11-10T19:00:00+01:00",
-  "tema": "brun",
+  "tema": "foto",
+  "bg": "brand/baggrunde/skovvej-sving.jpg",
   "format": "linje",
   "facts": [
     "2 minutter"
