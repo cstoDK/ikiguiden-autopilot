@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-06T19:23+00:00)
+# Tal fra Instagram (hentet 2026-11-07T07:12+00:00)
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
