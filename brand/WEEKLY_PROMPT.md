@@ -81,3 +81,7 @@ Visningerne faldt fra omkring 150 til 10 til 60, da autopiloten gik i gang med 2
 - Lav flere af de formater, temaer og emner, der har højest median, og færre af dem i bunden. Skriv i afslutningen, hvad tallene fik dig til at ændre.
 - Manuelle opslag (dem Christian selv har lavet) er målestokken. Ligger autopiloten langt under dem, så skriv det i afslutningen.
 - Mangler filen eller visningstallene, så skriv det i afslutningen og fortsæt med blandingen ovenfor.
+
+## Tillæg: første kort skal stoppe en fremmed
+
+De fleste, der ser et reel, følger ikke profilen. Første kort skal derfor give mening og vække genkendelse hos en fremmed, uden at nævne testen, Ikigai-guiden eller prisen. Et offer-opslag åbner med en observation eller et problem og kommer først til testen bagefter. Et opslag, der åbner med produktet, skal skrives om.

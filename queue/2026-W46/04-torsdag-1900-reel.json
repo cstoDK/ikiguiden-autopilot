@@ -11,16 +11,16 @@
     {
       "kind": "hook",
       "h": [
-        "Hvad sker der, når du tager [[mini-testen]]?"
+        "Du skal ikke vide, hvad du vil være."
       ],
       "sub": [
-        "Helt kort."
+        "Du skal bare kunne svare ærligt om dig selv."
       ]
     },
     {
       "kind": "text",
       "h": [
-        "Du svarer på spørgsmål om dig selv."
+        "Det er hele idéen bag [[mini-testen]]."
       ],
       "sub": [
         "Fx: Hvilke aktiviteter får dig til at glemme tid og sted?"
@@ -70,5 +70,5 @@
       ]
     }
   ],
-  "caption": "Hvad sker der egentlig, når du tager mini-testen? Her er det helt kort.\n\nDu svarer på spørgsmål om dig selv i 2 minutter, uden login. Bagefter får du et gratis udsnit af din analyse med det samme.\n\nVil du have hele analysen, er den en valgfri engangsbetaling på 29 kr. Intet abonnement, og den kommer som PDF på mail.\n\nDet er en refleksionstest, ikke et facit.\n\nTag testen via link i bio 🔗\n\n#studievalg #uddannelsesvalg #ikigai"
+  "caption": "Du skal ikke vide, hvad du vil være, for at tage mini-testen. Du skal bare kunne svare ærligt om dig selv.\n\nDu svarer på spørgsmål om dig selv i 2 minutter, uden login. Bagefter får du et gratis udsnit af din analyse med det samme.\n\nVil du have hele analysen, er den en valgfri engangsbetaling på 29 kr. Intet abonnement, og den kommer som PDF på mail.\n\nDet er en refleksionstest, ikke et facit.\n\nTag testen via link i bio 🔗\n\n#studievalg #uddannelsesvalg #ikigai"
 }
