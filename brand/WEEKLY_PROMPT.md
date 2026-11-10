@@ -71,7 +71,7 @@ Lav ALLE 7 opslag som `"type": "carousel"` med `slides`. Ingen `"type": "reel"` 
 - 5 til 10 slides. Mindst 1 liste-karrusel (`"format": "liste"`) og mindst 1 linje-karrusel (`"format": "linje"`) om ugen. Resten almindelige slides (hook, text, cta, produkt).
 - Første slide skal få en fremmed til at swipe. Det må gerne slutte med en lille åbning, der kræver næste slide.
 - Tema `foto` virker også på karruseller: billedet ligger dæmpet bag hver slide.
-- Musik kommer af sig selv: build.py laver hver slide til en kort video med et nummer fra `brand/musik/`, og publish.py krediterer nummeret i captionen. Undgå samme nummer to dage i træk (vælg med `"musik": "<fil>.mp3"`, se `brand/musik/README.md`).
+- Slides udgives som billeder. Lav aldrig slides om til video, heller ikke for at få musik på. Musik kan kun sættes på i Instagram-appen, ikke af autopiloten.
 
 ### Tema: profilen må ikke ligne én lang beige flade
 

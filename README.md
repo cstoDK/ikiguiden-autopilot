@@ -56,6 +56,8 @@ python3 tests/run_tests.py          # hele pipelinen mod en mock af Instagram
 ## Kendte begrænsninger
 
 - Live-kald til Instagram er ikke afprøvet. De er testet mod en mock bygget efter Metas dokumentation, men det første rigtige kørsel er den egentlige prøve.
-- Reels (tekst som video) er slået fra fra 10. november 2026, fordi de ikke virkede. Kvalitetsporten afviser nye reels. Kun ægte karruseller udgives, med musik fra Instagrams eget bibliotek. Om musikken kom på, står i `state/published.json` under `music.media_audio_type` (MUSIC = ja).
+- Reels (tekst som video) er slået fra fra 10. november 2026, fordi de ikke virkede. Kvalitetsporten afviser nye reels. Kun ægte karruseller (billeder) udgives.
+- Musik på karruseller kan ikke sættes på automatisk. Metas lyd-API (`audio_configuration`) gælder kun reels, og Instagram afviser det på karruseller med fejl 2207065 (afprøvet mod kontoen 10. november 2026). publish.py prøver alligevel ved hver udgivelse og udgiver uden musik, når det afvises. Åbner Instagram for det, kommer musikken på af sig selv, og `state/published.json` viser `music.media_audio_type` = MUSIC.
+- Slides må aldrig laves om til video for at få lyd på. Det er prøvet og fravalgt.
 - Hosting af medier sker via raw.githubusercontent.com med jsDelivr som reserve. Repoet skal være offentligt.
 - Planlagte workflows i offentlige repos slås fra efter 60 dages inaktivitet. De ugentlige commits holder det i live.

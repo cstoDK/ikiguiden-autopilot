@@ -131,40 +131,15 @@ check("udgives alligevel", rc == 0 and state(d)["2026-W45-torsdag-karrusel"]["st
 kids = [c for c in mock.posts("/media") if c["params"].get("is_carousel_item") == "true" and "alt_text" not in c["params"]]
 check("børnene blev oprettet uden alt_text", len(kids) == NK)
 
-print("\n5b. Karrusel med musik: hver slide er en video med et rigtigt nummer")
+print("\n5b. Karrusel med ægte musik fra Instagrams bibliotek")
 d = fresh()
-(d / "brand" / "musik").mkdir(parents=True)
-(d / "brand" / "musik" / "dreamer.mp3").write_bytes(b"ID3")
-(d / "brand" / "musik" / "liste.txt").write_text("dreamer.mp3|Dreamer\n")
-src = json.loads((REPO / "queue" / "2026-W45" / "02-torsdag-karrusel.json").read_text())
-src.update(id="2026-W47-mandag-1900-karrusel", publish_at="2026-11-16T19:00:00+01:00")
-(d / "queue" / "2026-W47").mkdir()
-(d / "queue" / "2026-W47" / "01-mandag-1900-karrusel.json").write_text(json.dumps(src, ensure_ascii=False))
-mdir = d / "media" / "2026-W47" / src["id"]
-mdir.mkdir(parents=True)
-for i in range(1, len(src["slides"]) + 1):
-    shutil.copy(d / "media" / "2026-W45" / "2026-W45-torsdag-karrusel" / f"slide-{i:02d}.jpg", mdir / f"slide-{i:02d}.jpg")
-    (mdir / f"slide-{i:02d}.mp4").write_bytes(b"\x00\x00\x00\x18ftypmp42")
-rc, out = run(d, "2026-11-16T18:10:00+00:00", extra=["--only", src["id"]])
-creates = mock.posts("/media")
-kids = [c for c in creates if c["params"].get("is_carousel_item") == "true"]
-parent = [c for c in creates if c["params"].get("media_type") == "CAROUSEL"]
-check("udgivet", rc == 0 and state(d)[src["id"]]["status"] == "published", out)
-check("alle børn er videoer med mp4", len(kids) == len(src["slides"]) and all(
-    k["params"].get("media_type") == "VIDEO" and k["params"]["video_url"].endswith(".mp4") for k in kids), kids)
-check("caption krediterer musikken", len(parent) == 1 and parent[0]["params"]["caption"].endswith(
-    "Musik: Dreamer af Kevin MacLeod (incompetech.com), CC BY 4.0"))
-check("ældre karruseller er uden musik", not lint.common.carousel_music(dict(Q["02-torsdag-karrusel"], _path=None)))
-
-print("\n5c. Instagram afviser video-slides: udgives som billeder uden musik")
-(d / "state" / "published.json").write_text('{"posts": {}}\n')
-mock.reset(d / "media")
-mock.bad_video = True
-rc, out = run(d, "2026-11-16T18:10:00+00:00", extra=["--only", src["id"]])
+mock.music = True
+rc, out = run(d, THU)
 parent = [c for c in mock.posts("/media") if c["params"].get("media_type") == "CAROUSEL"]
-check("udgivet alligevel", rc == 0 and state(d)[src["id"]]["status"] == "published", out)
-check("som billeder og uden musik-kredit", len(parent) == 1 and "Kevin MacLeod" not in parent[0]["params"]["caption"]
-      and all("image_url" in mock.containers[c] for c in parent[0]["params"]["children"].split(",")), parent)
+check("udgivet", rc == 0 and state(d)["2026-W45-torsdag-karrusel"]["status"] == "published", out)
+check("karrusel-containeren har audio_configuration med nummeret",
+      len(parent) == 1 and json.loads(parent[0]["params"].get("audio_configuration", "{}")).get("audio_id") == "777", parent)
+check("lydtypen MUSIC er gemt i status", state(d)["2026-W45-torsdag-karrusel"].get("music", {}).get("media_audio_type") == "MUSIC")
 
 print("\n6. Udløbet adgangsnøgle")
 d = fresh()
