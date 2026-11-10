@@ -1,0 +1,38 @@
+name: Hent musik til karruseller (udgiver intet)
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hent rolige instrumentalnumre (Kevin MacLeod, CC BY 4.0)
+        run: |
+          sudo apt-get install -y -qq ffmpeg >/dev/null
+          mkdir -p brand/musik
+          base="https://incompetech.com/music/royalty-free/mp3-royaltyfree"
+          for name in "Dreamer" "Inspired" "Touching Moments" "Easy Lemon" "Wholesome" "Bright Wish" \
+                      "Lobby Time" "Carefree" "Daily Beetle" "Wallpaper" "Floating Cities" "Pamgaea" \
+                      "Relaxing Piano Music" "Peaceful Desolation" "Meditation Impromptu 01" "Hidden Agenda" \
+                      "Backbay Lounge" "Cool Vibes" "Fresh Fallen Snow" "Sunshine A"; do
+            f="brand/musik/$(echo "$name" | tr 'A-Z ' 'a-z-').mp3"
+            url="$base/$(echo "$name" | sed 's/ /%20/g').mp3"
+            if curl -sfL -A "Mozilla/5.0" -m 60 -o "$f" "$url"; then
+              d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$f" || echo 0)
+              if [ "${d%.*}" -ge 60 ] 2>/dev/null; then echo "OK  $name ($d s)"; echo "$(basename "$f")|$name" >> brand/musik/liste.txt; else echo "KASSERET $name ($d)"; rm -f "$f"; fi
+            else
+              echo "MANGLER $name"; rm -f "$f"
+            fi
+          done
+          ls -la brand/musik
+      - name: Gem
+        run: |
+          git config user.name "ikiguiden-autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git add brand/musik
+          if ! git diff --cached --quiet; then
+            git commit -m "Musik til karruseller (Kevin MacLeod, CC BY 4.0)"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push
+          fi
