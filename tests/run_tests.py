@@ -131,6 +131,16 @@ check("udgives alligevel", rc == 0 and state(d)["2026-W45-torsdag-karrusel"]["st
 kids = [c for c in mock.posts("/media") if c["params"].get("is_carousel_item") == "true" and "alt_text" not in c["params"]]
 check("børnene blev oprettet uden alt_text", len(kids) == NK)
 
+print("\n5b. Karrusel med ægte musik fra Instagrams bibliotek")
+d = fresh()
+mock.music = True
+rc, out = run(d, THU)
+parent = [c for c in mock.posts("/media") if c["params"].get("media_type") == "CAROUSEL"]
+check("udgivet", rc == 0 and state(d)["2026-W45-torsdag-karrusel"]["status"] == "published", out)
+check("karrusel-containeren har audio_configuration med nummeret",
+      len(parent) == 1 and json.loads(parent[0]["params"].get("audio_configuration", "{}")).get("audio_id") == "777", parent)
+check("lydtypen MUSIC er gemt i status", state(d)["2026-W45-torsdag-karrusel"].get("music", {}).get("media_audio_type") == "MUSIC")
+
 print("\n6. Udløbet adgangsnøgle")
 d = fresh()
 rc, out = run(d, TUE, token="GAMMEL-NOEGLE-123")

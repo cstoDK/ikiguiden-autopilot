@@ -27,6 +27,7 @@ class Mock:
         self.media_root = media_root
         self.calls = []
         self.bad_alt = False
+        self.music = False
         self.octet_mp4 = False
         self.n = 0
         self.containers = {}
@@ -93,6 +94,13 @@ class Mock:
                         return self._send(200, {"id": "systemuser1", "name": "System User"})
                     return self._send(200, {"user_id": mock.uid, "username": mock.username})
                 cid = parts[0]
+                if parts == ["ig_audio"]:
+                    if not mock.music:
+                        return self._err("Ukendt objekt", 100)
+                    return self._send(200, {"audio": [{"audio_id": "777", "title": "Rolig", "display_artist": "Test",
+                                                       "duration_in_ms": 120000}]})
+                if "media_audio_type" in fields:
+                    return self._send(200, {"media_audio_type": "MUSIC" if mock.music else "ORIGINAL"})
                 if "username" in fields:
                     if cid != mock.uid:
                         return self._err("Ukendt objekt", 100)

@@ -210,7 +210,7 @@ def reel_seconds(item):
 
 
 def pick_track(api, uid, item):
-    """Finder et nummer i Instagrams eget musikbibliotek. Fejler det, returneres None, og reelen beholder sin egen beat."""
+    """Finder et nummer i Instagrams eget musikbibliotek til reels og karruseller. Fejler det, returneres None."""
     if item.get("music") is False:
         return None
     h = int(hashlib.sha1(item["id"].encode()).hexdigest()[:8], 16)
@@ -258,7 +258,20 @@ def create_container(api, uid, item, args, st=None):
             r = api.post(f"{uid}/media", image_url=url, is_carousel_item="true")  # uden alt-tekst
         wait_ready(api, r["id"], args.timeout, args.poll)
         children.append(r["id"])
-    r = api.post(f"{uid}/media", media_type="CAROUSEL", children=",".join(children), caption=item["caption"])
+    base = dict(media_type="CAROUSEL", children=",".join(children), caption=item["caption"])
+    # Ægte musik fra Instagrams eget bibliotek, samme som på reels. Afviser Instagram det, udgives uden.
+    track = pick_track(api, uid, item)
+    if track:
+        cfg = json.dumps({"audio_id": track["audio_id"], "audio_volume": 100})
+        try:
+            r = api.post(f"{uid}/media", audio_configuration=cfg, **base)
+            log(f"  musik: {track['title']} ({track['artist']})")
+            if st is not None:
+                st["music"] = track
+            return r["id"]
+        except ApiError as e:
+            log(f"  musik: Instagram afviste nummeret på karrusellen ({e}); udgiver uden")
+    r = api.post(f"{uid}/media", **base)
     return r["id"]
 
 
@@ -294,6 +307,8 @@ def publish_item(api, item, state, args, save):
         try:
             st["music"]["media_audio_type"] = api.get(media_id, fields="media_audio_type").get("media_audio_type")
             log(f"  lydtype på det udgivne opslag: {st['music']['media_audio_type']}")
+            if st["music"]["media_audio_type"] != "MUSIC":
+                log("  ADVARSEL: Instagram satte ikke musikken på opslaget.")
         except ApiError:
             pass
     st.update(status="published", media_id=media_id, permalink=permalink,
