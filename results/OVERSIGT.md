@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-09T14:20+00:00)
+# Tal fra Instagram (hentet 2026-11-10T13:49+00:00)
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
@@ -8,12 +8,12 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 14 |
-| Autopilot, format tekstkort | 0 | 6 |
+| Alle autopilot-opslag | 0 | 15 |
+| Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 3 |
 | Autopilot, format liste | 0 | 4 |
 | Autopilot, format linje | 1 | 1 |
-| Autopilot, tema lys | 0 | 12 |
+| Autopilot, tema lys | 0 | 13 |
 | Autopilot, tema mørk | 0 | 1 |
 | Autopilot, tema grøn | 0 | 1 |
 
@@ -21,6 +21,7 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-09 | autopilot | tekstkort | lys |  |  |  |  | 0 | Du er ikke doven. Du mangler måske bare retning. |
 | 2026-11-08 | autopilot | slides | grøn |  |  |  |  | 0 | Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse. |
 | 2026-11-07 | autopilot | liste | mørk |  |  |  |  | 0 | 4 ting, du kan prøve af, før du vælger uddannelse. |
 | 2026-11-06 | autopilot | tekstkort | lys |  |  |  |  | 0 | Tag den gratis mini-test via link i bio, hvis du er i tvivl om uddannelse. |
