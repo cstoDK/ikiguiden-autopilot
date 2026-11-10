@@ -191,9 +191,11 @@ def validate(item):
     mdir = common.media_dir(item)
     rel_dir = f"{item['_path'].parent.name}/{item['id']}"
     if item["type"] == "carousel":
+        ext = ["jpg", "mp4"] if common.carousel_music(item) else ["jpg"]
         for i in range(1, len(item.get("slides", [])) + 1):
-            if not (mdir / f"slide-{i:02d}.jpg").exists():
-                probs.append(f"media/{rel_dir}/slide-{i:02d}.jpg mangler (kør build.py).")
+            for e in ext:
+                if not (mdir / f"slide-{i:02d}.{e}").exists():
+                    probs.append(f"media/{rel_dir}/slide-{i:02d}.{e} mangler (kør build.py).")
     elif not (mdir / "reel.mp4").exists():
         probs.append(f"media/{rel_dir}/reel.mp4 mangler (kør build.py).")
     return probs
@@ -247,32 +249,40 @@ def create_container(api, uid, item, args, st=None):
                 log(f"  musik: Instagram afviste nummeret ({e}); udgiver med egen beat")
         r = api.post(f"{uid}/media", **base)
         return r["id"]
-    children = []
-    for i, slide in enumerate(item["slides"], 1):
-        url = resolve_url(f"{rel_dir}/slide-{i:02d}.jpg", "image", args)
+    track = common.carousel_music(item)
+    if track and not (st or {}).get("music_failed"):
         try:
-            r = api.post(f"{uid}/media", image_url=url, is_carousel_item="true", alt_text=alt_text(slide))
-        except ApiError as e:
-            if e.code != 100:
-                raise
-            r = api.post(f"{uid}/media", image_url=url, is_carousel_item="true")  # uden alt-tekst
-        wait_ready(api, r["id"], args.timeout, args.poll)
-        children.append(r["id"])
-    base = dict(media_type="CAROUSEL", children=",".join(children), caption=item["caption"])
-    # Ægte musik fra Instagrams eget bibliotek, samme som på reels. Afviser Instagram det, udgives uden.
-    track = pick_track(api, uid, item)
-    if track:
-        cfg = json.dumps({"audio_id": track["audio_id"], "audio_volume": 100})
-        try:
-            r = api.post(f"{uid}/media", audio_configuration=cfg, **base)
-            log(f"  musik: {track['title']} ({track['artist']})")
+            children = carousel_children(api, uid, item, args, rel_dir, video=True)
+            caption = item["caption"].rstrip() + "\n\n" + common.music_credit(track)
+            r = api.post(f"{uid}/media", media_type="CAROUSEL", children=",".join(children), caption=caption)
+            log(f"  musik: {track[1]} (Kevin MacLeod), på hver slide")
             if st is not None:
-                st["music"] = track
+                st["music"] = {"title": track[1], "artist": "Kevin MacLeod", "file": track[0], "slides": "video"}
             return r["id"]
         except ApiError as e:
-            log(f"  musik: Instagram afviste nummeret på karrusellen ({e}); udgiver uden")
-    r = api.post(f"{uid}/media", **base)
+            log(f"  musik: video-slides blev afvist ({e}); udgiver som billeder uden musik")
+    children = carousel_children(api, uid, item, args, rel_dir, video=False)
+    r = api.post(f"{uid}/media", media_type="CAROUSEL", children=",".join(children), caption=item["caption"])
     return r["id"]
+
+
+def carousel_children(api, uid, item, args, rel_dir, video):
+    children = []
+    for i, slide in enumerate(item["slides"], 1):
+        if video:
+            url = resolve_url(f"{rel_dir}/slide-{i:02d}.mp4", "video", args)
+            r = api.post(f"{uid}/media", media_type="VIDEO", video_url=url, is_carousel_item="true")
+        else:
+            url = resolve_url(f"{rel_dir}/slide-{i:02d}.jpg", "image", args)
+            try:
+                r = api.post(f"{uid}/media", image_url=url, is_carousel_item="true", alt_text=alt_text(slide))
+            except ApiError as e:
+                if e.code != 100:
+                    raise
+                r = api.post(f"{uid}/media", image_url=url, is_carousel_item="true")  # uden alt-tekst
+        wait_ready(api, r["id"], args.timeout, args.poll)
+        children.append(r["id"])
+    return children
 
 
 def publish_item(api, item, state, args, save):
@@ -297,13 +307,25 @@ def publish_item(api, item, state, args, save):
         cid = create_container(api, uid, item, args, st)
         st.update(status="container", creation_id=cid)
         save()
-    wait_ready(api, cid, args.timeout, args.poll)
+    try:
+        wait_ready(api, cid, args.timeout, args.poll)
+    except ApiError as e:
+        if st.get("music", {}).get("slides") != "video":
+            raise
+        # Instagram kunne ikke behandle video-slides. Udgiv hellere som billeder end slet ikke.
+        log(f"  musik: karrusel med video-slides fejlede ({e}); udgiver som billeder uden musik")
+        st.pop("music", None)
+        st["music_failed"] = str(e)[:200]
+        cid = create_container(api, uid, item, args, st)
+        st.update(status="container", creation_id=cid)
+        save()
+        wait_ready(api, cid, args.timeout, args.poll)
     media_id = api.post(f"{uid}/media_publish", retries=0, creation_id=cid)["id"]
     try:
         permalink = api.get(media_id, fields="permalink").get("permalink")
     except ApiError:
         permalink = None
-    if st.get("music"):
+    if st.get("music", {}).get("audio_id"):
         try:
             st["music"]["media_audio_type"] = api.get(media_id, fields="media_audio_type").get("media_audio_type")
             log(f"  lydtype på det udgivne opslag: {st['music']['media_audio_type']}")

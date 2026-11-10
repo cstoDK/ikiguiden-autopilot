@@ -222,6 +222,9 @@ def music_expr(durations):
 
 def item_hash(item):
     payload = {k: item.get(k) for k in ("type", "format", "slides", "cards")}
+    track = common.carousel_music(item)
+    if track:
+        payload["musik"] = track[0]
     # Tema og baggrund tæller kun med, når de er sat, så ældre opslag ikke gengives forfra.
     for k in ("tema", "bg"):
         if item.get(k):
@@ -245,6 +248,8 @@ def render_item(page, item, force=False):
         render_panorama(page, item, out)
     else:
         (render_carousel if item["type"] == "carousel" else render_reel)(page, item, out)
+    if common.carousel_music(item):
+        render_slide_videos(item, out)
     stamp.write_text(h)
     return True
 
@@ -397,3 +402,22 @@ def render_swipe_reel(page, item, out):
         if proc.wait() != 0:
             raise RuntimeError("ffmpeg fejlede under swipe-reel")
         first.save(out / "cover.jpg", quality=92)
+
+
+# ---------------- Karrusel med musik: hver slide som kort video ----------------
+def render_slide_videos(item, out):
+    """Laver slide-XX.mp4 af hver slide-XX.jpg med et rigtigt nummer under. Nummeret fortsætter fra slide til slide."""
+    name, _title = common.carousel_music(item)
+    track = common.ROOT / common.MUSIC_DIR / name
+    L, step = common.SLIDE_VIDEO_SECONDS, common.SLIDE_AUDIO_STEP
+    for i, jpg in enumerate(sorted(out.glob("slide-*.jpg"))):
+        mp4 = jpg.with_suffix(".mp4")
+        subprocess.run(
+            ["ffmpeg", "-y", "-loglevel", "error", "-loop", "1", "-framerate", "30", "-i", str(jpg),
+             "-ss", str(8 + i * step), "-i", str(track), "-t", str(L),
+             "-vf", "format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-crf", "20",
+             "-r", "30", "-g", "60",
+             "-af", f"afade=t=in:st=0:d=0.4,afade=t=out:st={L - 1.2}:d=1.2,volume=0.9",
+             "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2", "-shortest", "-movflags", "+faststart", str(mp4)],
+            check=True,
+        )

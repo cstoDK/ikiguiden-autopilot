@@ -2,16 +2,10 @@ dreamer.mp3|Dreamer
 inspired.mp3|Inspired
 easy-lemon.mp3|Easy Lemon
 wholesome.mp3|Wholesome
-lobby-time.mp3|Lobby Time
 carefree.mp3|Carefree
-daily-beetle.mp3|Daily Beetle
 wallpaper.mp3|Wallpaper
 floating-cities.mp3|Floating Cities
-pamgaea.mp3|Pamgaea
-relaxing-piano-music.mp3|Relaxing Piano Music
-peaceful-desolation.mp3|Peaceful Desolation
-meditation-impromptu-01.mp3|Meditation Impromptu 01
-hidden-agenda.mp3|Hidden Agenda
+lobby-time.mp3|Lobby Time
 backbay-lounge.mp3|Backbay Lounge
 cool-vibes.mp3|Cool Vibes
-sunshine-a.mp3|Sunshine A
+sunshine-a.mp3|Sunshine
