@@ -1,0 +1,63 @@
+{
+  "id": "2026-W46-soendag-1900-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-15T19:00:00+01:00",
+  "tema": "foto",
+  "bg": "brand/baggrunde/strand-solnedgang.jpg",
+  "facts": [
+    "2 minutter"
+  ],
+  "caption": "Du har sikkert scrollet i mere end 2 minutter i dag. Brug de næste 2 på dig selv.\n\nIkigai-guiden er en refleksionstest til dig, der er i tvivl om uddannelse. Den er gratis at starte, du skal ikke logge ind, og du får et gratis udsnit af din analyse med det samme.\n\nDet er ikke en dom over dig. Det er et sted at starte.\n\nTag testen via link i bio 🔗\n\n#studievalg #uddannelsesvalg #ikigai",
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Du har sikkert scrollet i mere end 2 minutter i dag."
+      ],
+      "sub": [
+        "Brug de næste 2 på dig selv."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "En refleksionstest om uddannelse og retning."
+      ],
+      "sub": [
+        "Gratis at starte."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Ingen login."
+      ],
+      "sub": [
+        "Du skal bare svare ærligt."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du får et gratis udsnit af din analyse med det samme."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Det er ikke en dom. Det er et sted at [[starte]]."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "Scroll lidt mindre. Tænk lidt mere. Link i bio."
+      ]
+    }
+  ]
+}

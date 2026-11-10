@@ -5,7 +5,7 @@ Indhold til Instagram-profilen Ikiguiden bliver skrevet, tegnet og udgivet uden 
 ```
 Fredag    ugens generering skriver 7 opslag (1 om dagen kl. 19) i queue/  (brand/WEEKLY_PROMPT.md)
           kvalitetsporten (pipeline/lint.py) afviser alt, der ikke lever op til reglerne
-          pipeline/build.py gengiver karruseller (JPEG) og reels (MP4)
+          pipeline/build.py gengiver karruseller (JPEG). Reels er slået fra fra uge 46
 Hver 30 min.  GitHub Actions kører pipeline/publish.py og udgiver det, der er forfaldent
 Hver morgen   pipeline/insights.py henter visninger m.m. til results/OVERSIGT.md (læser kun)
 Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
@@ -56,6 +56,6 @@ python3 tests/run_tests.py          # hele pipelinen mod en mock af Instagram
 ## Kendte begrænsninger
 
 - Live-kald til Instagram er ikke afprøvet. De er testet mod en mock bygget efter Metas dokumentation, men det første rigtige kørsel er den egentlige prøve.
-- Reels er tekstkort uden lyd og uden menneske. De skal bevise, at formatet virker, ikke vinde på reach af sig selv.
+- Reels (tekst som video) er slået fra fra 10. november 2026, fordi de ikke virkede. Kvalitetsporten afviser nye reels. Kun ægte karruseller udgives.
 - Hosting af medier sker via raw.githubusercontent.com med jsDelivr som reserve. Repoet skal være offentligt.
 - Planlagte workflows i offentlige repos slås fra efter 60 dages inaktivitet. De ugentlige commits holder det i live.

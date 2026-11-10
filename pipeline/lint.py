@@ -5,6 +5,7 @@ Brug: python3 pipeline/lint.py            (tjekker alle opslag i queue/)
 import re
 import sys
 import unicodedata
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -24,6 +25,7 @@ HASHTAG = re.compile(r"(?<!\w)#\w+", re.UNICODE)
 NUMBER = re.compile(r"\d[\d.,]*")
 EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
 URL = re.compile(r"https?://|www\.", re.I)
+REELS_STOP = datetime(2026, 11, 10, 12, 0, tzinfo=timezone.utc)
 
 
 def texts(item):
@@ -50,6 +52,12 @@ def check(item):
     kind = item["type"]
     if kind not in ("carousel", "reel"):
         p.append(f"Ukendt type '{kind}' (skal være carousel eller reel).")
+    # Video-karruseller (reels med tekst) virkede ikke. Fra uge 46 udgives kun ægte karruseller.
+    try:
+        if kind == "reel" and common.parse_when(item["publish_at"]) >= REELS_STOP:
+            p.append("Reels er slået fra. Lav opslaget som \"type\": \"carousel\" med slides.")
+    except ValueError:
+        pass
 
     cap = item["caption"]
     if len(cap) > 2200:

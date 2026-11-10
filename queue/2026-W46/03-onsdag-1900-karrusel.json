@@ -1,0 +1,66 @@
+{
+  "id": "2026-W46-onsdag-1900-karrusel",
+  "type": "carousel",
+  "publish_at": "2026-11-11T19:00:00+01:00",
+  "tema": "mørk",
+  "caption": "Du kan elske noget uden at ville arbejde med det.\n\nEn interesse er ikke automatisk en uddannelse. Spørg i stedet, hvad det præcis er, du kan lide ved den. Fællesskabet, at lære nyt eller at skabe noget?\n\nDet svar passer ofte ind flere steder, end du tror.\n\nTag den gratis mini-test via link i bio.\n\n#studievalg #uddannelsesvalg #interesser",
+  "slides": [
+    {
+      "kind": "hook",
+      "h": [
+        "Du kan elske noget uden at ville [[arbejde]] med det."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du kan elske fodbold."
+      ],
+      "sub": [
+        "Og hade at analysere kampe hele dagen."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Du kan elske at læse."
+      ],
+      "sub": [
+        "Og ikke gide at skrive opgaver om bøger."
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "En interesse er ikke automatisk en uddannelse."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Spørg i stedet: Hvad er det [[præcis]], jeg kan lide ved det?"
+      ],
+      "sub": [
+        "Er det fællesskabet? At lære nyt? At skabe noget?"
+      ]
+    },
+    {
+      "kind": "text",
+      "h": [
+        "Det, du kan lide ved noget, passer ofte flere steder."
+      ],
+      "sub": []
+    },
+    {
+      "kind": "cta",
+      "h": [
+        "Tag den gratis [[mini-test]]."
+      ],
+      "sub": [
+        "Link i bio."
+      ]
+    }
+  ]
+}

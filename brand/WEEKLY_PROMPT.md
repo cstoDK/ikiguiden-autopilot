@@ -15,7 +15,7 @@ Brand-filerne bruger selv tankestreger og har eksempler med dem (fx "mini-test �
 
 ## 2. Lav 7 opslag til næste uge (mandag til søndag, 1 om dagen)
 
-Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W47/`. Filnavne `01-mandag-1900-reel.json` osv. Kopiér felter og format fra ugen før. Id'et er `<uge>-<dag>-<kl>-<type>`.
+Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W47/`. Filnavne `01-mandag-1900-karrusel.json` osv. Kopiér felter og format fra ugen før. Id'et er `<uge>-<dag>-<kl>-<type>`.
 
 Fast tid (Europe/Copenhagen, med tidszone i `publish_at`, +01:00 om vinteren og +02:00 i sommertid): hver dag kl. 19:00. Ét opslag om dagen, fordi to om dagen gav færre visninger pr. opslag. Undgå to opslag i træk med samme emne eller samme første linje.
 
@@ -41,7 +41,7 @@ Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i n
 - Ingen tal uden at de står i FACTS.md og i opslagets `facts`-felt.
 - Hook i første linje (højst 125 tegn), konkret og uden hilsen eller emoji i starten.
 - Højst 3 hashtags, højst 2 emojis, ingen URL i caption. Eneste opfordring er "Link i bio".
-- Reel: 5 til 16 tekstkort, samlet 15 til 60 sekunder. Karrusel: 5 til 10 slides.
+- Karrusel: 5 til 10 slides. Reels er slået fra.
 - Skriv i du-form, dansk, uden floskler som "i dagens samfund", "rejse", "unlock", "game changer".
 - Ingen medicinske, juridiske eller økonomiske løfter. Ingen påstande om at kende brugerens "rigtige" svar.
 
@@ -49,7 +49,7 @@ Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i n
 
 1. `python3 pipeline/build.py` (kvalitetsporten kører først og stopper ved fejl). Ret teksten, til den passerer. Omgå aldrig porten.
 2. `python3 tests/run_tests.py` skal være grøn.
-3. Kig på mindst én gengivet slide og ét reel-kontaktark, så teksten ikke løber ud over kanten.
+3. Kig på mindst én gengivet slide fra hvert tema, så teksten ikke løber ud over kanten og kan læses.
 
 ## 5. Udgiv til køen
 
@@ -63,12 +63,14 @@ Højst 6 linjer på dansk: hvilke emner og formater du valgte, hvad der ikke ble
 
 Mindst 1 af ugens opslag skal have `"format": "linje"`. Her løber én linje ubrudt hen over alle slides, så man skal swipe for at følge den. Hver slide har feltet `linje` med en af værdierne `lige`, `løkker`, `kaos`, `bølge` og `mål`. Første slide er `lige`, sidste er `mål` (pil mod CTA), og imellem bruges linjen som billede på pointen, fx lige vs. filtret, eller tvivl der retter sig ud. Teksten skal være kort, fordi linjen fylder nederste halvdel: højst 2 korte linjer overskrift plus én kort undertekst pr. slide, 5 til 7 slides. Se `queue/2026-W45/13-tirsdag-1900-karrusel.json` som eksempel. Find gerne på nye historier, linjen kan fortælle, i stedet for at gentage eksemplet.
 
-## VIGTIGST, gælder over alt ovenfor: kun reels, 1 om dagen, varieret udseende
+## VIGTIGST, gælder over alt ovenfor: kun ægte karruseller, 1 om dagen, varieret udseende
 
-Lav ALLE 7 opslag som `"type": "reel"`. Ingen `"type": "carousel"`.
+Lav ALLE 7 opslag som `"type": "carousel"` med `slides`. Ingen `"type": "reel"` og ingen `cards`. Video-karruseller (slides udgivet som video) virkede ikke på profilen, så de er slået fra, og kvalitetsporten afviser nye reels.
 
-- Cirka halvdelen er tekstkort-reels (`cards`), resten swipe-reels: `"type": "reel"` med `slides` i stedet for `cards`. De bygges som en karrusel (hook, liste, linje, produkt, cta), men udgives som video. Mindst 1 liste og mindst 1 linje om ugen. Skriv ikke "swipe" i teksten, for videoen kører af sig selv.
-- Alle reels skal vare 15 til 60 sekunder. Kvalitetsporten regner det ud fra mængden af tekst.
+- Filnavne og id slutter på `karrusel`, fx `01-mandag-1900-karrusel.json` og `2026-W47-mandag-1900-karrusel`.
+- 5 til 10 slides. Mindst 1 liste-karrusel (`"format": "liste"`) og mindst 1 linje-karrusel (`"format": "linje"`) om ugen. Resten almindelige slides (hook, text, cta, produkt).
+- Første slide skal få en fremmed til at swipe. Det må gerne slutte med en lille åbning, der kræver næste slide.
+- Tema `foto` virker også på karruseller: billedet ligger dæmpet bag hver slide.
 
 ### Tema: profilen må ikke ligne én lang beige flade
 
@@ -84,4 +86,4 @@ Visningerne faldt fra omkring 150 til 10 til 60, da autopiloten gik i gang med 2
 
 ## Tillæg: første kort skal stoppe en fremmed
 
-De fleste, der ser et reel, følger ikke profilen. Første kort skal derfor give mening og vække genkendelse hos en fremmed, uden at nævne testen, Ikigai-guiden eller prisen. Et offer-opslag åbner med en observation eller et problem og kommer først til testen bagefter. Et opslag, der åbner med produktet, skal skrives om.
+De fleste, der ser et opslag, følger ikke profilen. Første kort skal derfor give mening og vække genkendelse hos en fremmed, uden at nævne testen, Ikigai-guiden eller prisen. Et offer-opslag åbner med en observation eller et problem og kommer først til testen bagefter. Et opslag, der åbner med produktet, skal skrives om.

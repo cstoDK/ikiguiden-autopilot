@@ -153,13 +153,29 @@ def shot(page, html_text, workdir, name, path, kind="jpeg", transparent=False):
         page.screenshot(path=str(path), type="png", omit_background=transparent)
 
 
+def save_slide(img, theme, path):
+    """Gemmer en slide som JPEG. Ved tema foto lægges den gennemsigtige slide oven på Christians billede."""
+    from PIL import Image
+    img = img.convert("RGBA")
+    if theme.get("photo"):
+        bg = photo_frame(theme, (1080, 1440)).convert("RGBA")
+        bg.alpha_composite(img)
+        img = bg
+    img.convert("RGB").save(path, quality=92)
+
+
 def render_carousel(page, item, out):
+    from PIL import Image
     fonts = font_css()
     slides = item["slides"]
+    theme = theme_of(item)
+    photo = bool(theme.get("photo"))
     page.set_viewport_size({"width": 1080, "height": 1440})
     with tempfile.TemporaryDirectory() as tmp:
         for i, s in enumerate(slides, 1):
-            shot(page, carousel_html(s, i, len(slides), fonts, theme_of(item)), tmp, f"s{i}", out / f"slide-{i:02d}.jpg")
+            fp = Path(tmp) / f"s{i}.png"
+            shot(page, carousel_html(s, i, len(slides), fonts, theme, photo), tmp, f"s{i}", fp, kind="png", transparent=photo)
+            save_slide(Image.open(fp), theme, out / f"slide-{i:02d}.jpg")
 
 
 def render_reel(page, item, out):
@@ -303,13 +319,15 @@ body{{width:{n*1080}px;height:1440px;position:relative;overflow:hidden;backgroun
 def render_panorama(page, item, out):
     from PIL import Image
     n = len(item["slides"])
+    theme = theme_of(item)
+    photo = bool(theme.get("photo"))
     page.set_viewport_size({"width": 1080 * n, "height": 1440})
     with tempfile.TemporaryDirectory() as tmp:
         full = Path(tmp) / "pano.png"
-        shot(page, panorama_html(item, font_css()), tmp, "pano", full, kind="png")
-        im = Image.open(full).convert("RGB")
+        shot(page, panorama_html(item, font_css(), photo), tmp, "pano", full, kind="png", transparent=photo)
+        im = Image.open(full).convert("RGBA")
         for i in range(n):
-            im.crop((i * 1080, 0, (i + 1) * 1080, 1440)).save(out / f"slide-{i+1:02d}.jpg", quality=92)
+            save_slide(im.crop((i * 1080, 0, (i + 1) * 1080, 1440)), theme, out / f"slide-{i+1:02d}.jpg")
 
 
 # ---------------- Swipe-reel: en karrusel som video, med beat ----------------
