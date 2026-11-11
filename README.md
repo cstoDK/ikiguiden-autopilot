@@ -7,6 +7,7 @@ Fredag    ugens generering skriver 7 opslag (1 om dagen kl. 19) i queue/  (brand
           kvalitetsporten (pipeline/lint.py) afviser alt, der ikke lever op til reglerne
           pipeline/build.py gengiver karruseller (JPEG). Reels er slået fra fra uge 46
 Hver 30 min.  GitHub Actions kører pipeline/publish.py og udgiver det, der er forfaldent
+Hver 30 min.  samme kørsel sender karrusellerne videre til TikTok (pipeline/tiktok.py), når TikTok er tændt
 Hver morgen   pipeline/insights.py henter visninger m.m. til results/OVERSIGT.md (læser kun)
 Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 ```
@@ -18,6 +19,7 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 | `queue/<uge>/*.json` | Opslag: type, tidspunkt, caption, slides eller tekstkort |
 | `media/<uge>/<id>/` | Gengivne billeder og video (committes, så Instagram kan hente dem) |
 | `state/published.json` | Hvad der er udgivet, sprunget over eller spærret |
+| `state/tiktok.json` | Hvad der er sendt til TikTok |
 | `brand/` | Stil, eksempler, fakta, ugens opgave |
 | `brand/baggrunde/` | Egne billeder til tema `foto` |
 | `results/` | Tal fra Instagram, hentet hver morgen |
@@ -45,12 +47,31 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 
 Før trin 3 er alt slukket: publish.py afslutter uden fejl og siger, at autopiloten ikke er tændt.
 
+## TikTok
+
+Karrusellerne sendes også til TikTok som fotokarruseller, med samme billeder og tekst som på Instagram. Reels sendes ikke.
+
+TikToks eget API lader kun godkendte apps poste offentligt, og et værktøj til egne konti kan ikke blive godkendt. Derfor går udgivelsen gennem Zernio, som har en godkendt TikTok-app og er gratis for de første to tilsluttede konti. Før trin 3 herunder er TikTok slukket, og intet sendes.
+
+1. Opret en gratis konto på zernio.com, og tilslut TikTok-profilen.
+2. Skriv TikTok-brugernavnet i `config.json` under `tiktok_username` (uden @). Det er kontospærren: der sendes kun til den konto.
+3. Lav en API-nøgle hos Zernio, og gem den som GitHub secret `ZERNIO_API_KEY`.
+4. Kør workflowet "Tjek TikTok-konto (sender intet)". Det skal svare TIKTOK-KONTO OK.
+
+`tiktok_mode` i `config.json` styrer måden:
+
+- `auto`: opslaget udgives med det samme, og TikTok lægger selv et anbefalet nummer på. Nummeret kan skiftes i appen bagefter.
+- `kladde`: opslaget lander i TikTok-indbakken. Du vælger selv lyd og trykker udgiv. TikTok tillader højst 5 ventende kladder pr. døgn.
+
+Et enkelt opslag kan vælge selv med feltet `"tiktok": "kladde"`, og `"tiktok": false` holder det væk fra TikTok. Status står i `state/tiktok.json`. PAUSE-filen, kvalitetsporten og 18-timers-reglen gælder også her.
+
 ## Kør lokalt
 
 ```
 python3 pipeline/build.py           # lint + gengiv
 python3 pipeline/publish.py --dry-run --now 2026-11-03T18:10:00+00:00
 python3 tests/run_tests.py          # hele pipelinen mod en mock af Instagram
+python3 tests/test_tiktok.py         # TikTok-udgivelsen mod en mock af Zernio
 ```
 
 ## Kendte begrænsninger
@@ -59,5 +80,6 @@ python3 tests/run_tests.py          # hele pipelinen mod en mock af Instagram
 - Reels (tekst som video) er slået fra fra 10. november 2026, fordi de ikke virkede. Kvalitetsporten afviser nye reels. Kun ægte karruseller (billeder) udgives.
 - Musik på karruseller kan ikke sættes på automatisk. Metas lyd-API (`audio_configuration`) gælder kun reels, og Instagram afviser det på karruseller med fejl 2207065 (afprøvet mod kontoen 10. november 2026). publish.py prøver alligevel ved hver udgivelse og udgiver uden musik, når det afvises. Åbner Instagram for det, kommer musikken på af sig selv, og `state/published.json` viser `music.media_audio_type` = MUSIC.
 - Slides må aldrig laves om til video for at få lyd på. Det er prøvet og fravalgt.
+- Live-kald til Zernio og TikTok er ikke afprøvet. De er testet mod en mock bygget efter Zernios dokumentation. Første rigtige kørsel er den egentlige prøve, så start gerne med `tiktok_mode` sat til `kladde`.
 - Hosting af medier sker via raw.githubusercontent.com med jsDelivr som reserve. Repoet skal være offentligt.
 - Planlagte workflows i offentlige repos slås fra efter 60 dages inaktivitet. De ugentlige commits holder det i live.
