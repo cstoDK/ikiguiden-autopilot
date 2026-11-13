@@ -1,7 +1,9 @@
 {
-  "id": "reserve-2026-W46-07",
+  "id": "2026-W47-loerdag-1900-karrusel",
   "type": "carousel",
-  "publish_at": "2026-01-01T19:00:00+01:00",
+  "publish_at": "2026-11-21T19:00:00+01:00",
+  "tema": "foto",
+  "bg": "brand/baggrunde/elv-efteraar.jpg",
   "slides": [
     {
       "kind": "hook",
@@ -54,7 +56,7 @@
         "Tag den gratis mini-test."
       ],
       "sub": [
-        "Link i bio"
+        "Så har du noget at tale ud fra. Link i bio."
       ]
     }
   ],
