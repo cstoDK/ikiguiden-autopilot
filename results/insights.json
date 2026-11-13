@@ -1,13 +1,27 @@
 {
-  "hentet": "2026-11-12T14:01+00:00",
+  "hentet": "2026-11-13T13:26+00:00",
   "opslag": [
+    {
+      "media_id": "18027798065875527",
+      "tidspunkt": "2026-11-12T18:06:38+0000",
+      "link": "https://www.instagram.com/p/DfpqUY9E9_G/",
+      "type": "FEED",
+      "første_linje": "Du skal ikke vide, hvad du vil være, for at tage mini-testen. Du skal bare kunne svare ærl",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W46-torsdag-1900-karrusel",
+      "format": "slides",
+      "tema": "lys",
+      "planlagt": "2026-11-12T19:00:00+01:00"
+    },
     {
       "media_id": "18361729876219615",
       "tidspunkt": "2026-11-11T19:21:17+0000",
       "link": "https://www.instagram.com/p/DfnODHVFzYJ/",
       "type": "FEED",
       "første_linje": "Du kan elske noget uden at ville arbejde med det.",
-      "likes": 0,
+      "likes": 1,
       "kommentarer": 0,
       "kilde": "autopilot",
       "id": "2026-W46-onsdag-1900-karrusel",
@@ -21,7 +35,7 @@
       "link": "https://www.instagram.com/p/DfkPf8MF33A/",
       "type": "FEED",
       "første_linje": "Du vil være helt sikker, før du vælger uddannelse. Måske er det netop det, der holder dig ",
-      "likes": 0,
+      "likes": 1,
       "kommentarer": 0,
       "kilde": "autopilot",
       "id": "2026-W46-tirsdag-1900-karrusel",
