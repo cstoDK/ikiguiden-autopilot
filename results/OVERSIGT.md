@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-13T13:26+00:00)
+# Tal fra Instagram (hentet 2026-11-14T12:31+00:00)
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
@@ -8,20 +8,21 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 18 |
+| Alle autopilot-opslag | 0 | 19 |
 | Autopilot, format tekstkort | 0 | 7 |
-| Autopilot, format slides | 0 | 5 |
+| Autopilot, format slides | 0 | 6 |
 | Autopilot, format liste | 0 | 4 |
 | Autopilot, format linje | 1 | 2 |
 | Autopilot, tema lys | 0 | 14 |
 | Autopilot, tema mørk | 0 | 2 |
 | Autopilot, tema grøn | 0 | 1 |
-| Autopilot, tema foto | 1 | 1 |
+| Autopilot, tema foto | 0 | 2 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-13 | autopilot | slides | foto |  |  |  |  | 0 | Hvilke problemer gider du egentlig bruge tid på? |
 | 2026-11-12 | autopilot | slides | lys |  |  |  |  | 0 | Du skal ikke vide, hvad du vil være, for at tage mini-testen. Du skal bare kunne svare ærl |
 | 2026-11-11 | autopilot | slides | mørk |  |  |  |  | 1 | Du kan elske noget uden at ville arbejde med det. |
 | 2026-11-10 | autopilot | linje | foto |  |  |  |  | 1 | Du vil være helt sikker, før du vælger uddannelse. Måske er det netop det, der holder dig  |
