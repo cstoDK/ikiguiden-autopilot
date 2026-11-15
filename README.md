@@ -3,9 +3,9 @@
 Indhold til Instagram-profilen Ikiguiden bliver skrevet, tegnet og udgivet uden manuelt arbejde.
 
 ```
-Fredag    ugens generering skriver 7 opslag (1 om dagen kl. 19) i queue/  (brand/WEEKLY_PROMPT.md)
+Fredag    ugens generering skriver 7 klip-reels (1 om dagen kl. 19) i queue/  (brand/WEEKLY_PROMPT.md)
           kvalitetsporten (pipeline/lint.py) afviser alt, der ikke lever op til reglerne
-          pipeline/build.py gengiver karruseller (JPEG). Reels er slået fra fra uge 46
+          pipeline/build.py gengiver klip-reels (MP4 1080x1920) og eventuelle karruseller (JPEG)
 Hver 30 min.  GitHub Actions kører pipeline/publish.py og udgiver det, der er forfaldent
 Hver morgen   pipeline/insights.py henter visninger m.m. til results/OVERSIGT.md (læser kun)
 Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
@@ -19,11 +19,12 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 | `media/<uge>/<id>/` | Gengivne billeder og video (committes, så Instagram kan hente dem) |
 | `state/published.json` | Hvad der er udgivet, sprunget over eller spærret |
 | `brand/` | Stil, eksempler, fakta, ugens opgave |
-| `brand/baggrunde/` | Egne billeder til tema `foto` |
+| `brand/baggrunde/` | Egne billeder, baggrund i klip-reels (og tema `foto`) |
+| `brand/klip/` | Egne videoklip, baggrund i klip-reels. Bruges før billederne, når der ligger nogen |
 | `results/` | Tal fra Instagram, hentet hver morgen |
 | `reserve/` | Færdige opslag, der ikke er brugt endnu |
 | `pipeline/` | lint, render, build, publish, refresh_token |
-| `tests/` | Mock af Instagram og 49 tjek |
+| `tests/` | Mock af Instagram og 79 tjek |
 
 ## Sikkerhedsnet
 
@@ -56,8 +57,10 @@ python3 tests/run_tests.py          # hele pipelinen mod en mock af Instagram
 ## Kendte begrænsninger
 
 - Live-kald til Instagram er ikke afprøvet. De er testet mod en mock bygget efter Metas dokumentation, men det første rigtige kørsel er den egentlige prøve.
-- Reels (tekst som video) er slået fra fra 10. november 2026, fordi de ikke virkede. Kvalitetsporten afviser nye reels. Kun ægte karruseller (billeder) udgives.
-- Musik på karruseller kan ikke sættes på automatisk. Metas lyd-API (`audio_configuration`) gælder kun reels, og Instagram afviser det på karruseller med fejl 2207065 (afprøvet mod kontoen 10. november 2026). publish.py prøver alligevel ved hver udgivelse og udgiver uden musik, når det afvises. Åbner Instagram for det, kommer musikken på af sig selv, og `state/published.json` viser `music.media_audio_type` = MUSIC.
-- Slides må aldrig laves om til video for at få lyd på. Det er prøvet og fravalgt.
+- Strategi fra 15. november 2026: autopiloten laver klip-reels (`"format": "klip"`), der ligner Christians egne reels: eget billede eller klip i fuld skærm, 2 til 4 korte linjer, 6 til 10 sekunder. De manuelle reels fik typisk 120 til 250 visninger, autopilotens tekstkort og karruseller 10 til 60. Karruseller er sat på pause og ligger i `reserve/`.
+- Tekst-reels (tekstkort eller slides som video) er slået fra og afvises af kvalitetsporten. Slides må aldrig laves om til video.
+- Klip-reels får musik fra Instagrams bibliotek ved udgivelsen (`audio_configuration`). Afviser Instagram nummeret, udgives klippet med autopilotens egen rolige beat. Karruseller kan ikke få musik automatisk (fejl 2207065).
+- Uden videoklip i `brand/klip/` er baggrunden et stillbillede med langsom zoom. Ægte video virker bedre.
+- Visningstal kræver, at nøglen har tilladelsen `instagram_business_manage_insights`. Uden den viser `results/OVERSIGT.md` kun likes, og autopiloten kan ikke selv se, om strategien virker.
 - Hosting af medier sker via raw.githubusercontent.com med jsDelivr som reserve. Repoet skal være offentligt.
 - Planlagte workflows i offentlige repos slås fra efter 60 dages inaktivitet. De ugentlige commits holder det i live.

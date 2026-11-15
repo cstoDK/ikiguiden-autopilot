@@ -61,7 +61,9 @@ def describe(item):
     """Kort beskrivelse af et autopilot-opslag: format og tema."""
     if not item:
         return {"kilde": "manuel"}
-    if item.get("cards"):
+    if item.get("format") == "klip":
+        fmt = "klip"
+    elif item.get("cards"):
         fmt = "tekstkort"
     elif item.get("format") == "linje":
         fmt = "linje"
@@ -69,7 +71,7 @@ def describe(item):
         fmt = "liste"
     else:
         fmt = "slides"
-    return {"kilde": "autopilot", "id": item.get("id"), "format": fmt, "tema": item.get("tema", "lys"),
+    return {"kilde": "autopilot", "id": item.get("id"), "format": fmt, "tema": "foto" if fmt == "klip" else item.get("tema", "lys"),
             "planlagt": item.get("publish_at")}
 
 
@@ -113,7 +115,7 @@ def summarize(rows, errors, fetched_at):
     lines += [f"## Median {key} pr. gruppe", "", "| Gruppe | Median | Antal |", "| --- | --- | --- |"]
     groups = [("Alle manuelle opslag", [r for r in rows if r.get("kilde") == "manuel"]),
               ("Alle autopilot-opslag", [r for r in rows if r.get("kilde") == "autopilot"])]
-    for f in ("tekstkort", "slides", "liste", "linje"):
+    for f in ("klip", "tekstkort", "slides", "liste", "linje"):
         groups.append((f"Autopilot, format {f}", [r for r in rows if r.get("format") == f]))
     for t in common.THEME_NAMES:
         groups.append((f"Autopilot, tema {t}", [r for r in rows if r.get("kilde") == "autopilot" and r.get("tema") == t]))

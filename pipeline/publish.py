@@ -204,6 +204,8 @@ MUSIC_SEARCHES = ["lofi chill", "chill piano", "soft acoustic", "lofi beats", "c
 
 
 def reel_seconds(item):
+    if item.get("format") == "klip":
+        return common.klip_times(item)[1]
     if item.get("slides"):
         return sum(common.slide_seconds(s) for s in item["slides"]) + common.SWIPE_SECONDS * (len(item["slides"]) - 1)
     return sum(common.card_seconds(c) for c in item.get("cards", []))

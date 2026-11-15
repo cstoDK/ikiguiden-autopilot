@@ -76,3 +76,23 @@ SWIPE_SECONDS = 0.55
 # Temaer, som render.py kan tegne. "foto" kræver feltet "bg" med et billede i brand/baggrunde/.
 THEME_NAMES = ("lys", "mørk", "grøn", "brun", "foto")
 PHOTO_DIR = "brand/baggrunde"
+
+
+# ---------------- Klip-reels: kort video med eget billede eller klip og få linjer tekst ----------------
+# De manuelle reels på profilen (eget billede/klip, 1 til 4 korte linjer, få sekunder) fik 120 til 250
+# visninger, mens tekstkort og karruseller fik 10 til 60. Formatet "klip" efterligner de manuelle.
+KLIP_DIR = "brand/klip"
+KLIP_STYLES = ("hvid", "sort", "ren")
+KLIP_IMAGE_EXT = (".jpg", ".jpeg", ".png")
+KLIP_VIDEO_EXT = (".mp4", ".mov")
+
+
+def klip_times(item):
+    """Hvornår hver linje dukker op, og hvor længe hele klippet varer (sekunder)."""
+    words = [len(strip_marks(t).split()) for t in item.get("lines", [])]
+    starts, t = [], 0.0
+    for w in words:
+        starts.append(round(t, 2))
+        t += min(2.6, 1.1 + 0.22 * w)
+    total = (starts[-1] if starts else 0.0) + min(4.5, 2.4 + 0.25 * (words[-1] if words else 0))
+    return starts, round(max(6.0, total), 2)

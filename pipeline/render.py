@@ -223,7 +223,7 @@ def music_expr(durations):
 def item_hash(item):
     payload = {k: item.get(k) for k in ("type", "format", "slides", "cards")}
     # Tema og baggrund tæller kun med, når de er sat, så ældre opslag ikke gengives forfra.
-    for k in ("tema", "bg"):
+    for k in ("tema", "bg", "lines", "stil"):
         if item.get(k):
             payload[k] = item[k]
     return hashlib.sha1(json.dumps(payload, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -239,7 +239,9 @@ def render_item(page, item, force=False):
     for f in out.iterdir():
         if f.is_file():
             f.unlink()
-    if item["type"] == "reel" and item.get("slides"):
+    if item["type"] == "reel" and item.get("format") == "klip":
+        render_klip(page, item, out)
+    elif item["type"] == "reel" and item.get("slides"):
         render_swipe_reel(page, item, out)
     elif item["type"] == "carousel" and item.get("format") == "linje":
         render_panorama(page, item, out)
@@ -396,4 +398,117 @@ def render_swipe_reel(page, item, out):
         proc.stdin.close()
         if proc.wait() != 0:
             raise RuntimeError("ffmpeg fejlede under swipe-reel")
+        first.save(out / "cover.jpg", quality=92)
+
+
+# ---------------- Klip-reel: eget billede eller klip med få linjer tekst ----------------
+# Efterligner de reels, Christian selv har lavet, og som får flest visninger på profilen:
+# et rigtigt billede eller klip i fuld skærm, korte linjer i Instagrams egen etiket-stil,
+# få sekunder langt, så det bliver set til ende og kører i ring. Ingen beige flade, ingen bjælke.
+KLIP_FADE = 0.3
+KLIP_LOOK = {
+    "hvid": "background:#fff;color:#111;",
+    "sort": "background:#111;color:#fff;",
+    "ren": "color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.9),0 0 26px rgba(0,0,0,.75);",
+}
+
+
+def klip_html(item, fonts, show):
+    """Alle linjer ligger i samme layout, men kun linje `show` er synlig. Så står hver linje fast."""
+    stil = item.get("stil", "hvid")
+    lines = item["lines"]
+    size = 64 if max(len(common.strip_marks(t)) for t in lines) <= 44 else 56
+    hi = "#2F7D4F" if stil == "hvid" else "#A8D5B5"
+    rows = "".join(f'<div class="ln" style="visibility:{"visible" if i == show else "hidden"}"><span>{fmt(t)}</span></div>'
+                   for i, t in enumerate(lines))
+    base = common.ensure_fonts()
+    bold = base / "inter" / "files" / "inter-latin-700-normal.woff2"
+    return f"""<!doctype html><html lang="da"><head><meta charset="utf-8"><style>{fonts}
+@font-face{{font-family:'Inter';font-weight:700;src:url('file://{bold}') format('woff2');}}
+html,body{{margin:0;padding:0;background:transparent}}
+body{{width:1080px;height:1920px;position:relative;overflow:hidden}}
+.wrap{{position:absolute;left:120px;right:120px;top:400px;bottom:640px;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center}}
+.ln{{text-align:center;font-family:'Inter',sans-serif;font-weight:700;font-size:{size}px;line-height:1.62;letter-spacing:-0.5px;text-wrap:balance}}
+.ln span{{{KLIP_LOOK[stil]}padding:8px 22px;border-radius:16px;-webkit-box-decoration-break:clone;box-decoration-break:clone}}
+.ln .g{{color:{hi};background:none;padding:0}} .ln .nw{{background:none;padding:0;white-space:nowrap}}
+</style></head><body><div class="wrap">{rows}</div></body></html>"""
+
+
+def _klip_frames(item, total, fps):
+    """Baggrunden som en strøm af 1080x1920-billeder: et klip i ring eller et stillbillede med langsom zoom."""
+    from PIL import Image, ImageEnhance, ImageOps
+    src = common.ROOT / item["bg"]
+    n = int(round(total * fps))
+    if src.suffix.lower() in common.KLIP_VIDEO_EXT:
+        cmd = ["ffmpeg", "-loglevel", "error", "-stream_loop", "-1", "-i", str(src), "-t", f"{total + 1:.2f}", "-an",
+               "-vf", f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps={fps}",
+               "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        size = 1080 * 1920 * 3
+        last = None
+        for _ in range(n):
+            buf = proc.stdout.read(size)
+            if len(buf) == size:
+                last = Image.frombytes("RGB", (1080, 1920), buf)
+            if last is None:
+                proc.kill()
+                raise RuntimeError(f"Kunne ikke læse klippet {item['bg']}")
+            yield last.copy()
+        proc.kill()
+        proc.wait()
+        return
+    im = ImageOps.fit(Image.open(src).convert("RGB"), (1080, 1920), Image.LANCZOS)
+    im = ImageEnhance.Brightness(im).enhance(0.9)
+    seed = int(hashlib.sha1(item["id"].encode()).hexdigest()[:8], 16)
+    z0, z1 = (1.0, 1.14) if seed % 2 == 0 else (1.14, 1.0)      # zoom ind eller ud
+    dx = (-1, 0, 1)[seed // 2 % 3] * 0.25                         # let drift til siden
+    for f in range(n):
+        u = f / max(1, n - 1)
+        z = z0 + (z1 - z0) * u
+        w, h = 1080 / z, 1920 / z
+        cx = 540 + dx * (1080 - w) * (u - 0.5) * 2
+        cy = 960 - 0.15 * (1920 - h)
+        yield im.resize((1080, 1920), Image.BICUBIC, box=(cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2))
+
+
+def render_klip(page, item, out):
+    from PIL import Image
+    fonts = font_css()
+    lines = item["lines"]
+    starts, total = common.klip_times(item)
+    fps = 30
+    page.set_viewport_size({"width": 1080, "height": 1920})
+    with tempfile.TemporaryDirectory() as tmp:
+        layers = []
+        for i in range(len(lines)):
+            fp = Path(tmp) / f"l{i}.png"
+            shot(page, klip_html(item, fonts, i), tmp, f"l{i}", fp, kind="png", transparent=True)
+            layers.append(Image.open(fp).convert("RGBA"))
+        cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "1080x1920",
+               "-r", str(fps), "-i", "-",
+               "-i", str(music.beat(total, item["id"], Path(tmp) / "beat.wav")),
+               "-vf", "format=yuv420p", "-c:v", "libx264", "-preset", "medium", "-crf", "22", "-maxrate", "6M", "-bufsize", "12M",
+               "-af", "volume=0.8,alimiter=limit=0.9", "-c:a", "aac", "-b:a", "128k", "-shortest",
+               "-movflags", "+faststart", str(out / "reel.mp4")]
+        proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+        first = None
+        for f, frame in enumerate(_klip_frames(item, total, fps)):
+            t = f / fps
+            for i, layer in enumerate(layers):
+                # Første linje står der fra første billede, så forsiden og de første sekunder har et hook.
+                a = 1.0 if i == 0 else (t - starts[i]) / KLIP_FADE
+                if a <= 0:
+                    continue
+                if a >= 1:
+                    frame.paste(layer, (0, 0), layer)
+                else:
+                    e = 1 - (1 - a) ** 3
+                    mask = layer.getchannel("A").point(lambda v, e=e: int(v * e))
+                    frame.paste(layer, (0, int(round((1 - e) * 28))), mask)
+            if first is None:
+                first = frame.copy()
+            proc.stdin.write(frame.tobytes())
+        proc.stdin.close()
+        if proc.wait() != 0:
+            raise RuntimeError("ffmpeg fejlede under klip-reel")
         first.save(out / "cover.jpg", quality=92)

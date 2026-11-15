@@ -4,36 +4,71 @@ Du kører uden en menneskelig læser. Træf rimelige valg, skriv øverst i din a
 
 ## 1. Læs først
 
-- `brand/STYLE.md`, `brand/EKSEMPLER.md`, `brand/KARRUSEL.md`: stemme og visuel stil.
+- `brand/STYLE.md` og `brand/EKSEMPLER.md`: stemmen. `brand/KARRUSEL.md` gælder kun karruseller, som er sat på pause.
 - `brand/FACTS.md`: eneste tilladte fakta og tal.
 - `queue/` og `state/published.json`: hvad der er lavet og udgivet de seneste uger. Gentag ikke emner, hooks eller første linjer.
 - `results/OVERSIGT.md`: tal for hvert opslag på profilen, hentet dagligt af `pipeline/insights.py`. Læs den først og lad tallene styre ugens valg (se afsnittet om tal nederst).
-- `reserve/`: færdige opslag, der blev skrevet, men ikke brugt. Du må tage dem i brug (giv dem nyt id, filnavn, `publish_at` og `tema`), hvis emnet ikke er udgivet endnu.
-- `brand/baggrunde/`: Christians egne billeder til tema `foto`.
+- `reserve/`: færdige karruseller, der blev skrevet, men ikke brugt. Emnerne og captionerne må genbruges i klip-reels, hvis emnet ikke er udgivet endnu.
+- `brand/baggrunde/` og `brand/klip/`: Christians egne billeder og videoklip, der bruges som baggrund i klip-reels.
 
 Brand-filerne bruger selv tankestreger og har eksempler med dem (fx "mini-test — link i bio"). Kopiér aldrig tegnet. Gengivelsen følger `pipeline/render.py`, ikke pixelmålene i KARRUSEL.md.
 
-## 2. Lav 7 opslag til næste uge (mandag til søndag, 1 om dagen)
+## 2. Lav 7 klip-reels til næste uge (mandag til søndag, 1 om dagen)
 
-Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W47/`. Filnavne `01-mandag-1900-karrusel.json` osv. Kopiér felter og format fra ugen før. Id'et er `<uge>-<dag>-<kl>-<type>`.
+Strategien blev lagt om 15. november 2026, fordi tallene var entydige. Christians egne reels (eget billede eller klip i fuld skærm, få korte linjer tekst, få sekunder) fik typisk 120 til 250 visninger og enkelte over 1.500. Autopilotens beige tekstkort og karruseller fik 10 til 60. Autopiloten laver derfor nu den slags reels, Christian selv lavede, og ikke karruseller.
 
-Fast tid (Europe/Copenhagen, med tidszone i `publish_at`, +01:00 om vinteren og +02:00 i sommertid): hver dag kl. 19:00. Ét opslag om dagen, fordi to om dagen gav færre visninger pr. opslag. Undgå to opslag i træk med samme emne eller samme første linje.
+Mappe: `queue/<ISO-uge>/`, fx `queue/2026-W48/`. Filnavne `01-mandag-1900-reel.json` osv. Id'et er `<uge>-<dag>-1900-reel`. Brug `queue/2026-W47/` som skabelon:
 
-Hver uge skal blandingen mindst indeholde 2 opslag af typen **teach**, 2 af typen **opinion** og 2 af typen **offer** (leder til den gratis mini-test via link i bio). Resten må være korte observationer og spørgsmål til følgerne, så længe de holder sig til FACTS.md.
+```json
+{
+  "id": "2026-W47-mandag-1900-reel",
+  "type": "reel",
+  "format": "klip",
+  "publish_at": "2026-11-16T19:00:00+01:00",
+  "bg": "brand/baggrunde/skovvej-sving.jpg",
+  "stil": "hvid",
+  "lines": ["Pov: du tror, du skal vælge rigtigt i første forsøg", "Det skal du ikke.", "De fleste finder vej ved at prøve sig frem."],
+  "caption": "..."
+}
+```
 
-Mangler du friske vinkler uden at opfinde fakta, så lav færre opslag frem for gentagelser. Højst 7, aldrig fyld med næsten ens indhold. Skriv i afslutningen, hvis du lavede færre.
+Fast tid (Europe/Copenhagen, med tidszone i `publish_at`, +01:00 om vinteren og +02:00 i sommertid): hver dag kl. 19:00. Ét opslag om dagen.
 
-Opslag af typen proof (resultater, historier, udtalelser fra brugere) og story (personlige historier) må du aldrig lave selv. Der er ingen verificerede at bygge på.
+### Sådan skrives et klip
 
-### Karruseller: brug liste-formatet
+- `lines`: 2 til 4 korte linjer, højst 70 tegn pr. linje og højst 34 ord i alt. De dukker op én ad gangen. Hele klippet varer 6 til 10 sekunder, så det bliver set til ende og kører i ring.
+- Linje 1 er hele opslaget for de fleste. Den skal stoppe en fremmed, der ikke følger profilen, og må ikke nævne testen, profilen eller link i bio. Den står på skærmen fra første billede og er også forsiden i gitteret.
+- Sidste linje er pointen eller et spørgsmål. Højst 2 af ugens 7 klip må slutte med "Link i bio" på selve klippet. Resten har kun opfordringen i captionen.
+- Ingen emojis på klippet (de kan ikke gengives). Brug dem i captionen.
+- `[[ord]]` fremhæver ét ord med grøn. Brug det højst én gang pr. klip.
+- Captionen skrives som før: hook i første linje, den ærlige pointe, et spørgsmål folk kan svare på, og "Tag den gratis mini-test via link i bio."
 
-Mindst halvdelen af ugens karruseller skal være liste-karruseller (se `queue/2026-W45/02-torsdag-karrusel.json` som skabelon):
-- Slide 1 `hook`: et liste-løfte, fx "5 ting, ingen fortæller dig, før du vælger uddannelse". Tallet skal være lig antallet af punkter.
-- Slides `liste` med `num` 1, 2, 3 ...: én kort påstand som overskrift og en til to sætninger under.
-- Sidste slide `produkt`: viser testen på en telefon. Overskrift "Tag den gratis [[mini-test]]." og under "2 minutter. Ingen login. Link i bio." med "2 minutter" i `facts`.
-- Første linje i captionen gentager liste-løftet. Slut med et spørgsmål, folk kan svare på med et nummer.
+### Variation, så tallene kan vise, hvad der virker
 
-Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i nichen (også engelske om studievalg, karriere og "college"). Tekst og billeder fra andre må aldrig kopieres.
+Brug mindst 4 forskellige åbninger på en uge, og aldrig samme åbning to dage i træk:
+
+- Pov: "Pov: du tror, du skal vælge rigtigt i første forsøg"
+- Modsætning: "Du er ikke lost. Du er bare overstimuleret."
+- Spørgsmål: "Startet på studiet og allerede i tvivl?"
+- Observation: "Alle har en mening om, hvad du skal læse."
+- Sådan gør du: "Sådan siger du til dine forældre, at du er i tvivl"
+- Genkendelig hverdag med lidt humor. De af Christians reels, der fik flest visninger, var sjove og genkendelige, ikke belærende.
+
+Indholdet skal stadig blandes: mindst 2 teach, 2 opinion og 2 offer om ugen. Typen kan ses i captionen, ikke nødvendigvis på klippet. Proof og story må du aldrig lave selv.
+
+### Baggrund og stil
+
+- `bg` er et af Christians egne billeder i `brand/baggrunde/` eller et af hans videoklip i `brand/klip/`. Ligger der klip i `brand/klip/`, så brug dem først: ægte video slår et stillbillede med zoom.
+- Aldrig samme baggrund to gange på en uge, og undgå dem, der blev brugt de sidste 3 dage ugen før.
+- `stil` er `hvid` (sort tekst på hvide etiketter), `sort` (hvid tekst på sorte etiketter) eller `ren` (hvid tekst med skygge, kun på rolige eller mørke billeder). Skift mellem dem. Aldrig samme stil to dage i træk.
+- Feltet `tema` bruges ikke på klip-reels.
+- Musik sættes på af sig selv fra Instagrams bibliotek ved udgivelsen. Du kan styre stemningen med `"music_search": "lofi chill"`, men behøver det ikke.
+
+Mangler du friske vinkler uden at opfinde fakta, så lav færre opslag frem for gentagelser. Skriv i afslutningen, hvis du lavede færre.
+
+### Karruseller
+
+Karruseller er sat på pause, fordi de fik 10 til 15 visninger. Lav kun en karrusel, hvis `results/OVERSIGT.md` viser visningstal, og karruseller dér ligger over klip-reels. Så gælder de gamle regler: 5 til 10 slides, tema og `slides` som i `queue/2026-W46/`. Tekst-reels med `cards` eller `slides` som video må aldrig laves. Kvalitetsporten afviser dem.
 
 ## 3. Regler der ikke kan forhandles
 
@@ -41,7 +76,7 @@ Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i n
 - Ingen tal uden at de står i FACTS.md og i opslagets `facts`-felt.
 - Hook i første linje (højst 125 tegn), konkret og uden hilsen eller emoji i starten.
 - Højst 3 hashtags, højst 2 emojis, ingen URL i caption. Eneste opfordring er "Link i bio".
-- Karrusel: 5 til 10 slides. Reels er slået fra.
+- Kun reels i formatet klip. Tekst-reels er slået fra.
 - Skriv i du-form, dansk, uden floskler som "i dagens samfund", "rejse", "unlock", "game changer".
 - Ingen medicinske, juridiske eller økonomiske løfter. Ingen påstande om at kende brugerens "rigtige" svar.
 
@@ -49,7 +84,8 @@ Formater og overskriftsskabeloner må gerne lånes fra opslag, der går godt i n
 
 1. `python3 pipeline/build.py` (kvalitetsporten kører først og stopper ved fejl). Ret teksten, til den passerer. Omgå aldrig porten.
 2. `python3 tests/run_tests.py` skal være grøn.
-3. Kig på mindst én gengivet slide fra hvert tema, så teksten ikke løber ud over kanten og kan læses.
+3. Kig på `cover.jpg` for hvert nyt klip, og træk det sidste billede ud af mindst 2 af videoerne. Teksten skal kunne læses mod baggrunden og må ikke løbe ud over kanten. Kan den ikke læses, så skift `stil` eller `bg`.
+4. Har build rørt medier for opslag, der allerede er udgivet, så gendan dem med `git checkout -- media/<uge>`.
 
 ## 5. Udgiv til køen
 
@@ -59,32 +95,10 @@ Commit `queue/` og `media/` på main med beskeden `Indhold uge <nr>`, og push. P
 
 Højst 6 linjer på dansk: hvilke emner og formater du valgte, hvad der ikke blev lavet og hvorfor, og om noget skal afgøres af et menneske. Ingen opremsning af trin.
 
-## Tillæg: sammenhængende "følg linjen"-karrusel
+## Tal styrer valget
 
-Mindst 1 af ugens opslag skal have `"format": "linje"`. Her løber én linje ubrudt hen over alle slides, så man skal swipe for at følge den. Hver slide har feltet `linje` med en af værdierne `lige`, `løkker`, `kaos`, `bølge` og `mål`. Første slide er `lige`, sidste er `mål` (pil mod CTA), og imellem bruges linjen som billede på pointen, fx lige vs. filtret, eller tvivl der retter sig ud. Teksten skal være kort, fordi linjen fylder nederste halvdel: højst 2 korte linjer overskrift plus én kort undertekst pr. slide, 5 til 7 slides. Se `queue/2026-W45/13-tirsdag-1900-karrusel.json` som eksempel. Find gerne på nye historier, linjen kan fortælle, i stedet for at gentage eksemplet.
+Læs `results/OVERSIGT.md` først. Gruppen "Autopilot, format klip" er de nye reels, og "Alle manuelle opslag" er målestokken.
 
-## VIGTIGST, gælder over alt ovenfor: kun ægte karruseller, 1 om dagen, varieret udseende
-
-Lav ALLE 7 opslag som `"type": "carousel"` med `slides`. Ingen `"type": "reel"` og ingen `cards`. Video-karruseller (slides udgivet som video) virkede ikke på profilen, så de er slået fra, og kvalitetsporten afviser nye reels.
-
-- Filnavne og id slutter på `karrusel`, fx `01-mandag-1900-karrusel.json` og `2026-W47-mandag-1900-karrusel`.
-- 5 til 10 slides. Mindst 1 liste-karrusel (`"format": "liste"`) og mindst 1 linje-karrusel (`"format": "linje"`) om ugen. Resten almindelige slides (hook, text, cta, produkt).
-- Første slide skal få en fremmed til at swipe. Det må gerne slutte med en lille åbning, der kræver næste slide.
-- Tema `foto` virker også på karruseller: billedet ligger dæmpet bag hver slide.
-- Slides udgives som billeder. Lav aldrig slides om til video, heller ikke for at få musik på. Musik kan kun sættes på i Instagram-appen, ikke af autopiloten.
-
-### Tema: profilen må ikke ligne én lang beige flade
-
-Hvert opslag har feltet `"tema"`: `lys`, `mørk`, `grøn`, `brun` eller `foto`. Brug mindst 3 forskellige temaer om ugen, og aldrig samme tema to dage i træk (tjek også sidste opslag i ugen før). Tema `foto` kræver `"bg": "brand/baggrunde/<fil>.jpg"` og må kun bruge billeder, der ligger i den mappe. Ligger der billeder, så brug foto til mindst 2 opslag, og aldrig samme billede to gange på en uge.
-
-### Tal styrer valget
-
-Visningerne faldt fra omkring 150 til 10 til 60, da autopiloten gik i gang med 2 opslag om dagen i samme beige udseende. Tallet om "150 visninger for reels" gælder derfor ikke længere. Læs `results/OVERSIGT.md` og:
-
-- Lav flere af de formater, temaer og emner, der har højest median, og færre af dem i bunden. Skriv i afslutningen, hvad tallene fik dig til at ændre.
-- Manuelle opslag (dem Christian selv har lavet) er målestokken. Ligger autopiloten langt under dem, så skriv det i afslutningen.
-- Mangler filen eller visningstallene, så skriv det i afslutningen og fortsæt med blandingen ovenfor.
-
-## Tillæg: første kort skal stoppe en fremmed
-
-De fleste, der ser et opslag, følger ikke profilen. Første kort skal derfor give mening og vække genkendelse hos en fremmed, uden at nævne testen, Ikigai-guiden eller prisen. Et offer-opslag åbner med en observation eller et problem og kommer først til testen bagefter. Et opslag, der åbner med produktet, skal skrives om.
+- Er der visningstal: lav flere klip med de åbninger, baggrunde og stilarter, der ligger højest, og færre af dem i bunden. Skriv i afslutningen, hvad tallene fik dig til at ændre, og om klip-reels ligger på niveau med de manuelle.
+- Mangler visningstallene (nøglen har ikke tilladelsen til det), så er likes for få til at styre efter. Hold blandingen ovenfor, og skriv i afslutningen, at visninger mangler.
+- Ligger klip-reels efter 3 uger stadig langt under de manuelle, så skriv det tydeligt i afslutningen. Så er det baggrundene, der skal skiftes ud med ægte videoklip i `brand/klip/`, og det kan kun Christian levere.

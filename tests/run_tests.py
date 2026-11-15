@@ -270,6 +270,37 @@ env = {k: v for k, v in os.environ.items() if k != "IG_ACCESS_TOKEN"}
 pr = subprocess.run([sys.executable, str(REPO / "pipeline" / "insights.py")], env=env, capture_output=True, text=True)
 check("uden nøgle hentes intet og intet fejler", pr.returncode == 0 and "ikke sat" in pr.stdout, pr.stdout + pr.stderr)
 
+print("\n20. Klip-reels: eget billede eller klip med få linjer tekst")
+klip = {"id": "2026-W47-test-1900-reel", "type": "reel", "format": "klip", "publish_at": "2026-11-16T19:00:00+01:00",
+        "bg": "brand/baggrunde/sti-mark.jpg", "lines": ["Du er ikke lost.", "Du mangler bare retning."],
+        "caption": "Du er ikke lost.\n\nTag den gratis mini-test via link i bio.", "_path": REPO / "queue" / "2026-W47" / "x.json"}
+
+
+def klip_(**kw):
+    o = copy.deepcopy(klip)
+    o.update(kw)
+    return lint.check(o)
+
+
+check("klip-reel accepteres efter reel-stoppet", not klip_(), klip_())
+check("tekst-reel med kort afvises stadig", any("slået fra" in p for p in klip_(format=None, cards=["a"] * 8)))
+check("klip uden billede afvises", any("bg" in p for p in klip_(bg="brand/baggrunde/findes-ikke.jpg")))
+check("billede uden for brand-mapperne afvises", any("bg" in p for p in klip_(bg="config.json")))
+check("for mange linjer afvises", any("lines" in p for p in klip_(lines=["a"] * 5)))
+check("for lang linje afvises", any("70 tegn" in p for p in klip_(lines=["x" * 71])))
+check("første linje må ikke sælge testen", any("første linje" in p for p in klip_(lines=["Tag den gratis mini-test", "Link i bio"])))
+check("opfundet tal på klippet afvises", any("75" in p for p in klip_(lines=["75 procent vælger forkert"])))
+check("tankestreg på klippet afvises", any("tankestreg" in p for p in klip_(lines=["Du er \u2014 lost"])))
+import common  # noqa: E402
+import publish  # noqa: E402
+starts, total = common.klip_times(klip)
+check("klippet varer 5 til 15 sekunder og første linje står fra start", starts[0] == 0 and 5 <= total <= 15 and publish.reel_seconds(klip) == total)
+check("tal fra Instagram kender formatet klip", insights.describe(klip)["format"] == "klip")
+real = [json.loads(p.read_text()) for p in sorted((REPO / "queue").glob("*/*.json"))]
+real = [o for o in real if o.get("format") == "klip"]
+check("alle klip-reels i køen har video og forside", real and all(
+    (REPO / "media" / o["id"][:8] / o["id"] / f).exists() for o in real for f in ("reel.mp4", "cover.jpg")))
+
 mock.close()
 failed = [n for n, ok in results if not ok]
 print(f"\n{len(results) - len(failed)} af {len(results)} tjek bestået" + (f"; FEJLEDE: {failed}" if failed else ""))
