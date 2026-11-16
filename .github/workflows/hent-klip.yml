@@ -1,7 +1,13 @@
 name: Hent klip fra Drive (midlertidig, udgiver intet)
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      nr:
+        description: "Numre der skal med (fx '01 04'). Tom = kun oversigtsbilleder"
+        required: false
+        default: ""
 permissions:
-  contents: read
+  contents: write
 jobs:
   hent:
     runs-on: ubuntu-latest
@@ -9,23 +15,37 @@ jobs:
     steps:
       - name: ffmpeg
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-      - name: Hent og komprimer
+      - name: Hent og behandl
+        env:
+          NR: ${{ inputs.nr }}
         run: |
           mkdir -p raw out
           ids="1LzT6i4J3NuY1IvDiKzDEF4kOJm7UOnVm 1LUo2lLbEKc5hc6u_KabS5xyoj8WmN1re 1EjdDiwy6Oz0Bgz1c6Z1I7--1Z36gXzjm 1Q4_wQlcdH_xKwaZCWEAbYZzdp6OpLAPh 13tdOFXBSv4IwcVSE4RMFnF8-gnjmIbQD 1r825Wc7FkVrZwqKKGUWDT5OpqU6jmIpV 1gTNVdwPFZ7tpD-WLbUeZX0E7uyAxRZHf 1gM6N68zANE6DKv8fxXtB2oQJ0r3C87J2 1l7W6FWnloL8tWoBmADKvkJq986EF-0D6 1HjOOec0Deta-_kHPIQQs0idgYVL3q2a4 16oKnskD96hQoje-FYLCTie6WmdHx-oVC 1Md8ybZhqrjo3Fa7S_gHgbiXsFZrYJuk8 14k929EYKnpvCMTq7eebNA7sDuq5jjhwf 1QPFK4dNmdBBHMEzSwrwVSPODKgfEstBq 1yZFZ32gGJWG4QdDTm9g4QAQCaxRCxxeU 1sQRazGmWCVvaILepPTM62kV0D7SxMa2e 1I2AgT1pJPdZ9SYGmsybEovUK43v5YZzr 18SVzb2P1ResisDTeappFNKU2eNkrC_dR 1jo7klGUR6_bMfCX7mhXilynFluJQLbFK 1inD-0XKgv0QjDh3GJeW9x6p1nbQFeRxv 1QyVBpzdIWfVFTW9WWH2Xvw_2Jl5UOGrH 1tOrtyFnYI1MBU82vu-5sCHy1-zeMebSp 1d_ydzJP-KdAgxDxFoq00agG9J3I1QaO8"
           n=0
           for id in $ids; do
             n=$((n+1)); k=$(printf "%02d" $n)
-            curl -sSL --fail --retry 3 -o "raw/$k.mov" "https://drive.usercontent.google.com/download?id=$id&export=download&confirm=t" || { echo "HENT FEJL $k $id"; continue; }
-            ls -la "raw/$k.mov"
-            ffmpeg -v error -y -i "raw/$k.mov" -an -map_metadata -1 \
-              -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30" \
-              -c:v libx264 -crf 26 -preset medium -pix_fmt yuv420p -movflags +faststart "out/$k.mp4" || echo "FFMPEG FEJL $k $id"
+            if [ -n "$NR" ] && ! echo " $NR " | grep -q " $k "; then continue; fi
+            curl -sSL --fail --retry 3 -o "raw/$k.mov" "https://drive.usercontent.google.com/download?id=$id&export=download&confirm=t" || { echo "HENT FEJL $k"; continue; }
+            d=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "raw/$k.mov")
+            echo "$k varighed $d"
+            if [ -z "$NR" ]; then
+              ffmpeg -v error -y -i "raw/$k.mov" -an -map_metadata -1 \
+                -vf "fps=4/${d},scale=180:320:force_original_aspect_ratio=increase,crop=180:320,tile=4x1" \
+                -frames:v 1 -q:v 6 "out/$k.jpg" || echo "FFMPEG FEJL $k"
+              echo "$k $d" >> out/varighed.txt
+            else
+              ffmpeg -v error -y -i "raw/$k.mov" -t 15 -an -map_metadata -1 \
+                -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30" \
+                -c:v libx264 -crf 27 -preset medium -pix_fmt yuv420p -movflags +faststart "out/$k.mp4" || echo "FFMPEG FEJL $k"
+            fi
             rm -f "raw/$k.mov"
           done
           ls -la out
-      - uses: actions/upload-artifact@v4
-        with:
-          name: klip
-          path: out
-          retention-days: 1
+      - name: Læg på midlertidig gren
+        run: |
+          cd out
+          git init -q -b klip-ind
+          git config user.name "ikiguiden-autopilot"
+          git config user.email "autopilot@users.noreply.github.com"
+          git add . && git commit -q -m "Midlertidig: klip til gennemsyn"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" klip-ind
