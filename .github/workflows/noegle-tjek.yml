@@ -24,14 +24,7 @@ jobs:
           def show(label, d):
               print(label, json.dumps(d, ensure_ascii=False).replace(t, "***")[:900])
           q = urllib.parse.urlencode
-          if kind == "facebook":
-              d = get("https://graph.facebook.com/v23.0/debug_token?" + q({"input_token": t, "access_token": t})).get("data", {})
-              for k in ("type", "application", "app_id", "scopes", "granular_scopes", "is_valid"):
-                  print(k + ":", json.dumps(d.get(k), ensure_ascii=False))
-              for k in ("expires_at", "data_access_expires_at", "issued_at"):
-                  v = d.get(k)
-                  print(k + ":", v, datetime.datetime.utcfromtimestamp(v).isoformat() if v else "")
-              show("me:", get("https://graph.facebook.com/v23.0/me?" + q({"fields": "id,name", "access_token": t})))
-          else:
-              show("me:", get("https://graph.instagram.com/v23.0/me?" + q({"fields": "user_id,username,account_type", "access_token": t})))
+          for path, f in (("debug_token", {"input_token": t}), ("me", {"fields": "id,name"}), ("me/permissions", {}), ("me/accounts", {"fields": "id,name,instagram_business_account"})):
+              r = get("https://graph.facebook.com/v23.0/" + path + "?" + q({**f, "access_token": t}))
+              show("SVAR " + path + ":", r)
           PY
