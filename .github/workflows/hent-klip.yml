@@ -34,9 +34,10 @@ jobs:
                 -frames:v 1 -q:v 6 "out/$k.jpg" || echo "FFMPEG FEJL $k"
               echo "$k $d" >> out/varighed.txt
             else
-              ffmpeg -v error -y -i "raw/$k.mov" -t 15 -an -map_metadata -1 \
+              t=12; [ "$k" = "13" ] && t=6
+              ffmpeg -v error -y -i "raw/$k.mov" -t $t -an -map_metadata -1 \
                 -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30" \
-                -c:v libx264 -crf 27 -preset medium -pix_fmt yuv420p -movflags +faststart "out/$k.mp4" || echo "FFMPEG FEJL $k"
+                -c:v libx264 -crf 28 -preset medium -pix_fmt yuv420p -movflags +faststart "out/$k.mp4" || echo "FFMPEG FEJL $k"
             fi
             rm -f "raw/$k.mov"
           done
