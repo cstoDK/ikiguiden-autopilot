@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-16T14:01+00:00)
+# Tal fra Instagram (hentet 2026-11-17T14:57+00:00)
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
@@ -9,7 +9,7 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
 | Alle autopilot-opslag | 0 | 22 |
-| Autopilot, format klip | 0 | 1 |
+| Autopilot, format klip | 2 | 1 |
 | Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 7 |
 | Autopilot, format liste | 0 | 5 |
@@ -24,7 +24,7 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-11-16 | autopilot | klip | foto |  |  |  |  | 0 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |
+| 2026-11-16 | autopilot | klip | foto |  |  |  |  | 2 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |
 | 2026-11-15 | autopilot | slides | foto |  |  |  |  | 0 | Du har sikkert scrollet i mere end 2 minutter i dag. Brug de næste 2 på dig selv. |
 | 2026-11-14 | autopilot | liste | brun |  |  |  |  | 1 | 3 ting, der siger mere om dig end dine karakterer. |
 | 2026-11-13 | autopilot | slides | foto |  |  |  |  | 0 | Hvilke problemer gider du egentlig bruge tid på? |
@@ -35,7 +35,7 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | 2026-11-08 | autopilot | slides | grøn |  |  |  |  | 0 | Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse. |
 | 2026-11-07 | autopilot | liste | mørk |  |  |  |  | 0 | 4 ting, du kan prøve af, før du vælger uddannelse. |
 | 2026-11-06 | autopilot | tekstkort | lys |  |  |  |  | 0 | Tag den gratis mini-test via link i bio, hvis du er i tvivl om uddannelse. |
-| 2026-11-06 | autopilot | slides | lys |  |  |  |  | 0 | Der er to slags tvivl om uddannelse. Og de skal ikke løses på samme måde. |
+| 2026-11-06 | autopilot | slides | lys |  |  |  |  | 1 | Der er to slags tvivl om uddannelse. Og de skal ikke løses på samme måde. |
 | 2026-11-05 | autopilot | tekstkort | lys |  |  |  |  | 0 | De andre virker sikre. Det er de ikke altid. |
 | 2026-11-05 | autopilot | liste | lys |  |  |  |  | 0 | 5 tegn på, at du vælger uddannelse ud fra andres forventninger. |
 | 2026-11-04 | autopilot | tekstkort | lys |  |  |  |  | 0 | Er du i tvivl om uddannelse? Start med 2 minutter. |
