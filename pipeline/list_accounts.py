@@ -27,6 +27,14 @@ if token.startswith("EAA"):
         print("me/accounts:", res if "fejl" in res else "ingen sider")
     me = get("https://graph.facebook.com", "me", fields="id,name,instagram_business_account{id,username}")
     print("me:", {k: me.get(k) for k in ("name", "instagram_business_account", "fejl")})
+    base_id = json.load(open("config.json"))["instagram_user_id"]
+    for navn in ("the_ikigai_guide",):
+        d = get("https://graph.facebook.com", base_id, fields=f"business_discovery.username({navn}){{id,username,followers_count}}")
+        bd = d.get("business_discovery") or d
+        print(f"opslag @{navn}:", bd)
+        if isinstance(bd, dict) and bd.get("id"):
+            direkte = get("https://graph.facebook.com", bd["id"], fields="id,username")
+            print(f"direkte adgang til @{navn}:", direkte)
     perms = get("https://graph.facebook.com", "me/permissions")
     print("tilladelser:", [p.get("permission") for p in perms.get("data", []) if p.get("status") == "granted"] or perms.get("fejl"))
 else:
