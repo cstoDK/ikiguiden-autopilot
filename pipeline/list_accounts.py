@@ -23,8 +23,12 @@ if token.startswith("EAA"):
     for side in res.get("data", []):
         ig = side.get("instagram_business_account") or {}
         print(f"Facebook-side: {side.get('name')} -> Instagram: @{ig.get('username', '-')} (id {ig.get('id', '-')})")
-    if "fejl" in res:
-        print(res)
+    if "fejl" in res or not res.get("data"):
+        print("me/accounts:", res if "fejl" in res else "ingen sider")
+    me = get("https://graph.facebook.com", "me", fields="id,name,instagram_business_account{id,username}")
+    print("me:", {k: me.get(k) for k in ("name", "instagram_business_account", "fejl")})
+    perms = get("https://graph.facebook.com", "me/permissions")
+    print("tilladelser:", [p.get("permission") for p in perms.get("data", []) if p.get("status") == "granted"] or perms.get("fejl"))
 else:
     print("Nøgletype: Instagram-login (én nøgle pr. konto)")
     print(get("https://graph.instagram.com", "me", fields="user_id,username"))
