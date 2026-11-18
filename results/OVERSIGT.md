@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-17T14:57+00:00)
+# Tal fra Instagram (hentet 2026-11-18T14:35+00:00)
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
@@ -8,8 +8,8 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 22 |
-| Autopilot, format klip | 2 | 1 |
+| Alle autopilot-opslag | 0 | 23 |
+| Autopilot, format klip | 1 | 2 |
 | Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 7 |
 | Autopilot, format liste | 0 | 5 |
@@ -18,12 +18,13 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Autopilot, tema mørk | 0 | 2 |
 | Autopilot, tema grøn | 0 | 1 |
 | Autopilot, tema brun | 1 | 1 |
-| Autopilot, tema foto | 0 | 4 |
+| Autopilot, tema foto | 0 | 5 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-17 | autopilot | klip | foto |  |  |  |  | 0 | Du er ikke i tvivl, fordi du mangler muligheder. Du har måske for mange. |
 | 2026-11-16 | autopilot | klip | foto |  |  |  |  | 2 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |
 | 2026-11-15 | autopilot | slides | foto |  |  |  |  | 0 | Du har sikkert scrollet i mere end 2 minutter i dag. Brug de næste 2 på dig selv. |
 | 2026-11-14 | autopilot | liste | brun |  |  |  |  | 1 | 3 ting, der siger mere om dig end dine karakterer. |
