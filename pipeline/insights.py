@@ -88,7 +88,7 @@ def describe(item):
 
 def _umami_get(key, path, **params):
     url = f"{UMAMI_BASE}/{path.lstrip('/')}?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"x-umami-api-key": key, "Accept": "application/json"})
+    req = urllib.request.Request(url, headers={"x-umami-api-key": key, "Authorization": f"Bearer {key}", "Accept": "application/json"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return json.loads(r.read().decode() or "null")
 
