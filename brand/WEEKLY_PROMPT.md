@@ -6,6 +6,7 @@ Du kører uden en menneskelig læser. Træf rimelige valg, skriv øverst i din a
 
 - `brand/STYLE.md` og `brand/EKSEMPLER.md`: stemmen. `brand/KARRUSEL.md` gælder kun karruseller, som er sat på pause.
 - `brand/FACTS.md`: eneste tilladte fakta og tal.
+- `brand/ARKETYPER.md`: de 12 arketyper fra arketypetesten. Navnene skal staves præcis sådan.
 - `queue/` og `state/published.json`: hvad der er lavet og udgivet de seneste uger. Gentag ikke emner, hooks eller første linjer.
 - `results/OVERSIGT.md`: tal for hvert opslag på profilen, hentet dagligt af `pipeline/insights.py`. Læs den først og lad tallene styre ugens valg (se afsnittet om tal nederst).
 - `reserve/`: færdige karruseller, der blev skrevet, men ikke brugt. Emnerne og captionerne må genbruges i klip-reels, hvis emnet ikke er udgivet endnu.
@@ -41,7 +42,26 @@ Fast tid (Europe/Copenhagen, med tidszone i `publish_at`, +01:00 om vinteren og 
 - Sidste linje er pointen eller et spørgsmål. Højst 2 af ugens 7 klip må slutte med "Link i bio" på selve klippet. Resten har kun opfordringen i captionen.
 - Ingen emojis på klippet (de kan ikke gengives). Brug dem i captionen.
 - `[[ord]]` fremhæver ét ord med grøn. Brug det højst én gang pr. klip.
-- Captionen skrives som før: hook i første linje, den ærlige pointe, et spørgsmål folk kan svare på, og "Tag den gratis mini-test via link i bio."
+- Captionen: hook i første linje, den ærlige pointe i 2 til 4 korte linjer (højst ca. 400 tegn i alt), et spørgsmål folk kan svare på, og til sidst kommentar-opfordringen (se nedenfor).
+
+### Kommentar giver link (det vigtigste mål er gennemførte tests)
+
+Målet er ikke visninger, men gennemførte tests. Vejen via profilen og "link i bio" taber de fleste. Derfor svarer autopiloten selv med linket i en besked, når nogen kommenterer (pipeline/comments.py, hvert kvarter).
+
+- Hvert klip har feltet `"dm"`: `"studievalg"` eller `"arketype"`. Det er det link, en TEST-kommentar får.
+- Captionen slutter altid med én af disse, så den passer til `dm`:
+  - studievalg: "Skriv TEST i kommentarerne, så sender jeg dig testen 📩"
+  - arketype: "Skriv ARKETYPE i kommentarerne, så sender jeg dig testen 📩"
+- Højst 3 af ugens 7 klip må have opfordringen ("Skriv TEST" eller "Skriv ARKETYPE") som sidste linje på selve klippet. Resten slutter med pointen eller et spørgsmål.
+- "Link i bio" må stå som anden mulighed i captionen, men aldrig som eneste opfordring.
+
+### Vinkler: test af arketyper mod studievalg (uge 48 og 49)
+
+I uge 48 og 49 testes to vinkler mod hinanden. Lav 4 arketype-klip (`"dm": "arketype"`) og 3 studievalgs-klip (`"dm": "studievalg"`) om ugen, og bland dem, så samme vinkel aldrig kører tre dage i træk.
+
+- Arketype-klip bruger navnene og kernelinjerne i `brand/ARKETYPER.md` og formaterne nederst i den fil. Brug begge versioner (fx Kongen og Dronningen) på tværs af ugen. Tallet 12 må kun bruges med "12 arketyper" i `facts`.
+- Studievalgs-klip skrives som hidtil.
+- Fra uge 50: se på "Tests pr. vinkel" i `results/OVERSIGT.md`. Giver én vinkel klart flere gennemførte tests pr. 1.000 visninger, så får den 5 af 7 klip. Er tallene for små til at sige noget, så fortsæt 4 mod 3, og skriv det i afslutningen.
 
 ### Variation, så tallene kan vise, hvad der virker
 
@@ -97,7 +117,7 @@ Højst 6 linjer på dansk: hvilke emner og formater du valgte, hvad der ikke ble
 
 ## Tal styrer valget
 
-Læs `results/OVERSIGT.md` først. Gruppen "Autopilot, format klip" er de nye reels, og "Alle manuelle opslag" er målestokken.
+Læs `results/OVERSIGT.md` først. Det tal, der tæller mest, er gennemførte tests fra Instagram (afsnittet "Gennemførte tests" fra Umami). Visninger, gemte og delte forklarer, hvorfor det tal går op eller ned. Gruppen "Autopilot, format klip" er de nye reels, og "Alle manuelle opslag" er målestokken.
 
 - Er der visningstal: lav flere klip med de åbninger, baggrunde og stilarter, der ligger højest, og færre af dem i bunden. Skriv i afslutningen, hvad tallene fik dig til at ændre, og om klip-reels ligger på niveau med de manuelle.
 - Mangler visningstallene (nøglen har ikke tilladelsen til det), så er likes for få til at styre efter. Hold blandingen ovenfor, og skriv i afslutningen, at visninger mangler.

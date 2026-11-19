@@ -35,6 +35,9 @@ class Mock:
         self.polls = {}
         self.username = "ikigaiguiden"
         self.uid = IG_ID
+        self.feed = []          # [{"id", "timestamp", "comments_count"}]
+        self.comments = {}      # media_id -> [{"id", "text", "timestamp", "username"}]
+        self.dm_denied = False
 
     @property
     def base(self):
@@ -94,6 +97,12 @@ class Mock:
                         return self._send(200, {"id": "systemuser1", "name": "System User"})
                     return self._send(200, {"user_id": mock.uid, "username": mock.username})
                 cid = parts[0]
+                if len(parts) == 2 and parts[1] == "media" and "comments_count" in fields:
+                    return self._send(200, {"data": mock.feed})
+                if len(parts) == 2 and parts[1] == "comments":
+                    if mock.dm_denied:
+                        return self._err("(#10) Application does not have permission for this action", 10, 403)
+                    return self._send(200, {"data": mock.comments.get(cid, [])})
                 if parts == ["ig_audio"]:
                     if not mock.music:
                         return self._err("Ukendt objekt", 100)
@@ -144,6 +153,12 @@ class Mock:
                         cid = f"c{mock.n}"
                     mock.containers[cid] = params
                     return self._send(200, {"id": cid})
+                if parts[-1] == "messages":
+                    if mock.dm_denied:
+                        return self._err("(#10) Application does not have permission for this action", 10, 403)
+                    return self._send(200, {"recipient_id": "u1", "message_id": f"dm{len(mock.posts('/messages'))}"})
+                if parts[-1] == "replies":
+                    return self._send(200, {"id": f"reply{len(mock.posts('/replies'))}"})
                 if parts[-1] == "media_publish":
                     cid = params.get("creation_id")
                     if cid in mock.published:

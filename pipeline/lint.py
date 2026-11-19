@@ -84,6 +84,8 @@ def check(item):
         common.parse_when(item["publish_at"])
     except ValueError as e:
         p.append(str(e))
+    if item.get("dm") not in (None, "studievalg", "arketype"):
+        p.append("Feltet 'dm' skal være 'studievalg' eller 'arketype' (det link, en TEST-kommentar får).")
     kind = item["type"]
     if kind not in ("carousel", "reel"):
         p.append(f"Ukendt type '{kind}' (skal være carousel eller reel).")

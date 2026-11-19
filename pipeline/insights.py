@@ -7,10 +7,14 @@ Ugens generering læser results/OVERSIGT.md og bruger tallene til at vælge form
 Kræver at nøglen har tilladelsen instagram_business_manage_insights. Mangler den, gemmes
 stadig likes og kommentarer, og OVERSIGT.md siger, hvad der mangler.
 """
+import json
 import os
 import statistics
 import sys
-from datetime import datetime, timezone
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -18,6 +22,11 @@ import common  # noqa: E402
 from publish import Api, ApiError, FORBIDDEN_ACCOUNTS, STATE_PATH  # noqa: E402
 
 RESULTS = common.ROOT / "results"
+DM_STATE = common.ROOT / "state" / "dm.json"
+UMAMI_BASE = "https://api.umami.is/v1"
+UMAMI_SITE = "c9dc8c7f-388d-4a1d-a6ce-8c56251b8df9"   # ikigaiguide.dk, se index.html i ikigai-guide
+TEST_EVENTS = ["ikigai_start", "ikigai_faerdig", "arketype_start", "arketype_faerdig", "arketype_del"]
+VINKEL_EVENT = {"studievalg": "ikigai_faerdig", "arketype": "arketype_faerdig"}
 METRICS = ["views", "reach", "saved", "shares", "total_interactions"]
 MAX_MEDIA = 200
 
@@ -72,7 +81,85 @@ def describe(item):
     else:
         fmt = "slides"
     return {"kilde": "autopilot", "id": item.get("id"), "format": fmt, "tema": "foto" if fmt == "klip" else item.get("tema", "lys"),
-            "planlagt": item.get("publish_at")}
+            "planlagt": item.get("publish_at"), "vinkel": item.get("dm")}
+
+
+# ---------------- Gennemførte tests fra Umami (målingen på ikigaiguide.dk) ----------------
+
+def _umami_get(key, path, **params):
+    url = f"{UMAMI_BASE}/{path.lstrip('/')}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"x-umami-api-key": key, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode() or "null")
+
+
+def fetch_umami(key, now, site=UMAMI_SITE):
+    """Antal hændelser pr. kilde for de seneste 7 dage og de 7 dage før. Læser kun."""
+    periods = {"seneste_7": (now - timedelta(days=7), now), "forrige_7": (now - timedelta(days=14), now - timedelta(days=7))}
+    out, errors = {}, []
+    for name, (start, end) in periods.items():
+        ms = {"startAt": int(start.timestamp() * 1000), "endAt": int(end.timestamp() * 1000)}
+        per = {}
+        try:
+            totals = _umami_get(key, f"websites/{site}/metrics", type="event", **ms) or []
+            for row in totals:
+                if row.get("x") in TEST_EVENTS:
+                    per.setdefault(row["x"], {})["i_alt"] = row.get("y", 0)
+        except (urllib.error.URLError, ValueError, TimeoutError) as e:
+            errors.append(f"Umami metrics: {str(e)[:150]}")
+        for ev in TEST_EVENTS:
+            try:
+                vals = _umami_get(key, f"websites/{site}/event-data/values", event=ev, eventName=ev,
+                                  propertyName="kilde", **ms) or []
+                for row in vals:
+                    per.setdefault(ev, {})[str(row.get("value"))] = row.get("total", 0)
+            except (urllib.error.URLError, ValueError, TimeoutError) as e:
+                errors.append(f"Umami {ev}: {str(e)[:150]}")
+                break
+        out[name] = per
+    return out, sorted(set(errors))
+
+
+def _instagram_count(per_event):
+    return sum(v for k, v in (per_event or {}).items() if k.startswith("instagram"))
+
+
+def umami_lines(umami):
+    if not umami:
+        return ["## Gennemførte tests", "",
+                "Mangler: secret UMAMI_API_KEY er ikke sat, så autopiloten kan ikke se, hvor mange der gennemfører testen.", ""]
+    lines = ["## Gennemførte tests (Umami)", "",
+             "| Hændelse | Fra Instagram, seneste 7 dage | Forrige 7 dage | Alle kilder, seneste 7 dage |",
+             "| --- | --- | --- | --- |"]
+    now_, prev = umami.get("seneste_7", {}), umami.get("forrige_7", {})
+    for ev in TEST_EVENTS:
+        cur = now_.get(ev, {})
+        total = cur.get("i_alt", sum(v for k, v in cur.items() if k != "i_alt"))
+        lines.append(f"| {ev} | {_instagram_count(cur)} | {_instagram_count(prev.get(ev))} | {total} |")
+    return lines + [""]
+
+
+def vinkel_lines(rows, umami, dm_state, now):
+    """Tests pr. vinkel: beskeder sendt, gennemførte tests via besked-linket og visninger, seneste 7 dage."""
+    since = (now - timedelta(days=7)).isoformat()
+    sent = {}
+    for v in (dm_state or {}).get("kommentarer", {}).values():
+        if v.get("status") == "sendt" and (v.get("tid") or "") >= since[:16]:
+            sent[v.get("link")] = sent.get(v.get("link"), 0) + 1
+    lines = ["## Tests pr. vinkel (seneste 7 dage)", "",
+             "| Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |",
+             "| --- | --- | --- | --- | --- | --- |"]
+    cur = (umami or {}).get("seneste_7", {})
+    for vinkel, ev in VINKEL_EVENT.items():
+        rs = [r for r in rows if r.get("vinkel") == vinkel and (r.get("tidspunkt") or "") >= since[:10]]
+        views = sum(r.get("views") or 0 for r in rs)
+        done = (cur.get(ev) or {}).get("instagram_dm", 0) if umami else None
+        rate = round(1000 * done / views, 1) if (done is not None and views) else None
+        lines.append(f"| {vinkel} | {len(rs)} | {views or ''} | {sent.get(vinkel, 0)} | "
+                     f"{'' if done is None else done} | {'' if rate is None else rate} |")
+    if (dm_state or {}).get("status") == "mangler_tilladelse":
+        lines += ["", "Beskeder er ikke tændt: " + dm_state.get("besked", "")]
+    return lines + [""]
 
 
 def collect(api, uid):
@@ -104,11 +191,13 @@ def _median(rows, key):
     return (round(statistics.median(vals)), len(vals)) if vals else (None, 0)
 
 
-def summarize(rows, errors, fetched_at):
+def summarize(rows, errors, fetched_at, umami=None, dm_state=None, now=None):
     """Markdown-oversigt til ugens generering. Ingen tankestreger."""
     has_views = any(isinstance(r.get("views"), (int, float)) for r in rows)
     key = "views" if has_views else "likes"
     lines = [f"# Tal fra Instagram (hentet {fetched_at})", ""]
+    lines += umami_lines(umami)
+    lines += vinkel_lines(rows, umami, dm_state, now or datetime.now(timezone.utc))
     if not has_views:
         lines += ["Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.",
                   "Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.", ""]
@@ -165,9 +254,16 @@ def main():
         log(f"KONTOSPÆRRE: nøglen hører til @{actual or '?'}, ikke @{expected}. Der hentes ingen tal.")
         return 1
     rows, errors = collect(api, uid)
-    fetched_at = datetime.now(timezone.utc).isoformat(timespec="minutes")
-    common.write_json(RESULTS / "insights.json", {"hentet": fetched_at, "opslag": rows, "fejl": errors})
-    (RESULTS / "OVERSIGT.md").write_text(summarize(rows, errors, fetched_at), encoding="utf-8")
+    now = datetime.now(timezone.utc)
+    fetched_at = now.isoformat(timespec="minutes")
+    umami = None
+    key = os.environ.get("UMAMI_API_KEY", "").strip()
+    if key:
+        umami, uerr = fetch_umami(key, now)
+        errors = sorted(set(errors) | set(uerr))
+    dm_state = common.read_json(DM_STATE) if DM_STATE.exists() else None
+    common.write_json(RESULTS / "insights.json", {"hentet": fetched_at, "opslag": rows, "fejl": errors, "umami": umami})
+    (RESULTS / "OVERSIGT.md").write_text(summarize(rows, errors, fetched_at, umami, dm_state, now), encoding="utf-8")
     log(f"Hentede tal for {len(rows)} opslag." + (f" {len(errors)} fejltyper, se results/OVERSIGT.md." if errors else ""))
     return 0
 

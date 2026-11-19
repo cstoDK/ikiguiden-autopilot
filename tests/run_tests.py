@@ -301,6 +301,66 @@ real = [o for o in real if o.get("format") == "klip"]
 check("alle klip-reels i køen har video og forside", real and all(
     (REPO / "media" / o["id"][:8] / o["id"] / f).exists() for o in real for f in ("reel.mp4", "cover.jpg")))
 
+print("\n21. Kommentar giver link: TEST og ARKETYPE udløser én besked")
+
+
+def run_comments(root, now="2026-11-20T12:00:00+00:00", token=GOOD_TOKEN, extra=()):
+    env = {**os.environ, "AUTOPILOT_ROOT": str(root)}
+    env.pop("IG_ACCESS_TOKEN", None)
+    if token is not None:
+        env["IG_ACCESS_TOKEN"] = token
+    p = subprocess.run([sys.executable, str(REPO / "pipeline" / "comments.py"), "--now", now, "--api-base", mock.base, *extra],
+                       env=env, capture_output=True, text=True, cwd=root)
+    return p.returncode, p.stdout + p.stderr
+
+
+d = fresh()
+(d / "state" / "published.json").write_text(json.dumps({"posts": {"2026-W45-tirsdag-reel": {"status": "published", "media_id": "m1"}}}))
+qp = d / "queue" / "2026-W45" / "01-tirsdag-reel.json"
+o = json.loads(qp.read_text()); o["dm"] = "arketype"; qp.write_text(json.dumps(o, ensure_ascii=False))
+mock.feed = [{"id": "m1", "timestamp": "2026-11-19T18:00:00+0000", "comments_count": 4},
+             {"id": "m2", "timestamp": "2026-11-18T18:00:00+0000", "comments_count": 3},
+             {"id": "m3", "timestamp": "2026-10-01T18:00:00+0000", "comments_count": 1}]
+mock.comments = {
+    "m1": [{"id": "c1", "text": "TEST", "timestamp": "2026-11-19T19:00:00+0000", "username": "anna"},
+           {"id": "c2", "text": "fedt opslag", "timestamp": "2026-11-19T19:00:00+0000", "username": "bo"},
+           {"id": "c3", "text": "test", "timestamp": "2026-11-19T19:00:00+0000", "username": "ikigaiguiden"}],
+    "m2": [{"id": "c4", "text": "Test 🙏", "timestamp": "2026-11-18T19:00:00+0000", "username": "carl"},
+           {"id": "c5", "text": "arketype", "timestamp": "2026-11-18T19:00:00+0000", "username": "dina"},
+           {"id": "c6", "text": "test", "timestamp": "2026-11-01T19:00:00+0000", "username": "erik"}],
+    "m3": [{"id": "c7", "text": "test", "timestamp": "2026-10-01T19:00:00+0000", "username": "fie"}]}
+rc, out = run_comments(d)
+dms = mock.posts("/messages")
+texts_ = {json.loads(c["params"]["recipient"])["comment_id"]: json.loads(c["params"]["message"])["text"] for c in dms}
+check("afslutter uden fejl", rc == 0, out)
+check("præcis tre beskeder (TEST, Test og arketype)", sorted(texts_) == ["c1", "c4", "c5"], texts_)
+check("opslag med dm=arketype giver arketype-linket", "/dm/arketype" in texts_.get("c1", ""), texts_)
+check("TEST på et manuelt opslag giver studievalgs-linket", texts_.get("c4", "").count("ikigaiguide.dk/dm\n") == 1, texts_)
+check("ARKETYPE giver altid arketype-linket", "/dm/arketype" in texts_.get("c5", ""), texts_)
+check("egne kommentarer og gamle opslag ignoreres", "c3" not in texts_ and "c7" not in texts_)
+check("hver besked får et offentligt svar", len(mock.posts("/replies")) == 3)
+check("ingen tankestreger i beskederne", not any(ch in "".join(texts_.values()) for ch in "\u2014\u2013"))
+st = json.loads((d / "state" / "dm.json").read_text())
+check("status gemmer ingen brugernavne eller tekster", "anna" not in json.dumps(st) and "TEST" not in json.dumps(st) and st["sendt_i_alt"] == 3, st)
+n = len(dms)
+rc, out = run_comments(d)
+check("anden kørsel sender ingen dubletter", rc == 0 and len(mock.posts("/messages")) == n, out)
+mock.reset(d / "media")
+mock.feed = [{"id": "m9", "timestamp": "2026-11-19T18:00:00+0000", "comments_count": 1}]
+mock.dm_denied = True
+rc, out = run_comments(d)
+st = json.loads((d / "state" / "dm.json").read_text())
+check("manglende tilladelse ender grønt og står i status", rc == 0 and st["status"] == "mangler_tilladelse", out)
+(d / "PAUSE").write_text("")
+mock.reset(d / "media")
+rc, out = run_comments(d)
+check("PAUSE stopper beskederne", rc == 0 and "PAUSE" in out and not mock.calls, out)
+(d / "PAUSE").unlink()
+mock.username = "christianstoltze"
+rc, out = run_comments(d)
+check("kontospærre gælder også beskeder", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/messages"), out)
+mock.username = "ikigaiguiden"
+
 mock.close()
 failed = [n for n, ok in results if not ok]
 print(f"\n{len(results) - len(failed)} af {len(results)} tjek bestået" + (f"; FEJLEDE: {failed}" if failed else ""))

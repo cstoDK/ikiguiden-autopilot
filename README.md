@@ -7,6 +7,7 @@ Fredag    ugens generering skriver 7 klip-reels (1 om dagen kl. 19) i queue/  (b
           kvalitetsporten (pipeline/lint.py) afviser alt, der ikke lever op til reglerne
           pipeline/build.py gengiver klip-reels (MP4 1080x1920) og eventuelle karruseller (JPEG)
 Hver 30 min.  GitHub Actions kører pipeline/publish.py og udgiver det, der er forfaldent
+Hvert kvarter pipeline/comments.py sender testen som besked til dem, der kommenterer TEST eller ARKETYPE
 Hver morgen   pipeline/insights.py henter visninger m.m. til results/OVERSIGT.md (læser kun)
 Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 ```
@@ -41,8 +42,10 @@ Hver 1. i måneden  pipeline/refresh_token.py forlænger Instagram-nøglen
 1. Instagram-profilen skal være en Professional-konto (Creator eller Business).
 2. Opret en app hos Meta for developers med produktet "Instagram API with Instagram login", tilføj profilen som testbruger/rolle, og generér en langtidsnøgle (60 dage).
 3. Gem nøglen som GitHub secret `IG_ACCESS_TOKEN` (Settings, Secrets and variables, Actions).
-4. Valgfrit: gem en GitHub-nøgle med ret til secrets som `GH_PAT`, så nøglen fornyes automatisk hver måned. Uden den skal nøglen genereres igen hvert 60. dag.
-5. Aktivér Actions, og kør workflowet "Instagram autopilot" manuelt én gang med knappen Run workflow.
+4. Til beskeder ved kommentarer og visningstal skal nøglen også have `instagram_business_manage_insights`, `instagram_business_manage_comments` og `instagram_business_manage_messages`, og beskedadgang for forbundne værktøjer skal være slået til i Instagram-appen. Indtil da står `state/dm.json` på "mangler_tilladelse", og intet fejler.
+5. Gem en API-nøgle fra Umami som secret `UMAMI_API_KEY`, så `results/OVERSIGT.md` viser gennemførte tests fra Instagram.
+6. Valgfrit: gem en GitHub-nøgle med ret til secrets som `GH_PAT`, så nøglen fornyes automatisk hver måned. Uden den skal nøglen genereres igen hvert 60. dag.
+7. Aktivér Actions, og kør workflowet "Instagram autopilot" manuelt én gang med knappen Run workflow.
 
 Før trin 3 er alt slukket: publish.py afslutter uden fejl og siger, at autopiloten ikke er tændt.
 
