@@ -1,6 +1,21 @@
 {
-  "hentet": "2026-11-18T14:35+00:00",
+  "hentet": "2026-11-19T14:42+00:00",
   "opslag": [
+    {
+      "media_id": "18116488793274757",
+      "tidspunkt": "2026-11-18T18:06:14+0000",
+      "link": "https://www.instagram.com/reel/Df5G_deCEi7/",
+      "type": "REELS",
+      "første_linje": "Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt ",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W47-onsdag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-18T19:00:00+01:00",
+      "vinkel": null
+    },
     {
       "media_id": "18646914160016860",
       "tidspunkt": "2026-11-17T18:05:03+0000",
@@ -13,7 +28,8 @@
       "id": "2026-W47-tirsdag-1900-reel",
       "format": "klip",
       "tema": "foto",
-      "planlagt": "2026-11-17T19:00:00+01:00"
+      "planlagt": "2026-11-17T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18097826849149686",
@@ -27,7 +43,8 @@
       "id": "2026-W47-mandag-1900-reel",
       "format": "klip",
       "tema": "foto",
-      "planlagt": "2026-11-16T12:20:00+01:00"
+      "planlagt": "2026-11-16T12:20:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18352405642251692",
@@ -41,7 +58,8 @@
       "id": "2026-W46-soendag-1900-karrusel",
       "format": "slides",
       "tema": "foto",
-      "planlagt": "2026-11-15T19:00:00+01:00"
+      "planlagt": "2026-11-15T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "17914615359574254",
@@ -55,7 +73,8 @@
       "id": "2026-W46-loerdag-1900-karrusel",
       "format": "liste",
       "tema": "brun",
-      "planlagt": "2026-11-14T19:00:00+01:00"
+      "planlagt": "2026-11-14T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18141211048732343",
@@ -69,7 +88,8 @@
       "id": "2026-W46-fredag-1900-karrusel",
       "format": "slides",
       "tema": "foto",
-      "planlagt": "2026-11-13T19:00:00+01:00"
+      "planlagt": "2026-11-13T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18027798065875527",
@@ -83,7 +103,8 @@
       "id": "2026-W46-torsdag-1900-karrusel",
       "format": "slides",
       "tema": "lys",
-      "planlagt": "2026-11-12T19:00:00+01:00"
+      "planlagt": "2026-11-12T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18361729876219615",
@@ -97,7 +118,8 @@
       "id": "2026-W46-onsdag-1900-karrusel",
       "format": "slides",
       "tema": "mørk",
-      "planlagt": "2026-11-11T19:00:00+01:00"
+      "planlagt": "2026-11-11T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "17933386761422570",
@@ -111,7 +133,8 @@
       "id": "2026-W46-tirsdag-1900-karrusel",
       "format": "linje",
       "tema": "foto",
-      "planlagt": "2026-11-10T09:00:00+01:00"
+      "planlagt": "2026-11-10T09:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18027212852872110",
@@ -125,7 +148,8 @@
       "id": "2026-W46-mandag-1900-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-09T19:00:00+01:00"
+      "planlagt": "2026-11-09T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18136431571682568",
@@ -139,7 +163,8 @@
       "id": "2026-W45-soendag-karrusel",
       "format": "slides",
       "tema": "grøn",
-      "planlagt": "2026-11-08T19:00:00+01:00"
+      "planlagt": "2026-11-08T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18113473418139311",
@@ -153,7 +178,8 @@
       "id": "2026-W45-loerdag-1900-karrusel",
       "format": "liste",
       "tema": "mørk",
-      "planlagt": "2026-11-07T19:00:00+01:00"
+      "planlagt": "2026-11-07T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18048359933684635",
@@ -167,7 +193,8 @@
       "id": "2026-W45-fredag-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-06T19:00:00+01:00"
+      "planlagt": "2026-11-06T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18031687562883064",
@@ -181,7 +208,8 @@
       "id": "2026-W45-fredag-1200-karrusel",
       "format": "slides",
       "tema": "lys",
-      "planlagt": "2026-11-06T12:00:00+01:00"
+      "planlagt": "2026-11-06T12:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18498729517098314",
@@ -195,7 +223,8 @@
       "id": "2026-W45-torsdag-1900-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-05T19:00:00+01:00"
+      "planlagt": "2026-11-05T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18119609576088442",
@@ -209,7 +238,8 @@
       "id": "2026-W45-torsdag-1200-karrusel",
       "format": "liste",
       "tema": "lys",
-      "planlagt": "2026-11-05T12:00:00+01:00"
+      "planlagt": "2026-11-05T12:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18020275055937096",
@@ -223,7 +253,8 @@
       "id": "2026-W45-onsdag-1900-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-04T19:00:00+01:00"
+      "planlagt": "2026-11-04T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18644363578033763",
@@ -237,7 +268,8 @@
       "id": "2026-W45-onsdag-1200-karrusel",
       "format": "slides",
       "tema": "lys",
-      "planlagt": "2026-11-04T12:00:00+01:00"
+      "planlagt": "2026-11-04T12:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18098648534424046",
@@ -251,7 +283,8 @@
       "id": "2026-W45-tirsdag-1900-karrusel",
       "format": "linje",
       "tema": "lys",
-      "planlagt": "2026-11-03T19:00:00+01:00"
+      "planlagt": "2026-11-03T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "17910073857334073",
@@ -265,7 +298,8 @@
       "id": "2026-W45-tirsdag-1200-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-03T12:00:00+01:00"
+      "planlagt": "2026-11-03T12:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18034654694888173",
@@ -279,7 +313,8 @@
       "id": "2026-W45-mandag-1900-karrusel",
       "format": "liste",
       "tema": "lys",
-      "planlagt": "2026-11-02T19:00:00+01:00"
+      "planlagt": "2026-11-02T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18092543774217739",
@@ -293,7 +328,8 @@
       "id": "2026-W45-mandag-1200-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-02T12:00:00+01:00"
+      "planlagt": "2026-11-02T12:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "17929937424428240",
@@ -307,7 +343,8 @@
       "id": "2026-W45-torsdag-karrusel",
       "format": "liste",
       "tema": "lys",
-      "planlagt": "2026-11-01T19:00:00+01:00"
+      "planlagt": "2026-11-01T19:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18569152396072114",
@@ -321,7 +358,8 @@
       "id": "2026-W45-tirsdag-reel",
       "format": "tekstkort",
       "tema": "lys",
-      "planlagt": "2026-11-01T17:00:00+01:00"
+      "planlagt": "2026-11-01T17:00:00+01:00",
+      "vinkel": null
     },
     {
       "media_id": "18079569416145833",
@@ -736,5 +774,6 @@
   ],
   "fejl": [
     "(#10) Application does not have permission for this action"
-  ]
+  ],
+  "umami": null
 }
