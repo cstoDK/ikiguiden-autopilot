@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-19T14:42+00:00)
+# Tal fra Instagram (hentet 2026-11-20T14:22+00:00)
 
 ## Gennemførte tests
 
@@ -19,8 +19,8 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 24 |
-| Autopilot, format klip | 0 | 3 |
+| Alle autopilot-opslag | 0 | 25 |
+| Autopilot, format klip | 0 | 4 |
 | Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 7 |
 | Autopilot, format liste | 0 | 5 |
@@ -29,12 +29,13 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Autopilot, tema mørk | 0 | 2 |
 | Autopilot, tema grøn | 0 | 1 |
 | Autopilot, tema brun | 1 | 1 |
-| Autopilot, tema foto | 0 | 6 |
+| Autopilot, tema foto | 0 | 7 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-19 | autopilot | klip | foto |  |  |  |  | 1 | Du startede på en uddannelse med en plan. Så kom tvivlen. |
 | 2026-11-18 | autopilot | klip | foto |  |  |  |  | 0 | Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt  |
 | 2026-11-17 | autopilot | klip | foto |  |  |  |  | 0 | Du er ikke i tvivl, fordi du mangler muligheder. Du har måske for mange. |
 | 2026-11-16 | autopilot | klip | foto |  |  |  |  | 2 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |

@@ -1,6 +1,21 @@
 {
-  "hentet": "2026-11-19T14:42+00:00",
+  "hentet": "2026-11-20T14:22+00:00",
   "opslag": [
+    {
+      "media_id": "18120889873960414",
+      "tidspunkt": "2026-11-19T18:04:56+0000",
+      "link": "https://www.instagram.com/reel/Df7rqKnmc9c/",
+      "type": "REELS",
+      "første_linje": "Du startede på en uddannelse med en plan. Så kom tvivlen.",
+      "likes": 1,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W47-torsdag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-19T19:00:00+01:00",
+      "vinkel": null
+    },
     {
       "media_id": "18116488793274757",
       "tidspunkt": "2026-11-18T18:06:14+0000",
