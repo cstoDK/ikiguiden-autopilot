@@ -1,6 +1,21 @@
 {
-  "hentet": "2026-11-20T14:22+00:00",
+  "hentet": "2026-11-21T13:44+00:00",
   "opslag": [
+    {
+      "media_id": "18079544297744529",
+      "tidspunkt": "2026-11-20T18:05:04+0000",
+      "link": "https://www.instagram.com/reel/Df-QciyAeGZ/",
+      "type": "REELS",
+      "første_linje": "Det sikre valg er ikke altid så sikkert, som det lyder.",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W47-fredag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-20T19:00:00+01:00",
+      "vinkel": null
+    },
     {
       "media_id": "18120889873960414",
       "tidspunkt": "2026-11-19T18:04:56+0000",
