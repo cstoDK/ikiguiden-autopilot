@@ -1,6 +1,21 @@
 {
-  "hentet": "2026-11-22T13:38+00:00",
+  "hentet": "2026-11-23T16:30+00:00",
   "opslag": [
+    {
+      "media_id": "18364636825247091",
+      "tidspunkt": "2026-11-22T18:04:47+0000",
+      "link": "https://www.instagram.com/reel/DgDaAsEAAhf/",
+      "type": "REELS",
+      "første_linje": "Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt.",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W47-soendag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-22T19:00:00+01:00",
+      "vinkel": null
+    },
     {
       "media_id": "18024866849938895",
       "tidspunkt": "2026-11-21T18:05:38+0000",

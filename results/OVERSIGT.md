@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-22T13:38+00:00)
+# Tal fra Instagram (hentet 2026-11-23T16:30+00:00)
 
 ## Gennemførte tests
 
@@ -19,8 +19,8 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 27 |
-| Autopilot, format klip | 0 | 6 |
+| Alle autopilot-opslag | 0 | 28 |
+| Autopilot, format klip | 0 | 7 |
 | Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 7 |
 | Autopilot, format liste | 0 | 5 |
@@ -29,12 +29,13 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Autopilot, tema mørk | 0 | 2 |
 | Autopilot, tema grøn | 0 | 1 |
 | Autopilot, tema brun | 1 | 1 |
-| Autopilot, tema foto | 0 | 9 |
+| Autopilot, tema foto | 0 | 10 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-22 | autopilot | klip | foto |  |  |  |  | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
 | 2026-11-21 | autopilot | klip | foto |  |  |  |  | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
 | 2026-11-20 | autopilot | klip | foto |  |  |  |  | 0 | Det sikre valg er ikke altid så sikkert, som det lyder. |
 | 2026-11-19 | autopilot | klip | foto |  |  |  |  | 1 | Du startede på en uddannelse med en plan. Så kom tvivlen. |
