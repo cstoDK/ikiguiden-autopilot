@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-23T16:30+00:00)
+# Tal fra Instagram (hentet 2026-11-24T16:25+00:00)
 
 ## Gennemførte tests
 
@@ -9,7 +9,7 @@ Mangler: secret UMAMI_API_KEY er ikke sat, så autopiloten kan ikke se, hvor man
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
 | studievalg | 0 |  | 0 |  |  |
-| arketype | 0 |  | 0 |  |  |
+| arketype | 1 |  | 0 |  |  |
 
 Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
 Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
@@ -19,8 +19,8 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 28 |
-| Autopilot, format klip | 0 | 7 |
+| Alle autopilot-opslag | 0 | 29 |
+| Autopilot, format klip | 0 | 8 |
 | Autopilot, format tekstkort | 0 | 7 |
 | Autopilot, format slides | 0 | 7 |
 | Autopilot, format liste | 0 | 5 |
@@ -29,12 +29,13 @@ Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visn
 | Autopilot, tema mørk | 0 | 2 |
 | Autopilot, tema grøn | 0 | 1 |
 | Autopilot, tema brun | 1 | 1 |
-| Autopilot, tema foto | 0 | 10 |
+| Autopilot, tema foto | 0 | 11 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-23 | autopilot | klip | foto |  |  |  |  | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
 | 2026-11-22 | autopilot | klip | foto |  |  |  |  | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
 | 2026-11-21 | autopilot | klip | foto |  |  |  |  | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
 | 2026-11-20 | autopilot | klip | foto |  |  |  |  | 0 | Det sikre valg er ikke altid så sikkert, som det lyder. |

@@ -1,6 +1,21 @@
 {
-  "hentet": "2026-11-23T16:30+00:00",
+  "hentet": "2026-11-24T16:25+00:00",
   "opslag": [
+    {
+      "media_id": "18150679438528518",
+      "tidspunkt": "2026-11-23T18:05:47+0000",
+      "link": "https://www.instagram.com/reel/DgF-6tqDO8A/",
+      "type": "REELS",
+      "første_linje": "Kongen, Opdageren eller Jokeren. Hvilken af dem er du?",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W48-mandag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-23T19:00:00+01:00",
+      "vinkel": "arketype"
+    },
     {
       "media_id": "18364636825247091",
       "tidspunkt": "2026-11-22T18:04:47+0000",
