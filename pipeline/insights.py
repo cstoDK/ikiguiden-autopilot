@@ -152,7 +152,7 @@ def _instagram_count(per_event):
 def umami_lines(umami):
     if not umami:
         return ["## Gennemførte tests", "",
-                "Mangler: hverken umami_share_id i config.json eller UMAMI_API_KEY virker, så autopiloten kan ikke se, hvor mange der gennemfører testen.", ""]
+                "Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så autopiloten kan ikke se, hvor mange der gennemfører testen. Christian har valgt ikke at betale for det nu.", ""]
     lines = ["## Gennemførte tests (Umami)", "",
              "| Hændelse | Fra Instagram, seneste 7 dage | Forrige 7 dage | Alle kilder, seneste 7 dage |",
              "| --- | --- | --- | --- |"]
