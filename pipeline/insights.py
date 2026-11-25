@@ -89,10 +89,19 @@ def describe(item):
 # ---------------- Gennemførte tests fra Umami (målingen på ikigaiguide.dk) ----------------
 
 def _umami_get(key, path, **params):
-    url = f"{UMAMI_BASE}/{path.lstrip('/')}?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"x-umami-api-key": key, "Authorization": f"Bearer {key}", "Accept": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode() or "null")
+    # Kontoen ligger i Umamis EU-region. Prøv først den fælles adresse og derefter /eu, hvis den fejler.
+    last = None
+    for base in (UMAMI_BASE, UMAMI_BASE + "/eu"):
+        url = f"{base}/{path.lstrip('/')}?{urllib.parse.urlencode(params)}"
+        req = urllib.request.Request(url, headers={"x-umami-api-key": key, "Authorization": f"Bearer {key}", "Accept": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode() or "null")
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403):
+                raise
+            last = e
+    raise last
 
 
 def fetch_umami(key, now, site=UMAMI_SITE):
