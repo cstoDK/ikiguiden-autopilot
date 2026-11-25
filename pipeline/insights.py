@@ -25,6 +25,7 @@ from publish import Api, ApiError, FORBIDDEN_ACCOUNTS, STATE_PATH  # noqa: E402
 RESULTS = common.ROOT / "results"
 DM_STATE = common.ROOT / "state" / "dm.json"
 UMAMI_BASE = "https://api.umami.is/v1"
+UMAMI_GATEWAY = "https://gateway-eu.umami.is/api"   # bruges med et delingslink (gratis plan, ingen API-nøgle)
 UMAMI_SITE = "c9dc8c7f-388d-4a1d-a6ce-8c56251b8df9"   # ikigaiguide.dk, se index.html i ikigai-guide
 TEST_EVENTS = ["ikigai_start", "ikigai_faerdig", "arketype_start", "arketype_faerdig", "arketype_del"]
 VINKEL_EVENT = {"studievalg": "ikigai_faerdig", "arketype": "arketype_faerdig"}
@@ -88,7 +89,20 @@ def describe(item):
 
 # ---------------- Gennemførte tests fra Umami (målingen på ikigaiguide.dk) ----------------
 
+def umami_share_auth(share_id):
+    """Adgang via et Umami-delingslink. API-nøgler kræver Umamis betalte plan, delingslinket gør ikke."""
+    req = urllib.request.Request(f"{UMAMI_GATEWAY}/share/{share_id}", headers={"Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        data = json.loads(r.read().decode())
+    return {"base": UMAMI_GATEWAY, "headers": {"x-umami-share-token": data["token"], "x-umami-share-context": "1",
+                                                "Accept": "application/json"}}
+
+
 def _umami_get(key, path, **params):
+    if isinstance(key, dict):
+        url = f"{key['base']}/{path.lstrip('/')}?{urllib.parse.urlencode(params)}"
+        with urllib.request.urlopen(urllib.request.Request(url, headers=key["headers"]), timeout=60) as r:
+            return json.loads(r.read().decode() or "null")
     # Kontoen ligger i Umamis EU-region. Prøv først den fælles adresse og derefter /eu, hvis den fejler.
     last = None
     for base in (UMAMI_BASE, UMAMI_BASE + "/eu"):
@@ -138,7 +152,7 @@ def _instagram_count(per_event):
 def umami_lines(umami):
     if not umami:
         return ["## Gennemførte tests", "",
-                "Mangler: secret UMAMI_API_KEY er ikke sat, så autopiloten kan ikke se, hvor mange der gennemfører testen.", ""]
+                "Mangler: hverken umami_share_id i config.json eller UMAMI_API_KEY virker, så autopiloten kan ikke se, hvor mange der gennemfører testen.", ""]
     lines = ["## Gennemførte tests (Umami)", "",
              "| Hændelse | Fra Instagram, seneste 7 dage | Forrige 7 dage | Alle kilder, seneste 7 dage |",
              "| --- | --- | --- | --- |"]
@@ -301,6 +315,12 @@ def main():
     fetched_at = now.isoformat(timespec="minutes")
     umami = None
     key = os.environ.get("UMAMI_API_KEY", "").strip()
+    share_id = os.environ.get("UMAMI_SHARE_ID", "").strip() or str(cfg.get("umami_share_id", "")).strip()
+    if not key and share_id:
+        try:
+            key = umami_share_auth(share_id)
+        except (urllib.error.URLError, ValueError, KeyError, TimeoutError) as e:
+            errors = sorted(set(errors) | {f"Umami delingslink: {str(e)[:150]}"})
     if key:
         umami, uerr = fetch_umami(key, now)
         errors = sorted(set(errors) | set(uerr))
