@@ -1,5 +1,5 @@
 {
-  "hentet": "2026-11-25T07:54+00:00",
+  "hentet": "2026-11-25T09:17+00:00",
   "opslag": [
     {
       "media_id": "18112870925235451",
@@ -9,14 +9,17 @@
       "første_linje": "Du er ikke bagud. Det føles bare sådan, når alle andre deler deres beslutninger.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 70,
+      "reach": 66,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W48-tirsdag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-24T19:00:00+01:00",
-      "vinkel": "studievalg",
-      "views": 67,
-      "views_offentlig": true
+      "vinkel": "studievalg"
     },
     {
       "media_id": "18150679438528518",
@@ -26,14 +29,17 @@
       "første_linje": "Kongen, Opdageren eller Jokeren. Hvilken af dem er du?",
       "likes": 0,
       "kommentarer": 0,
+      "views": 149,
+      "reach": 128,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W48-mandag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-23T19:00:00+01:00",
-      "vinkel": "arketype",
-      "views": 149,
-      "views_offentlig": true
+      "vinkel": "arketype"
     },
     {
       "media_id": "18364636825247091",
@@ -43,14 +49,17 @@
       "første_linje": "Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 61,
+      "reach": 59,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W47-soendag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-22T19:00:00+01:00",
-      "vinkel": null,
-      "views": 61,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18024866849938895",
@@ -60,14 +69,17 @@
       "første_linje": "Sådan siger du til dine forældre, at du er i tvivl om uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 172,
+      "reach": 151,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W47-loerdag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-21T19:00:00+01:00",
-      "vinkel": null,
-      "views": 172,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18079544297744529",
@@ -77,14 +89,17 @@
       "første_linje": "Det sikre valg er ikke altid så sikkert, som det lyder.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 94,
+      "reach": 86,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W47-fredag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-20T19:00:00+01:00",
-      "vinkel": null,
-      "views": 94,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18120889873960414",
@@ -94,14 +109,17 @@
       "første_linje": "Du startede på en uddannelse med en plan. Så kom tvivlen.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 150,
+      "reach": 128,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W47-torsdag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-19T19:00:00+01:00",
-      "vinkel": null,
-      "views": 150,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18116488793274757",
@@ -111,14 +129,17 @@
       "første_linje": "Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt ",
       "likes": 0,
       "kommentarer": 0,
+      "views": 78,
+      "reach": 71,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W47-onsdag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-18T19:00:00+01:00",
-      "vinkel": null,
-      "views": 78,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18646914160016860",
@@ -128,14 +149,17 @@
       "første_linje": "Du er ikke i tvivl, fordi du mangler muligheder. Du har måske for mange.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 105,
+      "reach": 100,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W47-tirsdag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-17T19:00:00+01:00",
-      "vinkel": null,
-      "views": 105,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18097826849149686",
@@ -145,14 +169,17 @@
       "første_linje": "Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere,",
       "likes": 2,
       "kommentarer": 0,
+      "views": 196,
+      "reach": 180,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 2,
       "kilde": "autopilot",
       "id": "2026-W47-mandag-1900-reel",
       "format": "klip",
       "tema": "foto",
       "planlagt": "2026-11-16T12:20:00+01:00",
-      "vinkel": null,
-      "views": 196,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18352405642251692",
@@ -162,6 +189,11 @@
       "første_linje": "Du har sikkert scrollet i mere end 2 minutter i dag. Brug de næste 2 på dig selv.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 7,
+      "reach": 3,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W46-soendag-1900-karrusel",
       "format": "slides",
@@ -177,6 +209,11 @@
       "første_linje": "3 ting, der siger mere om dig end dine karakterer.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 5,
+      "reach": 2,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W46-loerdag-1900-karrusel",
       "format": "liste",
@@ -192,6 +229,11 @@
       "første_linje": "Hvilke problemer gider du egentlig bruge tid på?",
       "likes": 0,
       "kommentarer": 0,
+      "views": 7,
+      "reach": 1,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W46-fredag-1900-karrusel",
       "format": "slides",
@@ -207,6 +249,11 @@
       "første_linje": "Du skal ikke vide, hvad du vil være, for at tage mini-testen. Du skal bare kunne svare ærl",
       "likes": 0,
       "kommentarer": 0,
+      "views": 12,
+      "reach": 4,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W46-torsdag-1900-karrusel",
       "format": "slides",
@@ -222,6 +269,11 @@
       "første_linje": "Du kan elske noget uden at ville arbejde med det.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 14,
+      "reach": 3,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W46-onsdag-1900-karrusel",
       "format": "slides",
@@ -237,6 +289,11 @@
       "første_linje": "Du vil være helt sikker, før du vælger uddannelse. Måske er det netop det, der holder dig ",
       "likes": 1,
       "kommentarer": 0,
+      "views": 9,
+      "reach": 4,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W46-tirsdag-1900-karrusel",
       "format": "linje",
@@ -252,14 +309,17 @@
       "første_linje": "Du er ikke doven. Du mangler måske bare retning.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 8,
+      "reach": 8,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W46-mandag-1900-reel",
       "format": "tekstkort",
       "tema": "lys",
       "planlagt": "2026-11-09T19:00:00+01:00",
-      "vinkel": null,
-      "views": 8,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18136431571682568",
@@ -269,14 +329,17 @@
       "første_linje": "Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 15,
+      "reach": 13,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-soendag-karrusel",
       "format": "slides",
       "tema": "grøn",
       "planlagt": "2026-11-08T19:00:00+01:00",
-      "vinkel": null,
-      "views": 15,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18113473418139311",
@@ -286,14 +349,17 @@
       "første_linje": "4 ting, du kan prøve af, før du vælger uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 43,
+      "reach": 41,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-loerdag-1900-karrusel",
       "format": "liste",
       "tema": "mørk",
       "planlagt": "2026-11-07T19:00:00+01:00",
-      "vinkel": null,
-      "views": 43,
-      "views_offentlig": true
+      "vinkel": null
     },
     {
       "media_id": "18048359933684635",
@@ -303,6 +369,11 @@
       "første_linje": "Tag den gratis mini-test via link i bio, hvis du er i tvivl om uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 18,
+      "reach": 17,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-fredag-reel",
       "format": "tekstkort",
@@ -318,6 +389,11 @@
       "første_linje": "Der er to slags tvivl om uddannelse. Og de skal ikke løses på samme måde.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 26,
+      "reach": 26,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W45-fredag-1200-karrusel",
       "format": "slides",
@@ -333,6 +409,11 @@
       "første_linje": "De andre virker sikre. Det er de ikke altid.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 64,
+      "reach": 59,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-torsdag-1900-reel",
       "format": "tekstkort",
@@ -348,6 +429,11 @@
       "første_linje": "5 tegn på, at du vælger uddannelse ud fra andres forventninger.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 8,
+      "reach": 7,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-torsdag-1200-karrusel",
       "format": "liste",
@@ -363,6 +449,11 @@
       "første_linje": "Er du i tvivl om uddannelse? Start med 2 minutter.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 13,
+      "reach": 14,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-onsdag-1900-reel",
       "format": "tekstkort",
@@ -378,6 +469,11 @@
       "første_linje": "Du ved, hvad jobbet hedder. Men ved du, hvad man laver en helt almindelig tirsdag?",
       "likes": 0,
       "kommentarer": 0,
+      "views": 31,
+      "reach": 28,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-onsdag-1200-karrusel",
       "format": "slides",
@@ -393,6 +489,11 @@
       "første_linje": "Et uddannelsesvalg ser lige ud i brochuren. I virkeligheden er der omveje.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 28,
+      "reach": 26,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "autopilot",
       "id": "2026-W45-tirsdag-1900-karrusel",
       "format": "linje",
@@ -408,6 +509,11 @@
       "første_linje": "Du behøver ikke have en stor passion for at kunne vælge uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 36,
+      "reach": 34,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-tirsdag-1200-reel",
       "format": "tekstkort",
@@ -423,6 +529,11 @@
       "første_linje": "3 spørgsmål, du skal kunne svare på, før du søger ind på en uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 11,
+      "reach": 4,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-mandag-1900-karrusel",
       "format": "liste",
@@ -438,6 +549,11 @@
       "første_linje": "Et sabbatår er ikke spildt tid, hvis du bruger det på noget.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 14,
+      "reach": 12,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-mandag-1200-reel",
       "format": "tekstkort",
@@ -453,6 +569,11 @@
       "første_linje": "5 ting, ingen fortæller dig, før du vælger uddannelse. Gem den til dagen, hvor du skal væl",
       "likes": 0,
       "kommentarer": 0,
+      "views": 13,
+      "reach": 4,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-torsdag-karrusel",
       "format": "liste",
@@ -468,6 +589,11 @@
       "første_linje": "Tag den gratis mini-test via link i bio, hvis du er i tvivl om uddannelse.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 164,
+      "reach": 155,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "autopilot",
       "id": "2026-W45-tirsdag-reel",
       "format": "tekstkort",
@@ -483,6 +609,11 @@
       "første_linje": "Dansk sommer er dejlig.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 156,
+      "reach": 117,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -493,6 +624,11 @@
       "første_linje": "Piger bruger oftere sabbatåret på rejser, højskole og planer.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 158,
+      "reach": 112,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -503,6 +639,11 @@
       "første_linje": "Få hjælp til at navigere i usikkerheden 👉 link i bio",
       "likes": 0,
       "kommentarer": 0,
+      "views": 151,
+      "reach": 105,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -513,6 +654,11 @@
       "første_linje": "En drage flyver jo ikke, fordi der ingen modstand er. ",
       "likes": 0,
       "kommentarer": 0,
+      "views": 138,
+      "reach": 120,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -523,6 +669,11 @@
       "første_linje": "Har du prøvet de øjeblikke, hvor noget bare føles rigtigt?",
       "likes": 0,
       "kommentarer": 0,
+      "views": 120,
+      "reach": 107,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -533,6 +684,11 @@
       "første_linje": "Musikken spiller. Alle virker som om de er helt med.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 179,
+      "reach": 128,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -543,6 +699,11 @@
       "første_linje": "Den følelse er måske mere vigtig, end vi går og tror.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 141,
+      "reach": 109,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -553,6 +714,11 @@
       "første_linje": "Nogle gange tænker jeg tilbage og fatter stadig ikke helt, at det her engang var min hverd",
       "likes": 0,
       "kommentarer": 0,
+      "views": 124,
+      "reach": 111,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -563,6 +729,11 @@
       "første_linje": "Du gjorde, hvad man forventede.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 197,
+      "reach": 152,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -573,6 +744,11 @@
       "første_linje": "62% af eleverne i 9. klasse føler sig pressede over fremtiden og uddannelsesvalget.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 15,
+      "reach": 6,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -583,6 +759,11 @@
       "første_linje": "… men hvad skal der ske guys? ",
       "likes": 0,
       "kommentarer": 0,
+      "views": 207,
+      "reach": 112,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -593,6 +774,11 @@
       "første_linje": "Mange går rundt og tror, at de bare mangler motivation.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 132,
+      "reach": 107,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -603,6 +789,11 @@
       "første_linje": "Når du først har fundet dit fit, føles livet pludselig mindre tungt.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 8,
+      "reach": 3,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -613,6 +804,11 @@
       "første_linje": "Vigtigt 🚨 Lad være med at vælge på autopilot",
       "likes": 0,
       "kommentarer": 0,
+      "views": 112,
+      "reach": 102,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -623,6 +819,11 @@
       "første_linje": "Alt for mange vælger på autopilot.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 123,
+      "reach": 103,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -633,6 +834,11 @@
       "første_linje": "Et sabbatår eller to kan sagtens være fint.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 171,
+      "reach": 118,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -643,6 +849,11 @@
       "første_linje": "Mange vælger noget, der lyder klogt, sikkert eller imponerende.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 114,
+      "reach": 103,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -653,6 +864,11 @@
       "første_linje": "Mange tror, de vælger frit.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 11,
+      "reach": 3,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -663,6 +879,11 @@
       "første_linje": "Det er vildt hvor mange der vælger uddannelse ud fra, hvad der “lyder rigtigt”",
       "likes": 1,
       "kommentarer": 0,
+      "views": 136,
+      "reach": 110,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -673,6 +894,11 @@
       "første_linje": "Du er ikke dine fag på uni.",
       "likes": 2,
       "kommentarer": 0,
+      "views": 364,
+      "reach": 246,
+      "saved": 0,
+      "shares": 4,
+      "total_interactions": 6,
       "kilde": "manuel"
     },
     {
@@ -683,6 +909,11 @@
       "første_linje": "Rigtig mange vælger uddannelse ud fra, hvad der virker sikkert. Hvad der lyder klogt. Hvad",
       "likes": 2,
       "kommentarer": 0,
+      "views": 166,
+      "reach": 156,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 2,
       "kilde": "manuel"
     },
     {
@@ -693,6 +924,11 @@
       "første_linje": "Ingen gider være den, der valgte forkert.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 144,
+      "reach": 106,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -703,6 +939,11 @@
       "første_linje": "Men det betyder ikke, at du bare skal lukke øjnene og håbe på det bedste.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 171,
+      "reach": 112,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -713,6 +954,11 @@
       "første_linje": "Der er mange, der tror, man skal vælge den rigtige uddannelse i første forsøg.",
       "likes": 10,
       "kommentarer": 0,
+      "views": 2467,
+      "reach": 1732,
+      "saved": 3,
+      "shares": 28,
+      "total_interactions": 41,
       "kilde": "manuel"
     },
     {
@@ -723,6 +969,11 @@
       "første_linje": "Der er ikke noget, der hiver i dig.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 116,
+      "reach": 107,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -733,6 +984,11 @@
       "første_linje": "Mange bliver mødt af en ret mærkelig idé om hvad der skal ske efter gymnasiet:",
       "likes": 1,
       "kommentarer": 0,
+      "views": 222,
+      "reach": 182,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -743,6 +999,11 @@
       "første_linje": "Sociologen Ulrich Beck beskrev, hvordan det moderne samfund har gjort livet mere frit, men",
       "likes": 1,
       "kommentarer": 1,
+      "views": 243,
+      "reach": 187,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 3,
       "kilde": "manuel"
     },
     {
@@ -753,6 +1014,11 @@
       "første_linje": "Mange unge bliver bedt om at vælge uddannelse, som om det bare handler om interesse:",
       "likes": 3,
       "kommentarer": 0,
+      "views": 157,
+      "reach": 121,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 3,
       "kilde": "manuel"
     },
     {
@@ -763,6 +1029,11 @@
       "første_linje": "For nogle er problemet ikke mangel på ferie.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 133,
+      "reach": 108,
+      "saved": 0,
+      "shares": 1,
+      "total_interactions": 2,
       "kilde": "manuel"
     },
     {
@@ -773,6 +1044,11 @@
       "første_linje": "Hvis du skal vælge studie og er bange for at vælge forkert, er du ikke alene.",
       "likes": 0,
       "kommentarer": 0,
+      "views": 123,
+      "reach": 106,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 0,
       "kilde": "manuel"
     },
     {
@@ -783,6 +1059,11 @@
       "første_linje": "Man ser mindre, man tænker mindre.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 163,
+      "reach": 118,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -793,6 +1074,11 @@
       "første_linje": "CopenHill er på en måde et ret præcist billede på det moderne liv.",
       "likes": 8,
       "kommentarer": 0,
+      "views": 1599,
+      "reach": 1231,
+      "saved": 0,
+      "shares": 2,
+      "total_interactions": 10,
       "kilde": "manuel"
     },
     {
@@ -803,6 +1089,11 @@
       "første_linje": "Alle muligheder ser jo mega lækre ud.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 161,
+      "reach": 119,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -813,6 +1104,11 @@
       "første_linje": "Der er noget mærkeligt ved den måde, mange af os lever på.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 172,
+      "reach": 140,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -823,6 +1119,11 @@
       "første_linje": "Vi fortæller unge, at de har alle muligheder i verden.",
       "likes": 3,
       "kommentarer": 0,
+      "views": 9,
+      "reach": 9,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 3,
       "kilde": "manuel"
     },
     {
@@ -833,6 +1134,11 @@
       "første_linje": "Der er noget særligt ved at komme op i højden.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 162,
+      "reach": 116,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -843,6 +1149,11 @@
       "første_linje": "Jeg går bare på gaden, og så sker det igen.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 152,
+      "reach": 121,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -853,6 +1164,11 @@
       "første_linje": "Nogle gange vælger vi ikke rigtig.",
       "likes": 1,
       "kommentarer": 0,
+      "views": 121,
+      "reach": 113,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 1,
       "kilde": "manuel"
     },
     {
@@ -863,6 +1179,11 @@
       "første_linje": "Føler du dig lost?",
       "likes": 2,
       "kommentarer": 0,
+      "views": 126,
+      "reach": 114,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 2,
       "kilde": "manuel"
     },
     {
@@ -873,6 +1194,11 @@
       "første_linje": "Ikigai ser simpelt ud.",
       "likes": 3,
       "kommentarer": 2,
+      "views": 49,
+      "reach": 17,
+      "saved": 1,
+      "shares": 1,
+      "total_interactions": 7,
       "kilde": "manuel"
     },
     {
@@ -883,12 +1209,14 @@
       "første_linje": "Ved du hvad du vil med dit liv?",
       "likes": 1,
       "kommentarer": 1,
+      "views": 116,
+      "reach": 109,
+      "saved": 0,
+      "shares": 0,
+      "total_interactions": 2,
       "kilde": "manuel"
     }
   ],
-  "fejl": [
-    "(#10) Application does not have permission for this action",
-    "Umami delingslink: HTTP Error 403: Forbidden"
-  ],
+  "fejl": [],
   "umami": null
 }
