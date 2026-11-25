@@ -38,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 from publish import Api, ApiError, FORBIDDEN_ACCOUNTS, STATE_PATH  # noqa: E402
 
-DM_STATE = common.ROOT / "state" / "dm.json"
+DM_STATE = common.DATA / "state" / "dm.json"
 SITE = "https://ikigaiguide.dk"
 LINKS = {"studievalg": f"{SITE}/dm", "arketype": f"{SITE}/dm/arketype"}
 MESSAGES = {
@@ -50,6 +50,16 @@ MESSAGES = {
 PUBLIC_REPLIES = ["Sendt til dig i en besked 📩", "Tjek din indbakke 📩", "Du har fået linket i en besked 📩"]
 ARKETYPE_WORD = re.compile(r"\barketype[nr]?\b", re.I)
 TEST_WORD = re.compile(r"\b(test|testen|link|linket)\b", re.I)
+if common.PROFILE == "en":
+    # @the_ikigai_guide: alt peger på den engelske arketypetest.
+    _EN = f"{SITE}/en/dm"
+    LINKS = {"studievalg": _EN, "arketype": _EN}
+    _MSG = ("Hi! Here's the archetype test:\n{link}\n\n"
+            "It's free, no login, and you see your archetype right away.")
+    MESSAGES = {"studievalg": _MSG, "arketype": _MSG}
+    PUBLIC_REPLIES = ["Sent it to your DMs 📩", "Check your inbox 📩", "Link is in your DMs 📩"]
+    ARKETYPE_WORD = re.compile(r"\barchetypes?\b", re.I)
+    TEST_WORD = re.compile(r"\b(test|link|quiz)\b", re.I)
 MAX_COMMENT_CHARS = 80
 MAX_PER_RUN = 25
 MEDIA_DAYS = 14
@@ -188,7 +198,7 @@ def main():
     ap.add_argument("--now", default=None)
     args = ap.parse_args()
 
-    if (common.ROOT / "PAUSE").exists():
+    if (common.ROOT / "PAUSE").exists() or (common.DATA / "PAUSE").exists():
         log("PAUSE findes. Der sendes ingen beskeder.")
         return 0
     token = os.environ.get("IG_ACCESS_TOKEN", "").strip()
@@ -196,7 +206,7 @@ def main():
         log("IG_ACCESS_TOKEN er ikke sat. Der sendes ingen beskeder.")
         return 0
     now = datetime.fromisoformat(args.now) if args.now else datetime.now(timezone.utc)
-    cfg = common.read_json(common.ROOT / "config.json")
+    cfg = common.read_json(common.DATA / "config.json")
     expected_id = str(cfg.get("instagram_user_id", "")).strip()
     fb_token = token.startswith("EAA")
     base = args.api_base or ("https://graph.facebook.com" if fb_token else "https://graph.instagram.com")

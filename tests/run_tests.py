@@ -373,6 +373,15 @@ check("offentlige visninger bruges kun, hvor Meta ikke har tal",
 _md = insights.summarize(_rows, [], "2026-11-25T09:00+00:00", public_views_date=_d)
 check("oversigten siger, hvor visningerne kommer fra", "offentlige afspilningstal" in _md and "Median views" in _md)
 
+# engelsk profil: egne mapper under profiles/en, medier hentes fra profiles/en/media
+_pr = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, 'pipeline'); import common; "
+                      "print(common.DATA.relative_to(common.ROOT).as_posix(), common.MEDIA_REL)"],
+                     cwd=REPO, env={**os.environ, "AUTOPILOT_PROFILE": "en", "AUTOPILOT_ROOT": str(REPO)},
+                     capture_output=True, text=True)
+check("engelsk profil bruger profiles/en", _pr.stdout.split() == ["profiles/en", "profiles/en/media"], _pr.stdout + _pr.stderr)
+_cfg = json.loads((REPO / "profiles" / "en" / "config.json").read_text())
+check("engelsk profil må kun udgive på @the_ikigai_guide", _cfg["instagram_username"] == "the_ikigai_guide")
+
 mock.close()
 failed = [n for n, ok in results if not ok]
 print(f"\n{len(results) - len(failed)} af {len(results)} tjek bestået" + (f"; FEJLEDE: {failed}" if failed else ""))

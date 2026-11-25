@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 import lint  # noqa: E402
 
-STATE_PATH = common.ROOT / "state" / "published.json"
+STATE_PATH = common.DATA / "state" / "published.json"
 # Konti der aldrig må udgives på, uanset hvad config.json siger.
 FORBIDDEN_ACCOUNTS = {"christianstoltze"}
 
@@ -152,8 +152,8 @@ def url_candidates(rel, args):
     repo, sha = os.environ.get("GITHUB_REPOSITORY"), os.environ.get("GITHUB_SHA")
     if not (repo and sha):
         raise ApiError("GITHUB_REPOSITORY/GITHUB_SHA mangler, så medie-adresser kan ikke dannes.")
-    return [f"https://raw.githubusercontent.com/{repo}/{sha}/media/{rel}",
-            f"https://cdn.jsdelivr.net/gh/{repo}@{sha}/media/{rel}"]
+    return [f"https://raw.githubusercontent.com/{repo}/{sha}/{common.MEDIA_REL}/{rel}",
+            f"https://cdn.jsdelivr.net/gh/{repo}@{sha}/{common.MEDIA_REL}/{rel}"]
 
 
 def resolve_url(rel, kind, args):
@@ -380,7 +380,7 @@ def main():
     if marked:
         save()
 
-    if (common.ROOT / "PAUSE").exists():
+    if (common.ROOT / "PAUSE").exists() or (common.DATA / "PAUSE").exists():
         log("PAUSE-filen findes: der udgives ingenting.")
         return 0
     if not due and not args.check_account:
@@ -391,7 +391,7 @@ def main():
         log("IG_ACCESS_TOKEN er ikke sat. Autopiloten er ikke tændt endnu.")
         return 0
 
-    cfg = common.read_json(common.ROOT / "config.json")
+    cfg = common.read_json(common.DATA / "config.json")
     expected_id = str(cfg.get("instagram_user_id", "")).strip()
     fb_token = token.startswith("EAA")
     base = args.api_base or ("https://graph.facebook.com" if fb_token else "https://graph.instagram.com")

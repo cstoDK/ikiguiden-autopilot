@@ -22,8 +22,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 from publish import Api, ApiError, FORBIDDEN_ACCOUNTS, STATE_PATH  # noqa: E402
 
-RESULTS = common.ROOT / "results"
-DM_STATE = common.ROOT / "state" / "dm.json"
+RESULTS = common.DATA / "results"
+DM_STATE = common.DATA / "state" / "dm.json"
 UMAMI_BASE = "https://api.umami.is/v1"
 UMAMI_GATEWAY = "https://gateway-eu.umami.is/api"   # bruges med et delingslink (gratis plan, ingen API-nøgle)
 UMAMI_SITE = "c9dc8c7f-388d-4a1d-a6ce-8c56251b8df9"   # ikigaiguide.dk, se index.html i ikigai-guide
@@ -294,7 +294,7 @@ def main():
     if not token:
         log("IG_ACCESS_TOKEN er ikke sat. Der hentes ingen tal.")
         return 0
-    cfg = common.read_json(common.ROOT / "config.json")
+    cfg = common.read_json(common.DATA / "config.json")
     expected_id = str(cfg.get("instagram_user_id", "")).strip()
     fb_token = token.startswith("EAA")
     base = "https://graph.facebook.com" if fb_token else "https://graph.instagram.com"

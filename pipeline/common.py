@@ -7,6 +7,11 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(os.environ.get("AUTOPILOT_ROOT") or Path(__file__).resolve().parent.parent)
+# Profil: tom = den danske @ikigaiguiden i roden. "en" = @the_ikigai_guide i profiles/en/.
+# Køen, medierne, status, tal og config.json ligger pr. profil. brand/ (billeder, klip, skrifter) er fælles.
+PROFILE = os.environ.get("AUTOPILOT_PROFILE", "").strip()
+DATA = ROOT / "profiles" / PROFILE if PROFILE else ROOT
+MEDIA_REL = (DATA / "media").relative_to(ROOT).as_posix()
 
 
 def read_json(path):
@@ -27,7 +32,7 @@ def parse_when(value):
 
 
 def queue_items():
-    for path in sorted((ROOT / "queue").glob("*/*.json")):
+    for path in sorted((DATA / "queue").glob("*/*.json")):
         item = read_json(path)
         item["_path"] = path
         yield item
@@ -38,7 +43,7 @@ def clean(item):
 
 
 def media_dir(item):
-    return ROOT / "media" / item["_path"].parent.name / item["id"]
+    return DATA / "media" / item["_path"].parent.name / item["id"]
 
 
 def strip_marks(text):
