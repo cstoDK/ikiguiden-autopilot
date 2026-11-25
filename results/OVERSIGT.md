@@ -9,49 +9,45 @@ Mangler: secret UMAMI_API_KEY er ikke sat, så autopiloten kan ikke se, hvor man
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
 | studievalg | 0 |  | 0 |  |  |
-| arketype | 1 |  | 0 |  |  |
+| arketype | 1 | 149 | 0 |  |  |
 
-Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.
-Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.
+Visninger er Instagrams offentlige afspilningstal for reels, aflæst 2026-11-25. Karruseller har ingen offentlige tal, og rækkevidde, gemte og delte mangler stadig, fordi nøglen ikke har tilladelsen instagram_business_manage_insights.
 
-## Median likes pr. gruppe
+## Median views pr. gruppe
 
 | Gruppe | Median | Antal |
 | --- | --- | --- |
-| Alle manuelle opslag | 1 | 41 |
-| Alle autopilot-opslag | 0 | 29 |
-| Autopilot, format klip | 0 | 8 |
-| Autopilot, format tekstkort | 0 | 7 |
-| Autopilot, format slides | 0 | 7 |
-| Autopilot, format liste | 0 | 5 |
-| Autopilot, format linje | 1 | 2 |
-| Autopilot, tema lys | 0 | 14 |
-| Autopilot, tema mørk | 0 | 2 |
-| Autopilot, tema grøn | 0 | 1 |
-| Autopilot, tema brun | 1 | 1 |
-| Autopilot, tema foto | 0 | 11 |
+| Alle autopilot-opslag | 94 | 11 |
+| Autopilot, format klip | 127 | 8 |
+| Autopilot, format tekstkort | 8 | 1 |
+| Autopilot, format slides | 15 | 1 |
+| Autopilot, format liste | 43 | 1 |
+| Autopilot, tema lys | 8 | 1 |
+| Autopilot, tema mørk | 43 | 1 |
+| Autopilot, tema grøn | 15 | 1 |
+| Autopilot, tema foto | 127 | 8 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-11-23 | autopilot | klip | foto |  |  |  |  | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
-| 2026-11-22 | autopilot | klip | foto |  |  |  |  | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
-| 2026-11-21 | autopilot | klip | foto |  |  |  |  | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
-| 2026-11-20 | autopilot | klip | foto |  |  |  |  | 0 | Det sikre valg er ikke altid så sikkert, som det lyder. |
-| 2026-11-19 | autopilot | klip | foto |  |  |  |  | 1 | Du startede på en uddannelse med en plan. Så kom tvivlen. |
-| 2026-11-18 | autopilot | klip | foto |  |  |  |  | 0 | Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt  |
-| 2026-11-17 | autopilot | klip | foto |  |  |  |  | 0 | Du er ikke i tvivl, fordi du mangler muligheder. Du har måske for mange. |
-| 2026-11-16 | autopilot | klip | foto |  |  |  |  | 2 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |
+| 2026-11-23 | autopilot | klip | foto | 149 |  |  |  | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
+| 2026-11-22 | autopilot | klip | foto | 61 |  |  |  | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
+| 2026-11-21 | autopilot | klip | foto | 172 |  |  |  | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
+| 2026-11-20 | autopilot | klip | foto | 94 |  |  |  | 0 | Det sikre valg er ikke altid så sikkert, som det lyder. |
+| 2026-11-19 | autopilot | klip | foto | 150 |  |  |  | 1 | Du startede på en uddannelse med en plan. Så kom tvivlen. |
+| 2026-11-18 | autopilot | klip | foto | 78 |  |  |  | 0 | Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt  |
+| 2026-11-17 | autopilot | klip | foto | 105 |  |  |  | 0 | Du er ikke i tvivl, fordi du mangler muligheder. Du har måske for mange. |
+| 2026-11-16 | autopilot | klip | foto | 196 |  |  |  | 2 | Mange tror, man skal vælge den rigtige uddannelse i første forsøg. Det gør valget tungere, |
 | 2026-11-15 | autopilot | slides | foto |  |  |  |  | 0 | Du har sikkert scrollet i mere end 2 minutter i dag. Brug de næste 2 på dig selv. |
 | 2026-11-14 | autopilot | liste | brun |  |  |  |  | 1 | 3 ting, der siger mere om dig end dine karakterer. |
 | 2026-11-13 | autopilot | slides | foto |  |  |  |  | 0 | Hvilke problemer gider du egentlig bruge tid på? |
 | 2026-11-12 | autopilot | slides | lys |  |  |  |  | 0 | Du skal ikke vide, hvad du vil være, for at tage mini-testen. Du skal bare kunne svare ærl |
 | 2026-11-11 | autopilot | slides | mørk |  |  |  |  | 1 | Du kan elske noget uden at ville arbejde med det. |
 | 2026-11-10 | autopilot | linje | foto |  |  |  |  | 1 | Du vil være helt sikker, før du vælger uddannelse. Måske er det netop det, der holder dig  |
-| 2026-11-09 | autopilot | tekstkort | lys |  |  |  |  | 0 | Du er ikke doven. Du mangler måske bare retning. |
-| 2026-11-08 | autopilot | slides | grøn |  |  |  |  | 0 | Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse. |
-| 2026-11-07 | autopilot | liste | mørk |  |  |  |  | 0 | 4 ting, du kan prøve af, før du vælger uddannelse. |
+| 2026-11-09 | autopilot | tekstkort | lys | 8 |  |  |  | 0 | Du er ikke doven. Du mangler måske bare retning. |
+| 2026-11-08 | autopilot | slides | grøn | 15 |  |  |  | 0 | Gratis mini-test på 2 minutter til dig, der er i tvivl om uddannelse. |
+| 2026-11-07 | autopilot | liste | mørk | 43 |  |  |  | 0 | 4 ting, du kan prøve af, før du vælger uddannelse. |
 | 2026-11-06 | autopilot | tekstkort | lys |  |  |  |  | 0 | Tag den gratis mini-test via link i bio, hvis du er i tvivl om uddannelse. |
 | 2026-11-06 | autopilot | slides | lys |  |  |  |  | 1 | Der er to slags tvivl om uddannelse. Og de skal ikke løses på samme måde. |
 | 2026-11-05 | autopilot | tekstkort | lys |  |  |  |  | 0 | De andre virker sikre. Det er de ikke altid. |

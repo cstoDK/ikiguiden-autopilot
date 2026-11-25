@@ -9,6 +9,7 @@ stadig likes og kommentarer, og OVERSIGT.md siger, hvad der mangler.
 """
 import json
 import os
+import re
 import statistics
 import sys
 import urllib.error
@@ -29,6 +30,7 @@ TEST_EVENTS = ["ikigai_start", "ikigai_faerdig", "arketype_start", "arketype_fae
 VINKEL_EVENT = {"studievalg": "ikigai_faerdig", "arketype": "arketype_faerdig"}
 METRICS = ["views", "reach", "saved", "shares", "total_interactions"]
 MAX_MEDIA = 200
+PUBLIC_VIEWS = RESULTS / "visninger.json"   # offentlige afspilningstal for reels, aflæst fra profilen i en browser
 
 
 def log(msg):
@@ -186,18 +188,49 @@ def collect(api, uid):
     return rows, sorted(errors)
 
 
+def _shortcode(link):
+    m = re.search(r"/(?:reel|p)/([A-Za-z0-9_-]+)", link or "")
+    return m.group(1) if m else None
+
+
+def merge_public_views(rows, path=None):
+    """Fylder visninger ud med de offentlige afspilningstal fra results/visninger.json, hvor Meta ikke giver dem.
+
+    Filen skrives af den ugentlige kørsel, der læser instagram.com/ikigaiguiden/reels/ i en browser.
+    Returnerer datoen for aflæsningen, eller None hvis intet blev brugt."""
+    path = path or PUBLIC_VIEWS
+    if not path.exists():
+        return None
+    data = common.read_json(path)
+    counts = data.get("reels") or {}
+    used = False
+    for r in rows:
+        if isinstance(r.get("views"), (int, float)):
+            continue
+        code = _shortcode(r.get("link"))
+        if code in counts and isinstance(counts[code], (int, float)):
+            r["views"] = counts[code]
+            r["views_offentlig"] = True
+            used = True
+    return (data.get("aflæst") or "")[:10] if used else None
+
+
 def _median(rows, key):
     vals = [r[key] for r in rows if isinstance(r.get(key), (int, float))]
     return (round(statistics.median(vals)), len(vals)) if vals else (None, 0)
 
 
-def summarize(rows, errors, fetched_at, umami=None, dm_state=None, now=None):
+def summarize(rows, errors, fetched_at, umami=None, dm_state=None, now=None, public_views_date=None):
     """Markdown-oversigt til ugens generering. Ingen tankestreger."""
     has_views = any(isinstance(r.get("views"), (int, float)) for r in rows)
     key = "views" if has_views else "likes"
     lines = [f"# Tal fra Instagram (hentet {fetched_at})", ""]
     lines += umami_lines(umami)
     lines += vinkel_lines(rows, umami, dm_state, now or datetime.now(timezone.utc))
+    if has_views and public_views_date:
+        lines += [f"Visninger er Instagrams offentlige afspilningstal for reels, aflæst {public_views_date}. "
+                  "Karruseller har ingen offentlige tal, og rækkevidde, gemte og delte mangler stadig, "
+                  "fordi nøglen ikke har tilladelsen instagram_business_manage_insights.", ""]
     if not has_views:
         lines += ["Visninger mangler: nøglen har ikke tilladelsen instagram_business_manage_insights.",
                   "Oversigten bruger derfor likes. Giv nøglen tilladelsen hos Meta for at få visninger.", ""]
@@ -254,6 +287,7 @@ def main():
         log(f"KONTOSPÆRRE: nøglen hører til @{actual or '?'}, ikke @{expected}. Der hentes ingen tal.")
         return 1
     rows, errors = collect(api, uid)
+    public_views_date = merge_public_views(rows)
     now = datetime.now(timezone.utc)
     fetched_at = now.isoformat(timespec="minutes")
     umami = None
@@ -263,7 +297,7 @@ def main():
         errors = sorted(set(errors) | set(uerr))
     dm_state = common.read_json(DM_STATE) if DM_STATE.exists() else None
     common.write_json(RESULTS / "insights.json", {"hentet": fetched_at, "opslag": rows, "fejl": errors, "umami": umami})
-    (RESULTS / "OVERSIGT.md").write_text(summarize(rows, errors, fetched_at, umami, dm_state, now), encoding="utf-8")
+    (RESULTS / "OVERSIGT.md").write_text(summarize(rows, errors, fetched_at, umami, dm_state, now, public_views_date), encoding="utf-8")
     log(f"Hentede tal for {len(rows)} opslag." + (f" {len(errors)} fejltyper, se results/OVERSIGT.md." if errors else ""))
     return 0
 

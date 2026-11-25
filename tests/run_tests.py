@@ -361,6 +361,18 @@ rc, out = run_comments(d)
 check("kontospærre gælder også beskeder", rc == 1 and "KONTOSPÆRRE" in out and not mock.posts("/messages"), out)
 mock.username = "ikigaiguiden"
 
+# offentlige afspilningstal fylder visninger ud, hvor Meta ikke giver dem
+_pv = Path(tempfile.mkdtemp()) / "visninger.json"
+_pv.write_text(json.dumps({"aflæst": "2026-11-25T08:50+01:00", "reels": {"ABC_1": 150}}))
+_rows = [{"link": "https://www.instagram.com/reel/ABC_1/", "likes": 0},
+         {"link": "https://www.instagram.com/p/XYZ/", "likes": 1},
+         {"link": "https://www.instagram.com/reel/ABC_1/", "views": 9}]
+_d = insights.merge_public_views(_rows, _pv)
+check("offentlige visninger bruges kun, hvor Meta ikke har tal",
+      _d == "2026-11-25" and _rows[0]["views"] == 150 and "views" not in _rows[1] and _rows[2]["views"] == 9)
+_md = insights.summarize(_rows, [], "2026-11-25T09:00+00:00", public_views_date=_d)
+check("oversigten siger, hvor visningerne kommer fra", "offentlige afspilningstal" in _md and "Median views" in _md)
+
 mock.close()
 failed = [n for n, ok in results if not ok]
 print(f"\n{len(results) - len(failed)} af {len(results)} tjek bestået" + (f"; FEJLEDE: {failed}" if failed else ""))
