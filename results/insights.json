@@ -1,6 +1,23 @@
 {
-  "hentet": "2026-11-24T16:25+00:00",
+  "hentet": "2026-11-25T07:54+00:00",
   "opslag": [
+    {
+      "media_id": "18112870925235451",
+      "tidspunkt": "2026-11-24T18:03:18+0000",
+      "link": "https://www.instagram.com/reel/DgIjbVpCVe7/",
+      "type": "REELS",
+      "første_linje": "Du er ikke bagud. Det føles bare sådan, når alle andre deler deres beslutninger.",
+      "likes": 0,
+      "kommentarer": 0,
+      "kilde": "autopilot",
+      "id": "2026-W48-tirsdag-1900-reel",
+      "format": "klip",
+      "tema": "foto",
+      "planlagt": "2026-11-24T19:00:00+01:00",
+      "vinkel": "studievalg",
+      "views": 67,
+      "views_offentlig": true
+    },
     {
       "media_id": "18150679438528518",
       "tidspunkt": "2026-11-23T18:05:47+0000",
@@ -870,7 +887,8 @@
     }
   ],
   "fejl": [
-    "(#10) Application does not have permission for this action"
+    "(#10) Application does not have permission for this action",
+    "Umami delingslink: HTTP Error 403: Forbidden"
   ],
   "umami": null
 }

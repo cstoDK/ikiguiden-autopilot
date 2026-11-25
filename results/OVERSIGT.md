@@ -1,14 +1,14 @@
-# Tal fra Instagram (hentet 2026-11-24T16:25+00:00)
+# Tal fra Instagram (hentet 2026-11-25T07:54+00:00)
 
 ## Gennemførte tests
 
-Mangler: secret UMAMI_API_KEY er ikke sat, så autopiloten kan ikke se, hvor mange der gennemfører testen.
+Mangler: hverken umami_share_id i config.json eller UMAMI_API_KEY virker, så autopiloten kan ikke se, hvor mange der gennemfører testen.
 
 ## Tests pr. vinkel (seneste 7 dage)
 
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
-| studievalg | 0 |  | 0 |  |  |
+| studievalg | 1 | 67 | 0 |  |  |
 | arketype | 1 | 149 | 0 |  |  |
 
 Visninger er Instagrams offentlige afspilningstal for reels, aflæst 2026-11-25. Karruseller har ingen offentlige tal, og rækkevidde, gemte og delte mangler stadig, fordi nøglen ikke har tilladelsen instagram_business_manage_insights.
@@ -17,20 +17,21 @@ Visninger er Instagrams offentlige afspilningstal for reels, aflæst 2026-11-25.
 
 | Gruppe | Median | Antal |
 | --- | --- | --- |
-| Alle autopilot-opslag | 94 | 11 |
-| Autopilot, format klip | 127 | 8 |
+| Alle autopilot-opslag | 86 | 12 |
+| Autopilot, format klip | 105 | 9 |
 | Autopilot, format tekstkort | 8 | 1 |
 | Autopilot, format slides | 15 | 1 |
 | Autopilot, format liste | 43 | 1 |
 | Autopilot, tema lys | 8 | 1 |
 | Autopilot, tema mørk | 43 | 1 |
 | Autopilot, tema grøn | 15 | 1 |
-| Autopilot, tema foto | 127 | 8 |
+| Autopilot, tema foto | 105 | 9 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-24 | autopilot | klip | foto | 67 |  |  |  | 0 | Du er ikke bagud. Det føles bare sådan, når alle andre deler deres beslutninger. |
 | 2026-11-23 | autopilot | klip | foto | 149 |  |  |  | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
 | 2026-11-22 | autopilot | klip | foto | 61 |  |  |  | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
 | 2026-11-21 | autopilot | klip | foto | 172 |  |  |  | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
@@ -105,3 +106,4 @@ Visninger er Instagrams offentlige afspilningstal for reels, aflæst 2026-11-25.
 ## Fejl fra Instagram
 
 * (#10) Application does not have permission for this action
+* Umami delingslink: HTTP Error 403: Forbidden
