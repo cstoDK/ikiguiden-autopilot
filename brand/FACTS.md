@@ -7,7 +7,7 @@ Alt andet er opfundet og må ikke stå i et opslag. Tal i et opslag skal stå he
 - Testen tager ca. 2 minutter.
 - Det er gratis at starte, og man skal ikke logge ind.
 - Man får et gratis udsnit af sin analyse med det samme.
-- Den fulde analyse er en valgfri engangsbetaling på 29 kr, ingen abonnement, leveres som PDF på mail.
+- Den fulde analyse er en valgfri engangsbetaling på 99 kr (fra 25. nov. 2026, før 29 kr), ingen abonnement. Den låses op på siden med det samme. Skriv ikke, at den kommer på mail eller som PDF, før Christian har bekræftet, at mailafsendelsen er sat op.
 - Sitet hedder Ikigai-guiden (ikigaiguide.dk), Instagram-profilen hedder Ikiguiden.
 
 ## Arketypetesten (bekræftet mod sitets kildekode nov. 2026)
@@ -24,7 +24,7 @@ Alt andet er opfundet og må ikke stå i et opslag. Tal i et opslag skal stå he
 - Ingen tal om brugere, resultater, anmeldelser eller sparet tid. Vi har ingen verificerede.
 - Ingen påstande om statistik (frafald, ledighed, løn) uden en kilde skrevet ind i denne fil.
 - Hovedopfordringen er en kommentar: "Skriv TEST" (studievalgstesten) eller "Skriv ARKETYPE" (arketypetesten). Autopiloten sender så linket i en besked (pipeline/comments.py). "Link i bio" må stå som anden mulighed. Ingen URL i captions (Instagram gør dem ikke klikbare).
-- Prisen nævnes kun i opslag af typen offer, og kun som "29 kr" eller "99 kr" med "valgfri" og "engangsbetaling".
+- Prisen nævnes kun i opslag af typen offer, og kun som "99 kr" med "valgfri" og "engangsbetaling". "29 kr" må ikke længere bruges.
 
 ## Skal opdateres af et menneske, hvis sitet ændres
 
