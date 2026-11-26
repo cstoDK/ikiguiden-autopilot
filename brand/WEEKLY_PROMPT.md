@@ -61,7 +61,8 @@ I uge 48 og 49 testes to vinkler mod hinanden. Lav 4 arketype-klip (`"dm": "arke
 
 - Arketype-klip bruger navnene og kernelinjerne i `brand/ARKETYPER.md` og formaterne nederst i den fil. Brug begge versioner (fx Kongen og Dronningen) på tværs af ugen. Tallet 12 må kun bruges med "12 arketyper" i `facts`.
 - Studievalgs-klip skrives som hidtil.
-- Fra uge 50: se på "Tests pr. vinkel" i `results/OVERSIGT.md`. Giver én vinkel klart flere gennemførte tests pr. 1.000 visninger, så får den 5 af 7 klip. Er tallene for små til at sige noget, så fortsæt 4 mod 3, og skriv det i afslutningen.
+- Fra uge 50: se på "Tests pr. vinkel" i `results/OVERSIGT.md`. Giver én vinkel klart flere gennemførte tests pr. 1.000 visninger, så får den 5 af 7 klip.
+- Mangler tallene for gennemførte tests (Umami er ikke koblet på), så afgør vinklen på det næstbedste: sendte beskeder pr. 1.000 visninger, derefter median-visninger pr. vinkel over de seneste 14 dage. Har én vinkel mindst 30 % højere median over mindst 5 klip, får den 5 af 7. Ellers fortsæt 4 mod 3, og skriv hvorfor i afslutningen.
 
 ### Variation, så tallene kan vise, hvad der virker
 
