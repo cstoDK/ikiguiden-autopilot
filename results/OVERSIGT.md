@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-26T15:47+00:00)
+# Tal fra Instagram (hentet 2026-11-27T15:35+00:00)
 
 ## Gennemførte tests
 
@@ -8,7 +8,7 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
-| studievalg | 1 | 81 | 0 |  |  |
+| studievalg | 2 | 250 | 0 |  |  |
 | arketype | 1 | 152 | 0 |  |  |
 
 ## Median views pr. gruppe
@@ -16,8 +16,8 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 144 | 41 |
-| Alle autopilot-opslag | 27 | 30 |
-| Autopilot, format klip | 105 | 9 |
+| Alle autopilot-opslag | 28 | 31 |
+| Autopilot, format klip | 128 | 10 |
 | Autopilot, format tekstkort | 18 | 7 |
 | Autopilot, format slides | 14 | 7 |
 | Autopilot, format liste | 11 | 5 |
@@ -26,12 +26,13 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 | Autopilot, tema mørk | 28 | 2 |
 | Autopilot, tema grøn | 15 | 1 |
 | Autopilot, tema brun | 5 | 1 |
-| Autopilot, tema foto | 88 | 12 |
+| Autopilot, tema foto | 94 | 13 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-26 | autopilot | klip | foto | 169 | 148 | 0 | 0 | 0 | Har du set studiet indefra, før du søger ind? |
 | 2026-11-24 | autopilot | klip | foto | 81 | 77 | 0 | 0 | 0 | Du er ikke bagud. Det føles bare sådan, når alle andre deler deres beslutninger. |
 | 2026-11-23 | autopilot | klip | foto | 152 | 130 | 0 | 0 | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
 | 2026-11-22 | autopilot | klip | foto | 61 | 59 | 0 | 0 | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
