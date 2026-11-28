@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-27T15:35+00:00)
+# Tal fra Instagram (hentet 2026-11-28T14:31+00:00)
 
 ## Gennemførte tests
 
@@ -8,16 +8,16 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
-| studievalg | 2 | 250 | 0 |  |  |
-| arketype | 1 | 152 | 0 |  |  |
+| studievalg | 2 | 253 | 0 |  |  |
+| arketype | 2 | 364 | 0 |  |  |
 
 ## Median views pr. gruppe
 
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 144 | 41 |
-| Alle autopilot-opslag | 28 | 31 |
-| Autopilot, format klip | 128 | 10 |
+| Alle autopilot-opslag | 30 | 32 |
+| Autopilot, format klip | 150 | 11 |
 | Autopilot, format tekstkort | 18 | 7 |
 | Autopilot, format slides | 14 | 7 |
 | Autopilot, format liste | 11 | 5 |
@@ -26,17 +26,18 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 | Autopilot, tema mørk | 28 | 2 |
 | Autopilot, tema grøn | 15 | 1 |
 | Autopilot, tema brun | 5 | 1 |
-| Autopilot, tema foto | 94 | 13 |
+| Autopilot, tema foto | 100 | 14 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-11-26 | autopilot | klip | foto | 169 | 148 | 0 | 0 | 0 | Har du set studiet indefra, før du søger ind? |
+| 2026-11-27 | autopilot | klip | foto | 212 | 183 | 0 | 0 | 1 | Du er Dronningen, hvis du altid ender med at lave planen. I versionen til mænd hedder hun  |
+| 2026-11-26 | autopilot | klip | foto | 172 | 150 | 0 | 0 | 0 | Har du set studiet indefra, før du søger ind? |
 | 2026-11-24 | autopilot | klip | foto | 81 | 77 | 0 | 0 | 0 | Du er ikke bagud. Det føles bare sådan, når alle andre deler deres beslutninger. |
 | 2026-11-23 | autopilot | klip | foto | 152 | 130 | 0 | 0 | 0 | Kongen, Opdageren eller Jokeren. Hvilken af dem er du? |
 | 2026-11-22 | autopilot | klip | foto | 61 | 59 | 0 | 0 | 0 | Søndag aften uden deadline er et godt tidspunkt at tænke over næste skridt. |
-| 2026-11-21 | autopilot | klip | foto | 172 | 151 | 0 | 0 | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
+| 2026-11-21 | autopilot | klip | foto | 173 | 152 | 0 | 0 | 0 | Sådan siger du til dine forældre, at du er i tvivl om uddannelse. |
 | 2026-11-20 | autopilot | klip | foto | 94 | 86 | 0 | 0 | 0 | Det sikre valg er ikke altid så sikkert, som det lyder. |
 | 2026-11-19 | autopilot | klip | foto | 150 | 128 | 0 | 0 | 1 | Du startede på en uddannelse med en plan. Så kom tvivlen. |
 | 2026-11-18 | autopilot | klip | foto | 78 | 71 | 0 | 0 | 0 | Du har spurgt dine forældre, din vejleder og dine venner. Men hvornår har du sidst spurgt  |

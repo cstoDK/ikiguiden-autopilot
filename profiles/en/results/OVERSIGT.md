@@ -1,4 +1,4 @@
-# Tal fra Instagram (hentet 2026-11-27T15:35+00:00)
+# Tal fra Instagram (hentet 2026-11-28T14:31+00:00)
 
 ## Gennemførte tests
 
@@ -9,21 +9,22 @@ Mangler: Umamis API kræver den betalte plan (UMAMI_API_KEY er ikke sat), så au
 | Vinkel | Opslag | Visninger | Beskeder sendt | Gennemført via besked | Pr. 1.000 visninger |
 | --- | --- | --- | --- | --- | --- |
 | studievalg | 0 |  | 0 |  |  |
-| arketype | 1 | 22 | 0 |  |  |
+| arketype | 2 | 173 | 0 |  |  |
 
 ## Median views pr. gruppe
 
 | Gruppe | Median | Antal |
 | --- | --- | --- |
 | Alle manuelle opslag | 2 | 3 |
-| Alle autopilot-opslag | 22 | 1 |
-| Autopilot, format klip | 22 | 1 |
-| Autopilot, tema foto | 22 | 1 |
+| Alle autopilot-opslag | 86 | 2 |
+| Autopilot, format klip | 86 | 2 |
+| Autopilot, tema foto | 86 | 2 |
 
 ## Alle opslag, nyeste først
 
 | Dato | Kilde | Format | Tema | Visninger | Rækkevidde | Gemt | Delt | Likes | Første linje |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2026-11-27 | autopilot | klip | foto | 151 | 111 | 0 | 0 | 0 | King, Explorer or Jester. Pick one before you overthink it. |
 | 2026-11-25 | autopilot | klip | foto | 22 | 22 | 0 | 0 | 0 | The Rebel isn't trying to be difficult. They just can't do things that make no sense. |
 | 2026-11-13 | manuel |  |  | 2 | 2 | 0 | 0 | 0 | Når du står foran et valg, kan det være nyttigt at skille det ad: Hvad forstår du ikke end |
 | 2026-11-13 | manuel |  |  | 1 | 1 | 0 | 0 | 0 | Hi, I’m the ikigai guy. 👋 |
